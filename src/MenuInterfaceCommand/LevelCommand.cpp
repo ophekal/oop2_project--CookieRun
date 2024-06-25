@@ -1,0 +1,371 @@
+
+
+#include "MenuInterfaceCommand/LevelCommand.h"
+#include "Macros.h"
+#include "HandleResources.h"
+#include "Collisions/HandleCollision.h"
+#include <memory>
+#include "MovingObject/Player.h"
+#include "Factories/EnemyFactory.h"
+#include "InfoBar.h"
+
+//--------------------------------------------------------------------------------------------------------------------------------
+LevelCommand::LevelCommand(sf::RenderWindow& window, Player& player, InfoBar& infoBar, const sf::Texture& background, bool levelOpen,int levelNumber)
+	:m_window(window), m_player(player),m_infoBar(infoBar), m_levelOpen(levelOpen),
+	 m_backButton(*(HandleResources::instance().getButtonTexture(B_BACK)), BACK_X, BACK_Y, BACK_SIZE),
+	 m_levelNumber(levelNumber)
+{
+	m_background.setSize({ WINDOW_WIDTH ,WINDOW_HEIGHT });
+	m_background.setTexture(&background);
+
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//This function checks if the level is open and if so calls the function thats responsible of the event handeling in the level
+void LevelCommand::execute()
+{
+	if (!m_levelOpen)
+	{
+		return;
+	}
+	
+	//in each execute we load diff level 
+	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects);
+	addEnemies();
+	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y+2);
+	handleEvent();
+
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+void LevelCommand::handleEvent()
+{
+	auto clock = sf::Clock();
+	render();
+
+	while (m_window.isOpen())
+	{
+		const auto deltaTime = clock.restart();
+
+		updatePlayerEnergy(deltaTime);
+
+	    m_infoBar.updateInfoBar(m_player,m_levelNumber);
+
+		render();
+
+		levelPollEvent();
+		if (m_levelOver)
+		{
+			handleLevelExit();
+			return;
+		}
+
+		//const auto deltaTime = clock.restart();
+		updateAnimation(deltaTime);
+		movePlayer(deltaTime);
+		moveMovingObjects(deltaTime);
+		//updateObjectVector();
+
+		if (checkAndUptadeLevelstatus())
+		{
+			handleLevelExit();
+			return;
+		}
+	}
+}
+//------------------------------------------------------------------------------------------------------
+
+void LevelCommand::levelPollEvent()
+{
+	if (auto event = sf::Event{}; m_window.pollEvent(event))
+	{
+		switch (event.type)
+		{
+		case sf::Event::Closed:
+		{
+			m_window.close();
+			return;
+		}
+		case sf::Event::MouseButtonPressed:
+		{
+			auto currView = m_window.getView();
+			m_window.setView(m_window.getDefaultView());
+			auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
+			if (m_backButton.onClick(location))
+			{
+				m_levelOver = true;
+				return;
+			}
+			m_window.setView(currView);
+			break;
+		}
+		case sf::Event::KeyPressed:
+		{
+			m_player.keyPressed(event.key);
+			break;
+		}
+		case sf::Event::KeyReleased:
+		{
+			m_player.keyReleased(event.key);
+			break;
+		}
+		default:
+			break;
+		}
+	}
+
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+void LevelCommand::render()
+{
+	m_window.clear();
+
+	moveAndDrawBackground();
+
+	// change view
+	auto currView = m_window.getView();
+	auto center = currView.getCenter();
+	center = sf::Vector2f(m_player.getPosition().x + 400, center.y);
+
+	m_window.setView(sf::View(center, currView.getSize()));
+
+	// Draw static and animated objects
+	for (const auto& staticObject : m_staticObjects) {
+		staticObject->draw(m_window);
+	}
+
+	for (const auto& animatedObject : m_animationObjects) {
+		animatedObject->draw(m_window);
+	}
+
+	//print the player
+	m_player.draw(m_window);
+
+	//print enemy
+	for (const auto& enemy : m_enemies)
+	{
+		enemy->draw(m_window);
+	}
+
+	printInformation();
+
+	m_window.display();
+}
+//-----------------------------------------------------------------------------
+void LevelCommand::updatePlayerEnergy(sf::Time deltaTime)
+{
+	// Update the cumulative elapsed time for energy reduction
+	m_energyReductionElapsedTime += deltaTime;
+
+	// Check if 2 seconds have passed for energy reduction
+	if (m_energyReductionElapsedTime >= sf::seconds(2.0f))
+	{
+		// Reduce player's energy
+		m_player.setEnergy(m_player.getEnergy() - 1); 
+		// Reset the elapsed time, accounting for any extra time
+		m_energyReductionElapsedTime -= sf::seconds(2.0f);
+	}
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+//Printing the information while making sure we save the view of the window while printing
+void LevelCommand::printInformation()
+{
+	auto currView = m_window.getView();
+	m_window.setView(m_window.getDefaultView());
+
+	m_window.draw(m_backButton.getRectangleButton());
+	m_infoBar.draw(m_window);
+
+	m_window.setView(currView);
+}
+
+//------------------------------------------------------------------------------
+void LevelCommand::movePlayer(sf::Time deltaTime)
+{
+	m_player.movement(deltaTime);
+	checkAnimationObjectCollision(m_player);
+	checkStaticObjectCollision(m_player);
+
+	//checkMovingObjectCollision(m_player);
+	//checkStaticObjectCollision(m_player, *this);
+	//m_player->move(deltaTime);
+
+}
+
+//----------------------------------------------------------------------------------------
+// This function id responsible for randomly creating the enemy on the board
+
+void LevelCommand::addEnemies()
+{
+	sf::Sprite sprite;
+	AnimationType type;
+
+	switch (m_levelNumber)
+	{
+		case 1:
+		{
+			sprite = sf::Sprite(*HandleResources::instance().getLevel1Texture(L1_ENEMY));
+			type = ANI_DEVIL_COOKIE;
+			break;
+		}
+		case 2:
+		{
+			sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L2_ENEMY));
+			type = ANI_CARROT_COOKIE;			
+			break;
+		}
+		case 3:
+		{
+			//sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L3_ENEMY));
+			//AnimationType type = ANI_ZOMBIE_COOKIE;
+			//break;
+		}
+	}
+
+	sf::Vector2f position = { 700, 688 };
+
+	m_enemies.emplace_back(std::make_unique<Enemy>(sprite, 350.f, position, type));
+}
+
+//----------------------------------------------------------------------------------------
+void LevelCommand::checkAnimationObjectCollision(Player& player)
+{
+	//checking if collided with animation object
+	for (auto &animationObject : m_animationObjects)
+	{
+		if (collide(player, *animationObject))
+		{
+			HandleCollision::instance().processCollision(player, *animationObject);
+			//break;
+		}
+	}
+
+	std::erase_if(m_animationObjects, [](const auto& animationObject) {
+		return animationObject->isMarkedForDeletion();
+		});
+}
+
+//----------------------------------------------------------------------------------------
+void LevelCommand::checkStaticObjectCollision(Player& player)
+{
+	//checking if collided with animation object
+	for (auto& staticObject : m_staticObjects)
+	{
+		if (collide(player, *staticObject))
+		{
+			HandleCollision::instance().processCollision(player, *staticObject);
+			//break;
+		}
+	}
+
+	std::erase_if(m_staticObjects, [](const auto& staticObject) {
+		return staticObject->isMarkedForDeletion();
+		});
+}
+
+//----------------------------------------------------------------------------------------
+bool LevelCommand::collide(GameObject& object1, GameObject& object2)
+{
+	if (&object1 == &object2)
+	{
+		return false;
+	}
+
+	float overLapping = 0.1f;
+	float sizeDecrese = 1.1f;
+
+	sf::FloatRect object1Rect = object1.getObject().getGlobalBounds(),
+				  object2Rect = object2.getObject().getGlobalBounds();
+		
+	object1Rect.left += object1Rect.width * overLapping;
+	object1Rect.top += object1Rect.height * overLapping;
+	object1Rect.width /= (sizeDecrese);
+	object1Rect.height /= (sizeDecrese);
+
+	object2Rect.left += object2Rect.width * overLapping;
+	object2Rect.top += object2Rect.height * overLapping;
+	object2Rect.width /= (sizeDecrese);
+	object2Rect.height /= (sizeDecrese);
+
+	return object1Rect.intersects(object2Rect);
+}
+
+//----------------------------------------------------------------------------------------
+void LevelCommand::moveMovingObjects(sf::Time deltaTime)
+{
+
+}
+//--------------------------------------------------------------------------
+void LevelCommand::updateAnimation(sf::Time deltaTime)
+{
+	for (size_t index = 0; index < m_animationObjects.size(); index++)
+	{
+		m_animationObjects[index]->updateAnimation(deltaTime);
+	}
+}
+
+//--------------------------------------------------------------------------
+void LevelCommand::updateObjectVector()
+{
+	//auto removeMarked = [](auto& container) {
+	//	container.erase(std::remove_if(container.begin(), container.end(), [](const auto& obj)
+	//		{return obj->isMarkedForDeletion(); }), container.end());
+	//};
+	
+	//Usage for both m_animationObjects and m_staticObjects
+	//removeMarked(m_animationObjects);
+	//removeMarked(m_staticObjects);
+}
+
+//--------------------------------------------------------------------------
+void LevelCommand::moveAndDrawBackground()
+{
+	float startbackgroundX = m_background.getGlobalBounds().left - 2 * WINDOW_WIDTH;
+	float endbackgroundX = m_window.getView().getCenter().x + WINDOW_WIDTH;
+
+	
+	for (; startbackgroundX < endbackgroundX; startbackgroundX += m_background.getSize().x)
+	{
+		m_background.setPosition(startbackgroundX, m_background.getPosition().y);
+		m_window.draw(m_background);
+	}
+	
+}
+//----------------------------------------------------------------------------
+void LevelCommand::handleLevelExit()
+{
+	m_staticObjects.clear();
+	m_animationObjects.clear();
+	m_player.handleExitFromLevel();
+	m_levelOver = false; //for the next time we enter
+	m_levelOpen = true;
+	m_window.setView(m_window.getDefaultView());
+	
+	// Ensure background or initial graphics are redrawn
+	//moveAndDrawBackground(); // Redraw the background immediately
+	
+	// set backgroung to start again
+	m_background.setPosition(0, 0);
+
+	printInformation(); // Redraw any UI elements immediatesly
+	m_window.display(); // Ensure everything is displayed
+}
+
+//-------------------------------------------------------------------------------
+bool LevelCommand::checkAndUptadeLevelstatus()
+{
+	if (m_player.isDead()) //to the next level
+	{
+		//print player status that he die because he collide with something
+		//print(window, background);
+		//printFeedback(*HandleResources::instance().getScreenTexture(S_GOODJOB), window, background, G_WIN);
+		// update the total score that the player have after check if the next level can be open?
+		//update the lives for the next level? or this happen in handle exit level?
+		return true;
+	}
+
+	return false;
+
+}
