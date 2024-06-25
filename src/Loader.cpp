@@ -34,17 +34,15 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 			if (animationObject)
 			{
 				animationObjects.emplace_back(std::move(animationObject));
-				continue;
 			}
-			if (staticObject)
+			else if (staticObject)
 			{
 				staticObjects.emplace_back(std::move(staticObject));
-				continue;
 			}
 
-			location_x += 100.f;
+			location_x += 120.f;
 		}
 
-		location_y -= 50;// 90.f;
+		location_y -= 90.f;
 	}
 }
