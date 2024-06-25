@@ -17,7 +17,7 @@ MoveRandomStrategy::MoveRandomStrategy()
 }
 
 //------------------------------------------------------------------------------------------------------
-void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, const sf::Vector2f& enemyPosition)
+void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)
 {
     // Generate a random direction (left or right)
     int direction = std::rand() % 2 == 0 ? -1 : 1; // -1 for left, 1 for right
@@ -30,5 +30,9 @@ void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vec
     movement.x += direction * speed;
 
     // Update the position of the enemy
-    auto newEnemyPosition = enemyPosition + movement;
+    auto newEnemyPosition = enemy.getPosition() + movement;
+    enemy.setPosition(newEnemyPosition.x, newEnemyPosition.y);
+
+
+    // add collisions , if collides with obstcale change direction
 }

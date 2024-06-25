@@ -9,8 +9,9 @@
 
 bool MoveSmartStrategy::m_register = EnemyFactory::registerMove([]()->std::unique_ptr<MoveStrategy> { return std::make_unique<MoveSmartStrategy>(); });
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, const sf::Vector2f& enemyPosition)
+void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)
 {
     //MovingObjects::setObjectSpeed(25.f);
     //srand(time(nullptr));

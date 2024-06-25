@@ -44,6 +44,7 @@ bool EnemyFactory::registerMove(moveFunc mf)
 std::unique_ptr<Enemy> EnemyFactory::createEnemy(const std::string& name, const sf::Vector2f& position, int levelNumber)
 {
 	return NULL;	//for compile purpouses
+	//const sf::Sprite& sprite, float speed, const sf::Vector2f& position, AnimationType type,
 
-//	return std::make_unique<Enemy>(getMoveVec()[std::rand() % getMoveVec().size()]());
+	//return std::make_unique<Enemy>(getMoveVec()[std::rand() % getMoveVec().size()]());
 }

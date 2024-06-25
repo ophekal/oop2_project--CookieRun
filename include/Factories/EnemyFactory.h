@@ -6,7 +6,6 @@
 
 
 using moveFunc = std::unique_ptr<MoveStrategy>(*)();
-//using FactoryEnemyMap = std::map<std::string, std::unique_ptr<Enemy>(*)(const sf::Vector2f&, int)>;
 
 class EnemyFactory
 {
