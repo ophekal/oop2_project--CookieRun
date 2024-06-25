@@ -63,8 +63,7 @@ void LevelCommand::handleEvent()
 		//const auto deltaTime = clock.restart();
 		updateAnimation(deltaTime);
 		movePlayer(deltaTime);
-		moveMovingObjects(deltaTime);
-		//updateObjectVector();
+		moveEnemies(deltaTime);
 
 		if (checkAndUptadeLevelstatus())
 		{
@@ -287,9 +286,12 @@ bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 }
 
 //----------------------------------------------------------------------------------------
-void LevelCommand::moveMovingObjects(sf::Time deltaTime)
+void LevelCommand::moveEnemies(sf::Time deltaTime)
 {
-
+	for (auto& enemyObject : m_enemies)
+	{
+		//enemyObject->MoveEnemy(m_player.getPosition(), m_staticObjects);
+	}
 }
 //--------------------------------------------------------------------------
 void LevelCommand::updateAnimation(sf::Time deltaTime)
@@ -298,19 +300,6 @@ void LevelCommand::updateAnimation(sf::Time deltaTime)
 	{
 		m_animationObjects[index]->updateAnimation(deltaTime);
 	}
-}
-
-//--------------------------------------------------------------------------
-void LevelCommand::updateObjectVector()
-{
-	//auto removeMarked = [](auto& container) {
-	//	container.erase(std::remove_if(container.begin(), container.end(), [](const auto& obj)
-	//		{return obj->isMarkedForDeletion(); }), container.end());
-	//};
-	
-	//Usage for both m_animationObjects and m_staticObjects
-	//removeMarked(m_animationObjects);
-	//removeMarked(m_staticObjects);
 }
 
 //--------------------------------------------------------------------------
