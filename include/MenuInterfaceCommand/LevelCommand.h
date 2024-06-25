@@ -54,8 +54,7 @@ private:
 	void printInformation();
 	void updateAnimation(sf::Time deltaTime);
 	void movePlayer(sf::Time deltaTime);
-	void moveMovingObjects(sf::Time deltaTime);
-	void updateObjectVector();
+	void moveEnemies(sf::Time deltaTime);
 	void checkAnimationObjectCollision(Player& player);
 	void checkStaticObjectCollision(Player& player);
 	bool collide(GameObject& object1, GameObject& object2);

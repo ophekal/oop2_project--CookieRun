@@ -29,14 +29,4 @@ void Coin::updateAnimation(sf::Time deltaTime)
 	m_object.move(sf::Vector2f{ 0,0 }*deltaTime.asSeconds() * m_objectSpeed);
 	m_spriteSheet.update(deltaTime);
 
-	//m_object.setTextureRect(m_coinsAnimation.getCurrentFrame());
-
 }
-
-
-////---------------------------------------------------------------
-//void Coin::draw(sf::RenderWindow& window)
-//{
-//	window.draw(m_object);
-//	//m_coinsAnimation.update(sf::Time );
-//}

@@ -19,11 +19,7 @@ sf::Vector2f MovingObject::getPosition()const
 {
     return m_object.getPosition();
 }
-//--------------------------------------------------------------------------------
-void MovingObject::updatePosition(const sf::Vector2f& position)
-{
-    m_position = position;
-}
+
 //-------------------------------------------------------------------------------
 void MovingObject::setObjectSpeed(float speed)
 {
