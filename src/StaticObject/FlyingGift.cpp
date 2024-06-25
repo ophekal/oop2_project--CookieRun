@@ -4,14 +4,14 @@
 #include "StaticObject/FlyingGift.h"
 #include "StaticObject/Gift.h"
 #include "HandleResources.h"
-#include "Factories/StaticObjectFactory.h"
+#include "Factories/ObjectFactory.h"
 
 
-// Register the jellybean type with the factory
-bool FlyingGift::m_register = StaticObjectFactory::registerObject("flyingGift", [](const sf::Vector2f& position, int level) -> std::unique_ptr<StaticObject> {
+// Register the flying gift type with the factory
+bool FlyingGift::m_register = ObjectFactory<StaticObject>::registerObject(sf::Color(136, 0, 21), [](const sf::Vector2f& position, int level) -> std::unique_ptr<StaticObject> {
 	sf::Sprite sprite = sf::Sprite(*HandleResources::instance().getGiftTexture(G_FLIGHT));
 	return std::make_unique<FlyingGift>(sprite, position);
-	});
+});
 
 
 //-----------------------------------------------------------------
