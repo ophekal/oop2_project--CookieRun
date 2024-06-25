@@ -16,7 +16,7 @@ public:
 	const sf::Texture* getBackgroundTexture(Background icon);
 	//const sf::Texture* getMenuTexture(MenuButton icon);
 	//const sf::Texture* getInfoBarTexture(Bar icon);
-	//const sf::Texture* getScreenTexture(Screen icon);
+	const sf::Texture* getFeedbackTexture(FEEDBACK icon);
 	const sf::Texture* getButtonTexture(Buttons button);
 	const sf::Texture* getPlayerTexture(Players player);
 
@@ -46,7 +46,7 @@ private:
 	void updateGiftTextureVector();
 	
 	//void updateInfoBarVector();
-	//void updateScreenVector();
+	void updateFeedbackVector();
 	//void updateBufferSounds();
 	//void updateGameSounds();
 
@@ -84,7 +84,7 @@ private:
 	std::unordered_map<AnimationType, std::vector<sf::IntRect>> m_animationData;
 
 	//std::vector<sf::Texture> m_infoBarTextures;	//infobar
-	//std::vector<sf::Texture> m_screenTextures;
+	std::vector<sf::Texture> m_feedbackTextures;
 
 	sf::Font m_font;
 	//sf::Music m_gameMusic;

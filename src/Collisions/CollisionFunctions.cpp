@@ -76,7 +76,7 @@ void playerFloor(GameObject& player, GameObject& floor)
        // Player is not above the floor (collided from the side or bottom)
        // p.die(); // Replace this with the actual method to handle player death
         //std::cout << "player collided with floor, supposed to die" << std::endl;
-        //p.markForDeletion();
+        p.markForDeletion();
         return;
     }
 
@@ -88,7 +88,7 @@ void playerObstcale(GameObject& player, GameObject& obstcale)
 
     if (!p.isEnhance())   // if not in enhance the player die when collide with obstcale
     {
-      //  p.markForDeletion();
+        p.markForDeletion();
     }
      
 }

@@ -23,7 +23,7 @@ HandleResources::HandleResources()
 	updateAnimationData();
 
 	//updateInfoBarVector();
-	//updateScreenVector();
+	updateFeedbackVector();
 	//updateBufferSounds();
 	//updateGameSounds();
 	m_font.loadFromFile("font.ttf");
@@ -188,17 +188,14 @@ const sf::Texture* HandleResources::getGiftTexture(GIFTTEXTURE icon)
 	return &(m_giftTextures[icon]);
 }
 
-////-------------------------------------------------------------------------
-//void HandleResources::updateScreenVector()
-//{
-//	m_screenTextures.resize(5);
-//	m_screenTextures[S_WIN].loadFromFile("youWin.png");
-//	m_screenTextures[S_GAMEOVER].loadFromFile("gameOver.png");
-//	m_screenTextures[S_TRYAGAIN].loadFromFile("tryAgain.png");
-//	m_screenTextures[S_GOODJOB].loadFromFile("goodJob.png");
-//	m_screenTextures[S_FINALSCORE].loadFromFile("finalScore.png");
-//}
-//
+//-------------------------------------------------------------------------
+void HandleResources::updateFeedbackVector()
+{
+	m_feedbackTextures.resize(2);
+	m_feedbackTextures[F_GOODJOB].loadFromFile("goodJob.png");
+	m_feedbackTextures[F_TRYAGAIN].loadFromFile("tryAgain.png");
+}
+
 ////-------------------------------------------------------------------------
 //void HandleResources::updateBufferSounds()
 //{
@@ -229,12 +226,12 @@ const sf::Texture* HandleResources::getGiftTexture(GIFTTEXTURE icon)
 //	return &(m_infoBarTextures[icon]);
 //}
 //
-////--------------------------------------------------------------------------
-//const sf::Texture* HandleResources::getScreenTexture(Screen icon)
-//{
-//	return &(m_screenTextures[icon]);
-//}
-//
+//--------------------------------------------------------------------------
+const sf::Texture* HandleResources::getFeedbackTexture(FEEDBACK icon)
+{
+	return &(m_feedbackTextures[icon]);
+}
+
 ////-------------------------------------------------------------------------
 //const sf::Texture* HandleResources::getObjectTexture(IconType icon)
 //{

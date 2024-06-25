@@ -24,6 +24,9 @@ configure_file ("GameStateBackground/startGameBackground.jpg" ${CMAKE_BINARY_DIR
 configure_file ("GameStateBackground/instructionsBackground.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("GameStateBackground/flyStateBackground.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
+configure_file ("Feedback/tryAgain.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Feedback/goodJob.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 configure_file ("Gifts/Boost.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Gifts/Carrot_Missile.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Gifts/Coins-Sheet.png" ${CMAKE_BINARY_DIR} COPYONLY)
