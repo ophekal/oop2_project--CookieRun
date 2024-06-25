@@ -156,6 +156,13 @@ const int L1_COIN_MIN = 0;
 const int L2_COIN_MIN = 15;
 const int L3_COIN_MIN = 150;
 
+
+enum FEEDBACK
+{
+	F_TRYAGAIN,
+	F_GOODJOB,
+};
+
 //----------------------Animation-------------------
 
 enum AnimationType
@@ -187,11 +194,6 @@ enum Movement
 	RUN
 
 };
-
-//-------------------Colock------------------
-
-
-
 
 
 

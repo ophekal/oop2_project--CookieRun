@@ -40,6 +40,13 @@ private:
 	std::vector<std::unique_ptr<StaticObject>> m_staticObjects;
 	std::vector<std::unique_ptr<AnimationObject>> m_animationObjects;
 
+	sf::Time m_energyReductionElapsedTime = sf::Time::Zero; // Elapsed time for energy reduction
+
+	int m_levelNumber;
+	bool m_levelOpen;
+	bool m_levelOver = false;
+
+
 	void render();
 	void handleEvent();
 	void levelPollEvent();
@@ -55,10 +62,5 @@ private:
 	void handleLevelExit();
 	bool checkAndUptadeLevelstatus();
 	void updatePlayerEnergy(sf::Time deltaTime);
-
-	sf::Time m_energyReductionElapsedTime = sf::Time::Zero; // Elapsed time for energy reduction
-
-	int m_levelNumber;
-	bool m_levelOpen;
-	bool m_levelOver = false;
+	void printFeedback(const sf::Texture& feedback/*, GameSound sound*/);
 };

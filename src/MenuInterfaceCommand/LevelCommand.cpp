@@ -188,10 +188,6 @@ void LevelCommand::movePlayer(sf::Time deltaTime)
 	checkAnimationObjectCollision(m_player);
 	checkStaticObjectCollision(m_player);
 
-	//checkMovingObjectCollision(m_player);
-	//checkStaticObjectCollision(m_player, *this);
-	//m_player->move(deltaTime);
-
 }
 
 //----------------------------------------------------------------------------------------
@@ -238,7 +234,6 @@ void LevelCommand::checkAnimationObjectCollision(Player& player)
 		if (collide(player, *animationObject))
 		{
 			HandleCollision::instance().processCollision(player, *animationObject);
-			//break;
 		}
 	}
 
@@ -256,7 +251,6 @@ void LevelCommand::checkStaticObjectCollision(Player& player)
 		if (collide(player, *staticObject))
 		{
 			HandleCollision::instance().processCollision(player, *staticObject);
-			//break;
 		}
 	}
 
@@ -342,10 +336,7 @@ void LevelCommand::handleLevelExit()
 	m_levelOver = false; //for the next time we enter
 	m_levelOpen = true;
 	m_window.setView(m_window.getDefaultView());
-	
-	// Ensure background or initial graphics are redrawn
-	//moveAndDrawBackground(); // Redraw the background immediately
-	
+		
 	// set backgroung to start again
 	m_background.setPosition(0, 0);
 
@@ -363,9 +354,33 @@ bool LevelCommand::checkAndUptadeLevelstatus()
 		//printFeedback(*HandleResources::instance().getScreenTexture(S_GOODJOB), window, background, G_WIN);
 		// update the total score that the player have after check if the next level can be open?
 		//update the lives for the next level? or this happen in handle exit level?
+		
+		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN));
 		return true;
 	}
+	//else if(m_levelOver && )   //the game over with success
+	//{
+	//	printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
+	//	return true;
+	//}
 
 	return false;
 
+}
+//----------------------------------------------------------------------------------------
+void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound*/)
+{
+	sf::sleep(sf::seconds(1));
+	sf::Sprite sprite(feedback);
+	sprite.setPosition(m_window.getPosition().x + m_window.getSize().x / 2.0f - sprite.getLocalBounds().width / 2.0f,
+		m_window.getSize().y / 2.0f - sprite.getLocalBounds().height / 2.0f);
+
+	m_window.clear();
+
+	moveAndDrawBackground();
+	
+	//HandleResources::instance().playSound(sound);
+	m_window.draw(sprite);
+	m_window.display();
+	sf::sleep(sf::seconds(1));
 }
