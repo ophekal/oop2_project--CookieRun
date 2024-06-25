@@ -29,7 +29,16 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 			sf::Color pixelColor = image.getPixel(x, y);
 			sf::Vector2f position(location_x, location_y);
 
-			auto animationObject = ObjectFactory<AnimationObject>::create(pixelColor, position, levelNumber);
+			if (auto animationObject = ObjectFactory<AnimationObject>::create(pixelColor, position, levelNumber)) 
+			{
+				animationObjects.emplace_back(std::move(animationObject));
+			}
+			else if (auto staticObject = ObjectFactory<StaticObject>::create(pixelColor, position, levelNumber)) 
+			{
+				staticObjects.emplace_back(std::move(staticObject));
+			}
+
+			/*auto animationObject = ObjectFactory<AnimationObject>::create(pixelColor, position, levelNumber);
 			auto staticObject = ObjectFactory<StaticObject>::create(pixelColor, position, levelNumber);
 			if (animationObject)
 			{
@@ -38,7 +47,7 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 			else if (staticObject)
 			{
 				staticObjects.emplace_back(std::move(staticObject));
-			}
+			}*/
 
 			location_x += 120.f;
 		}
