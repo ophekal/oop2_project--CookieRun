@@ -371,16 +371,29 @@ bool LevelCommand::checkAndUptadeLevelstatus()
 void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound*/)
 {
 	sf::sleep(sf::seconds(1));
-	sf::Sprite sprite(feedback);
-	sprite.setPosition(m_window.getPosition().x + m_window.getSize().x / 2.0f - sprite.getLocalBounds().width / 2.0f,
-		m_window.getSize().y / 2.0f - sprite.getLocalBounds().height / 2.0f);
 
+	sf::Sprite sprite(feedback);
+
+	// Get the current view
+	auto currentView = m_window.getView();
+	auto viewCenter = currentView.getCenter();
+	auto viewSize = currentView.getSize();
+
+	// Calculate the position to center the sprite within the current view
+	float spriteX = viewCenter.x - sprite.getLocalBounds().width / 2.0f;
+	float spriteY = viewCenter.y - sprite.getLocalBounds().height / 2.0f;
+
+	sprite.setPosition(spriteX, spriteY);
+
+	// Clear the window
 	m_window.clear();
 
+	// Redraw the background
 	moveAndDrawBackground();
-	
-	//HandleResources::instance().playSound(sound);
+
+	// Draw the feedback sprite centered in the current view
 	m_window.draw(sprite);
 	m_window.display();
+
 	sf::sleep(sf::seconds(1));
 }
