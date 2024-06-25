@@ -8,5 +8,5 @@ private:
 	static bool m_register;
 public:
 	virtual ~MoveRandomStrategy() {}
-	virtual void move() override; //add random movement, enemy walks from side to side trying when colliding with object chaninging direction
+	virtual void move (const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, const sf::Vector2f& enemyPosition);
 };
