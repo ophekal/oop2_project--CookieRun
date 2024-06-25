@@ -131,9 +131,9 @@ void HandleResources::updateLevel3TextureVector()
 	m_level3Textures[L3_BACKGROUND].loadFromFile("backgroundGarden.png");
 	m_level3Textures[L3_FLOOR].loadFromFile("floor3.png");
 	m_level3Textures[L3_ENEMY].loadFromFile("zombieCookie.png");
-	m_level2Textures[L3_OBSTACLE1].loadFromFile("garden_obstcale1.png");
-	m_level2Textures[L3_OBSTACLE2].loadFromFile("garden_obstcale2.png");
-	m_level2Textures[L3_OBSTACLE3].loadFromFile("garden_obstcale3.png");
+	m_level3Textures[L3_OBSTACLE1].loadFromFile("garden_obstcale1.png");
+	m_level3Textures[L3_OBSTACLE2].loadFromFile("garden_obstcale2.png");
+	m_level3Textures[L3_OBSTACLE3].loadFromFile("garden_obstcale3.png");
 
 }
 //------------------------------------------------------------------------
