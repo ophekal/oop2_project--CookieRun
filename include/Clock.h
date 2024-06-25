@@ -2,7 +2,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "Buttons/Button.h"
+#include "Button.h"
 #include <string>
 
 class Clock
