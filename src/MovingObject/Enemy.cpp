@@ -49,40 +49,21 @@ void Enemy::updateAnimation(sf::Time deltaTime)
 	m_animation.update(deltaTime);
 }
 
-//-----------------------------------------------------------------------------------------------------------
-void Enemy::setSpriteFlipped(bool flipped)
+//----------------------------------------------------------------------------
+// In Enemy.cpp (or the appropriate source file)
+void Enemy::setSpriteFlipped(bool flipped) 
 {
 	if (flipped) 
 	{
 		m_object.setScale(-1.f, 1.f); // Flip horizontally
 	}
-	else 
+	else
 	{
 		m_object.setScale(1.f, 1.f); // Normal scale
 	}
+
+	m_isFlipped = flipped; // Update internal state
 }
+//------------------------------------------------------------------------------
 
-
-	//switch (level)
-	//{
-	//	case 1:
-	//	{
-	//		sprite = sf::Sprite(*HandleResources::instance().getLevel1Texture(L1_ENEMY));
-	//		type = ANI_DEVIL_COOKIE;
-	//		break;
-	//	}
-	//	case 2:
-	//	{
-	//		sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L2_ENEMY));
-	//		type = ANI_CARROT_COOKIE;			
-	//		break;
-	//	}
-	//	case 3:
-	//	{
-	//		//sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L3_ENEMY));
-	//		//AnimationType type = ANI_ZOMBIE_COOKIE;
-	//		//break;
-	//	}
-	//}
-
-	//auto& movement = EnemyFactory::getRandomMoveStrategy();
+	
