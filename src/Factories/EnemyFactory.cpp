@@ -58,9 +58,9 @@ std::unique_ptr<Enemy> EnemyFactory::createEnemy(const sf::Vector2f& position, i
 	}
 
 	// Get a random move strategy
-	//auto movement = moveVec[std::rand() % moveVec.size()]();
+	auto movement = moveVec[std::rand() % moveVec.size()]();
 
-	return std::make_unique<Enemy>(sprite, 100.f, position, type, moveVec[std::rand() % moveVec.size()]);
+	return std::make_unique<Enemy>(sprite, 100.f, position, type, std::move(movement));
 }
 
 

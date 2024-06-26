@@ -7,8 +7,7 @@
 #include "MovingObject/Player.h"
 
 
-bool MoveRandomStrategy::m_register = EnemyFactory::registerMove([]()->std::unique_ptr<MoveStrategy> 
-{ return std::make_unique<MoveRandomStrategy>(); });
+bool MoveRandomStrategy::m_register = EnemyFactory::registerMove([]()->std::unique_ptr<MoveStrategy> { return std::make_unique<MoveRandomStrategy>(); });
 
 //------------------------------------------------------------------------------------------------------
 MoveRandomStrategy::MoveRandomStrategy()

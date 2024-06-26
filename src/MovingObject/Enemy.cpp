@@ -10,17 +10,6 @@
 #include "MoveStrategy/MoveRandomStrategy.h"
 
 
-// Register the enemy type with the factory
-bool Enemy::m_register = EnemyFactory::registerMove([](const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)-> std::unique_ptr<MoveStrategy>
-{
-	return std::make_unique<MoveSmartStrategy>();
-}) 
-&&
-EnemyFactory::registerMove([](const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy) -> std::unique_ptr<MoveStrategy>
-	{
-		return std::make_unique<MoveRandomStrategy>();
-	});
-
 //-------------------------------------------------------------------------------------------------------------
 Enemy::Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position, AnimationType type, std::unique_ptr<MoveStrategy> movement)
 		: m_move(std::move(movement)), MovingObject(sprite, speed, position),
