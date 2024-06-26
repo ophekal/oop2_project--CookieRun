@@ -17,11 +17,7 @@ void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vect
     sf::Vector2f newPosition = enemy.getPosition();
 
     // Move towards the player in the x direction
-    if (newPosition.x < playerPosition.x)
-    {
-        newPosition.x++; // Move right
-    }
-    else if (newPosition.x > playerPosition.x) 
+    if (newPosition.x > playerPosition.x) 
     {
         newPosition.x--; // Move left
     }
