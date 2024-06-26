@@ -211,3 +211,11 @@ void playerFlyingGift(GameObject& player, GameObject& flyingGift)
 //    Enemy& e = static_cast<Enemy&>(enemy);
 //    Player& p = static_cast<Player&>(player);
 //}
+////------------------------------------------------------------
+//void enemyObstcale(GameObject& enemy, GameObject& obstcale)
+//{
+//    Enemy& e = static_cast<Enemy&>(enemy);
+// 
+//    //change the enemy sprite to go the other way?
+//    
+//}
