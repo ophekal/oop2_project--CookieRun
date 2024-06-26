@@ -56,11 +56,9 @@ private:
 	void updateCookieBraveRunAnimation(); 
 	void updateCookieBraveSlideAnimation(); 
 	void updateCookieBraveJumpAnimation();
-	void updateCookieBraveDoubleJumpAnimation();
 	void updateCookieBrightRunAnimation();
 	void updateCookieBrightSlideAnimation();
 	void updateCookieBrightJumpAnimation();
-	void updateCookieBrightDoubleJumpAnimation();
 	void updateCookieBraveDieAnimation();
 	void updateCookieBrightDieAnimation();
 	void updateDevilCookieAnimation();

@@ -12,15 +12,13 @@
 //-------------------------------------------------------------------------------------------------------------
 Player::Player(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
 	:MovingObject(sprite, speed, position),
-	m_doubleJump(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_DOUBLE_JUMP), m_object, sf::seconds(0.1f)),
-	m_jump(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_JUMP), m_object, sf::seconds(0.3f)),
+    m_jump(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_JUMP), m_object, sf::seconds(0.3f)),
 	m_slide(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_SLIDE), m_object, sf::seconds(0.1f)),
 	m_fly(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_FLY), m_object, sf::seconds(0.3f)),
-	m_run(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f), m_slide, m_jump, m_doubleJump),
+	m_run(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f), m_slide, m_jump),
 	m_currentPlayerState(&m_run)
 {
-	m_doubleJump.setMembers(m_run);
-	m_jump.setMembers(m_run, m_doubleJump);
+	m_jump.setMembers(m_run);
 	m_slide.setMembers(m_run);
 	m_fly.setMembers(m_run);
 	//m_boost.setMembers(m_run);
@@ -104,7 +102,7 @@ void Player::setPlayer(Players playerType)
 	{
 	case PLAYER_BRAVE:
 	{
-		m_doubleJump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_DOUBLE_JUMP), sprite);
+		//m_doubleJump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_DOUBLE_JUMP), sprite);
 		m_jump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_JUMP), sprite);
 		m_slide.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_SLIDE), sprite);
 		m_fly.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_FLY), sprite);
@@ -113,7 +111,7 @@ void Player::setPlayer(Players playerType)
 	}
 	case PLAYER_BRIGHT:
 	{
-		m_doubleJump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_DOUBLE_JUMP), sprite);
+		//m_doubleJump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_DOUBLE_JUMP), sprite);
 		m_jump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_JUMP), sprite);
 		m_slide.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_SLIDE), sprite);
 		m_fly.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_FLY), sprite);

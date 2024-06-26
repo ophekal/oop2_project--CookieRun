@@ -25,12 +25,12 @@ PlayerState* JumpState::handleEvent(Player& player, KeyboardInput pressed)
         std::cout << "distance in jump2 : " << m_jumpDistance << "\n";
         return this; // Stay in jump state
     }
-    else if (pressed == K_UP && m_jumpDistance >= 0.4 && m_jumpDistance <= 0.8)
-    {
-        std::cout << "distance in jump3 : " << m_jumpDistance << "\n";
-        m_jumpDistance = 0;
-        return m_doubleJumpState;
-    }
+    //else if (pressed == K_UP && m_jumpDistance >= 0.4 && m_jumpDistance <= 0.8)
+    //{
+    //    std::cout << "distance in jump3 : " << m_jumpDistance << "\n";
+    //    m_jumpDistance = 0;
+    //    return m_doubleJumpState;
+    //}
 
     // No state change
   
@@ -60,10 +60,10 @@ void JumpState::update(Player& player, sf::Time deltaTime)
 	m_animation.update(deltaTime);
 }
 //--------------------------------------------------------------------------------
-void JumpState::setMembers(RunState& runState, DoubleJumpState& doubleJump)
+void JumpState::setMembers(RunState& runState)
 {
 	m_runState = &runState;
-	m_doubleJumpState = &doubleJump;
+	//m_doubleJumpState = &doubleJump;
 }
 //----------------------------------------------------------------------------------------------
 void JumpState::updateAnimation(std::vector<sf::IntRect>& frameSheet, sf::Sprite& sprite)

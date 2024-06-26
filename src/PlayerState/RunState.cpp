@@ -1,7 +1,6 @@
 
 #include "MovingObject/Player.h"
 #include "PlayerState/PlayerState.h"
-#include "PlayerState/DoubleJumpState.h"
 #include "PlayerState/FlyState.h"
 #include "PlayerState/JumpState.h"
 #include "PlayerState/RunState.h"
@@ -12,9 +11,9 @@
 
 //-----------------------------------------------------------------------------------------------
 RunState::RunState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime,
-    SlideState& slideState, JumpState& jumpState, DoubleJumpState& doubleJump)
+    SlideState& slideState, JumpState& jumpState)
     : m_animation(data, sprite, animationTime),
-      m_slideState(slideState), m_jumpState(jumpState), m_doubleJumpState(doubleJump)
+      m_slideState(slideState), m_jumpState(jumpState)
 {
 
 }

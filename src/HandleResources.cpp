@@ -271,12 +271,10 @@ void HandleResources::updateAnimationData()
 	updateCookieBraveRunAnimation();
 	updateCookieBraveSlideAnimation();
 	updateCookieBraveJumpAnimation();
-	updateCookieBraveDoubleJumpAnimation();
 	updateCookieBraveFlyAnimation();
 	updateCookieBrightRunAnimation();
 	updateCookieBrightSlideAnimation();
 	updateCookieBrightJumpAnimation();
-	updateCookieBrightDoubleJumpAnimation();
 	updateCookieBrightFlyAnimation();
 	updateCookieBraveDieAnimation();
 	updateCookieBrightDieAnimation();
@@ -378,30 +376,7 @@ void HandleResources::updateCookieBraveJumpAnimation()
 	m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(nextStart(), size);
 	m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(nextStart(), size);
 }
-//------------------------------------------------------------------------
-void HandleResources::updateCookieBraveDoubleJumpAnimation()
-{
-	const auto size = sf::Vector2i(157, 150);
-	const auto initSpace = sf::Vector2i(53, 117);
-	const auto middleSpace = sf::Vector2i(128, 0);
 
-	auto currentStart = initSpace;
-
-	auto nextStart = [&]()
-		{
-			currentStart += middleSpace;
-			currentStart.x += size.x;
-			return currentStart;
-		};
-
-
-	m_animationData[ANI_COOKIEBRAVE_DOUBLE_JUMP].emplace_back(currentStart, size);
-	m_animationData[ANI_COOKIEBRAVE_DOUBLE_JUMP].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRAVE_DOUBLE_JUMP].emplace_back(nextStart(), size);	
-	m_animationData[ANI_COOKIEBRAVE_DOUBLE_JUMP].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRAVE_DOUBLE_JUMP].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRAVE_DOUBLE_JUMP].emplace_back(nextStart(), size);
-}
 //-----------------------------------------------------------------------
 void HandleResources::updateCookieBraveFlyAnimation()
 {
@@ -517,34 +492,7 @@ void HandleResources::updateCookieBrightJumpAnimation()
 }
 
 
-//------------------------------------------------------------------------
-void HandleResources::updateCookieBrightDoubleJumpAnimation()
-{
-	/*const auto size = sf::Vector2i(154, 148);
-	const auto initSpace = sf::Vector2i(44, 143);
-	const auto middleSpace = sf::Vector2i(110, 0);*/
-	
-	const auto size = sf::Vector2i(128, 155);
-	const auto initSpace = sf::Vector2i(66, 115);
-	const auto middleSpace = sf::Vector2i(150, 0);
 
-	auto currentStart = initSpace;
-
-	auto nextStart = [&]()
-		{
-			currentStart += middleSpace;
-			currentStart.x += size.x;
-			return currentStart;
-		};
-
-
-	m_animationData[ANI_COOKIEBRIGHT_DOUBLE_JUMP].emplace_back(currentStart, size);
-	m_animationData[ANI_COOKIEBRIGHT_DOUBLE_JUMP].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRIGHT_DOUBLE_JUMP].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRIGHT_DOUBLE_JUMP].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRIGHT_DOUBLE_JUMP].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRIGHT_DOUBLE_JUMP].emplace_back(nextStart(), size);
-}
 //-----------------------------------------------------------------------
 void HandleResources::updateCookieBrightFlyAnimation()
 {
