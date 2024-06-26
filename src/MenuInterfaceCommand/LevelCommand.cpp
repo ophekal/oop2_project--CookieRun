@@ -6,6 +6,7 @@
 #include "Collisions/HandleCollision.h"
 #include <memory>
 #include "MovingObject/Player.h"
+#include "MovingObject/Enemy.h"
 #include "Factories/EnemyFactory.h"
 #include "InfoBar.h"
 
@@ -290,7 +291,7 @@ void LevelCommand::moveEnemies(sf::Time deltaTime)
 {
 	for (auto& enemyObject : m_enemies)
 	{
-		//enemyObject->MoveEnemy(m_player.getPosition(), m_staticObjects, deltaTime);
+		enemyObject->moveEnemy(m_player.getPosition(), m_staticObjects, deltaTime);
 	}
 }
 //--------------------------------------------------------------------------
@@ -321,6 +322,7 @@ void LevelCommand::handleLevelExit()
 {
 	m_staticObjects.clear();
 	m_animationObjects.clear();
+	m_enemies.clear();
 	m_player.handleExitFromLevel();
 	m_levelOver = false; //for the next time we enter
 	m_levelOpen = true;
