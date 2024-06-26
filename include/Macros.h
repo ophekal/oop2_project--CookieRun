@@ -195,7 +195,10 @@ enum Movement
 
 };
 
-
+//----------------Direction-----------------------
+const int LEFT = -1;
+const int RIGHT = 1;
+const float ENEMY_MOVE_DISTANCE = 5.0f;
 
 
 //----------------backgrounds---------------------

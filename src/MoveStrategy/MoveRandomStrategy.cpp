@@ -12,53 +12,87 @@ bool MoveRandomStrategy::m_register = EnemyFactory::registerMove([]()->std::uniq
 //------------------------------------------------------------------------------------------------------
 MoveRandomStrategy::MoveRandomStrategy()
 {
-    // Seed the random number generator
-    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    // Seed the random number generator once globally
+    static bool seeded = false;
+    if (!seeded) {
+        std::srand(static_cast<unsigned int>(std::time(nullptr)));
+        seeded = true;
+    }
 }
 
-//------------------------------------------------------------------------------------------------------
+
 //------------------------------------------------------------------------------------------------------
 // Move randomly left or right and handle collisions with obstacles
 
 void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)
 {
     // Generate a random direction (left or right)
-    int direction = std::rand() % 2 == 0 ? -1 : 1; // -1 for left, 1 for right
+    int direction = (std::rand() % 2 == 0 ) ? LEFT : RIGHT;
 
     // Calculate movement based on direction
-    sf::Vector2f movement(0.f, 0.f);
-    movement.x += direction * enemy.getSpeed();
+    sf::Vector2f movement(direction * ENEMY_MOVE_DISTANCE, 0.f);
 
-    // Update the position of the enemy
-    auto newEnemyPosition = enemy.getPosition() + movement;
-
-    //// Create a temporary sprite to represent the new position (for collision checking)
-    //sf::Sprite tempSprite = enemy.getSprite(); // Assuming Enemy class has getSprite method
-    //tempSprite.setPosition(newEnemyPosition);
+    // Predict new position
+    sf::Vector2f newPosition = enemy.getPosition() + movement;
 
     // Check for collision with obstacles
     bool collisionDetected = false;
-    for (const auto& obstacle : staticObjects) {
-        if (enemy.getGlobalBounds().intersects(obstacle->getGlobalBounds())) {
-            // Collision detected, reverse direction
-            movement.x = -movement.x; // Change direction
+    for (const auto& obstacle : staticObjects) 
+    {
+        if (enemy.getGlobalBounds().intersects(obstacle->getGlobalBounds())) 
+        {
             collisionDetected = true;
-
-            // Update sprite facing direction (assuming sprite can be flipped horizontally)
-            enemy.setSpriteFlipped(direction == 1); // Flip sprite based on the initial direction
-
-            // Update new position after reversing direction
-            newEnemyPosition = enemy.getPosition() + movement;
-            break; // Break out after handling the first collision
+            break;
         }
     }
 
-    // If no collision was detected, update the enemy's position normally
-    if (!collisionDetected) {
-        enemy.setPosition(newEnemyPosition.x, newEnemyPosition.y);
+    // If collision detected, reverse direction
+    if (collisionDetected) 
+    {
+        movement.x = -movement.x;
+        newPosition = enemy.getPosition() + movement;
     }
-    else {
-        // If collision was detected and direction reversed, update to new position after reversing
-        enemy.setPosition(newEnemyPosition.x, newEnemyPosition.y);
-    }
+
+    // Set the enemy's new position
+    enemy.setPosition(newPosition.x, newPosition.y);
 }
+
+
+
+
+    //// Calculate movement based on direction
+    //sf::Vector2f movement(0.f, 0.f);
+    //movement.x += direction * enemy.getSpeed();
+
+    //// Update the position of the enemy
+    //auto newEnemyPosition = enemy.getPosition() + movement;
+
+    ////// Create a temporary sprite to represent the new position (for collision checking)
+    ////sf::Sprite tempSprite = enemy.getSprite(); // Assuming Enemy class has getSprite method
+    ////tempSprite.setPosition(newEnemyPosition);
+
+    //// Check for collision with obstacles
+    //bool collisionDetected = false;
+    //for (const auto& obstacle : staticObjects) {
+    //    if (enemy.getGlobalBounds().intersects(obstacle->getGlobalBounds())) {
+    //        // Collision detected, reverse direction
+    //        movement.x = -movement.x; // Change direction
+    //        collisionDetected = true;
+
+    //        // Update sprite facing direction (assuming sprite can be flipped horizontally)
+    //        enemy.setSpriteFlipped(direction == 1); // Flip sprite based on the initial direction
+
+    //        // Update new position after reversing direction
+    //        newEnemyPosition = enemy.getPosition() + movement;
+    //        break; // Break out after handling the first collision
+    //    }
+    //}
+
+    //// If no collision was detected, update the enemy's position normally
+    //if (!collisionDetected) {
+    //    enemy.setPosition(newEnemyPosition.x, newEnemyPosition.y);
+    //}
+    //else {
+    //    // If collision was detected and direction reversed, update to new position after reversing
+    //    enemy.setPosition(newEnemyPosition.x, newEnemyPosition.y);
+    //}
