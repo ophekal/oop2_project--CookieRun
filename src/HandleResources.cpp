@@ -622,9 +622,9 @@ void HandleResources::updateCarrotCookieAnimation()
 {
 	// need to check its okay!
 
-	const auto size = sf::Vector2i(168, 168);
-	const auto initSpace = sf::Vector2i(1, 1);
-	const auto middleSpace = sf::Vector2i(1, 0);
+	const auto size = sf::Vector2i(159, 160);
+	const auto initSpace = sf::Vector2i(9, 7);
+	const auto middleSpace = sf::Vector2i(3, 0);
 
 	auto currentStart = initSpace;
 
