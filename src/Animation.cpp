@@ -32,8 +32,6 @@ void Animation::changeAnimation(std::vector<sf::IntRect>& frameSheet, sf::Sprite
     m_sprite = sprite;
     m_frameSheet.assign(frameSheet.begin(), frameSheet.end());
     setIndex(0);
-    //m_frameIndex = 0;
-    //update();
 }
 //----------------------------------------------------------------------------------
 void Animation::setIndex(int index)
