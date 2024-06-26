@@ -22,4 +22,5 @@ private:
 	std::vector<sf::Text> m_infoBar;
 	sf::RectangleShape m_jelly;
 	sf::RectangleShape m_coin;
+	sf::RectangleShape m_weapon;
 };

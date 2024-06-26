@@ -30,6 +30,11 @@ InfoBar::InfoBar()
     m_jelly.setSize({ 40.0f, 40.0f }); 
 	m_jelly.setPosition({ 250,20 });
 
+    // Set texture and position for the m_jelly
+    m_weapon.setTexture(HandleResources::instance().getGiftTexture(G_WEAPON));
+    m_weapon.setSize({ 40.0f, 40.0f });
+    m_weapon.setPosition({ 750,20 });
+
     // Set texture and position for the m_coin
     const sf::Texture& coinTexture = *HandleResources::instance().getGiftTexture(G_COIN);
     const std::vector<sf::IntRect>& coins = HandleResources::instance().getAnimationData(ANI_COIN);
@@ -47,6 +52,7 @@ void InfoBar::draw(sf::RenderWindow& window)
     }
     window.draw(m_jelly);
     window.draw(m_coin);
+    window.draw(m_weapon);
 }
 //----------------------------------------------------------------------------------------
 void InfoBar::updateInfoBar(const Player& player, int levelNumber)
