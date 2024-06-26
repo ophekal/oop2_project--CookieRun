@@ -5,7 +5,6 @@
 #include "Macros.h"
 #include <vector>
 #include "PlayerState/PlayerState.h"
-#include "PlayerState/DoubleJumpState.h"
 #include "PlayerState/FlyState.h"
 #include "PlayerState/JumpState.h"
 #include "PlayerState/SlideState.h"
@@ -87,7 +86,6 @@ private:
 	KeyboardInput m_keyPressed = K_NONE;
 
 	//-------------states-----------------------
-	DoubleJumpState m_doubleJump;
 	JumpState m_jump;
 	SlideState m_slide;
 	FlyState m_fly;

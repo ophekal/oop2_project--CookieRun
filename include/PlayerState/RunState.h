@@ -14,7 +14,7 @@ class RunState : public PlayerState
 {
 public:
     RunState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime,
-        SlideState& slideState, JumpState& jumpState, DoubleJumpState& doubleJump);
+        SlideState& slideState, JumpState& jumpState);
     PlayerState* handleEvent(Player& player, KeyboardInput pressed) override;
     void update(Player& player, sf::Time deltaTime) override;
     void restartAnimation();
@@ -24,6 +24,6 @@ private:
     Animation m_animation;
     SlideState& m_slideState;
     JumpState& m_jumpState;
-    DoubleJumpState& m_doubleJumpState;
+    //DoubleJumpState& m_doubleJumpState;
 
 };
