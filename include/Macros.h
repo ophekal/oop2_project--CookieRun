@@ -154,7 +154,7 @@ enum GIFTTEXTURE
 
 const int L1_COIN_MIN = 0;
 const int L2_COIN_MIN = 15;
-const int L3_COIN_MIN = 150;
+const int L3_COIN_MIN = 20;
 
 
 enum FEEDBACK
@@ -198,7 +198,7 @@ enum Movement
 //----------------Direction-----------------------
 const int LEFT = -1;
 const int RIGHT = 1;
-const float ENEMY_MOVE_DISTANCE = 5.0f;
+const float ENEMY_MOVE_DISTANCE = 1.0f;
 
 
 //----------------backgrounds---------------------

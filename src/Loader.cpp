@@ -46,5 +46,5 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 	}
 
 	//add enemy
-	enemies.emplace_back(EnemyFactory::createEnemy({1500,688}, levelNumber));
+	enemies.emplace_back(EnemyFactory::createEnemy({2000,688}, levelNumber));
 }

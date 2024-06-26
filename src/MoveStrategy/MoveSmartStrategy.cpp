@@ -14,6 +14,9 @@ bool MoveSmartStrategy::m_register = EnemyFactory::registerMove([]()->std::uniqu
 
 void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)
 {
+    std::cout << "in smart enemy movement\n";
+
+
     sf::Vector2f newPosition = enemy.getPosition();
 
     // Move towards the player in the x direction

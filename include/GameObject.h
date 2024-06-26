@@ -11,7 +11,7 @@ public:
 	bool isMarkedForDeletion() const { return toBeDeleted; }
 	sf::FloatRect getSize()const { return m_object.getLocalBounds(); }
 	const sf::Sprite& getObject()const { return m_object; }
-	const sf::FloatRect& getGlobalBounds()const { return m_object.getGlobalBounds(); }
+	sf::FloatRect getGlobalBounds()const { return m_object.getGlobalBounds(); }
 
 protected:
 	sf::Sprite m_object;

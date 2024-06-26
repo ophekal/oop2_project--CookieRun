@@ -20,17 +20,18 @@ MoveRandomStrategy::MoveRandomStrategy()
     }
 }
 
-
 //------------------------------------------------------------------------------------------------------
 // Move randomly left or right and handle collisions with obstacles
 
 void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)
 {
+    std::cout << "in random enemy movement\n";
+
     // Generate a random direction (left or right)
-    int direction = (std::rand() % 2 == 0 ) ? LEFT : RIGHT;
+    int direction = (std::rand() % 2 == 0) ? LEFT : RIGHT;
 
     // Calculate movement based on direction
-    sf::Vector2f movement(direction * ENEMY_MOVE_DISTANCE, 0.f);
+    sf::Vector2f movement(direction*4, 0.f);
 
     // Predict new position
     sf::Vector2f newPosition = enemy.getPosition() + movement;
@@ -46,53 +47,21 @@ void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vec
         }
     }
 
-    // If collision detected, reverse direction
+    // If collision detected, stop movement
     if (collisionDetected) 
     {
-        movement.x = -movement.x;
-        newPosition = enemy.getPosition() + movement;
+        movement.x = 0.f;
+    }
+    else 
+    {
+        // Set the enemy's new position
+        enemy.setPosition(newPosition.x, newPosition.y);
     }
 
     // Set the enemy's new position
-    enemy.setPosition(newPosition.x, newPosition.y);
+    //newPosition = enemy.getPosition() + movement;
+    //enemy.setPosition(newPosition.x, newPosition.y);
+
+    // Update sprite facing direction based on movement
+    enemy.setSpriteFlipped(direction == RIGHT);
 }
-
-
-
-
-    //// Calculate movement based on direction
-    //sf::Vector2f movement(0.f, 0.f);
-    //movement.x += direction * enemy.getSpeed();
-
-    //// Update the position of the enemy
-    //auto newEnemyPosition = enemy.getPosition() + movement;
-
-    ////// Create a temporary sprite to represent the new position (for collision checking)
-    ////sf::Sprite tempSprite = enemy.getSprite(); // Assuming Enemy class has getSprite method
-    ////tempSprite.setPosition(newEnemyPosition);
-
-    //// Check for collision with obstacles
-    //bool collisionDetected = false;
-    //for (const auto& obstacle : staticObjects) {
-    //    if (enemy.getGlobalBounds().intersects(obstacle->getGlobalBounds())) {
-    //        // Collision detected, reverse direction
-    //        movement.x = -movement.x; // Change direction
-    //        collisionDetected = true;
-
-    //        // Update sprite facing direction (assuming sprite can be flipped horizontally)
-    //        enemy.setSpriteFlipped(direction == 1); // Flip sprite based on the initial direction
-
-    //        // Update new position after reversing direction
-    //        newEnemyPosition = enemy.getPosition() + movement;
-    //        break; // Break out after handling the first collision
-    //    }
-    //}
-
-    //// If no collision was detected, update the enemy's position normally
-    //if (!collisionDetected) {
-    //    enemy.setPosition(newEnemyPosition.x, newEnemyPosition.y);
-    //}
-    //else {
-    //    // If collision was detected and direction reversed, update to new position after reversing
-    //    enemy.setPosition(newEnemyPosition.x, newEnemyPosition.y);
-    //}

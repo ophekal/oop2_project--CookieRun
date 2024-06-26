@@ -267,23 +267,36 @@ bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 		return false;
 	}
 
-	float overLapping = 0.1f;
-	float sizeDecrese = 1.1f;
+	const int OVERLAP = 10;
 
-	sf::FloatRect object1Rect = object1.getObject().getGlobalBounds(),
-				  object2Rect = object2.getObject().getGlobalBounds();
-		
-	object1Rect.left += object1Rect.width * overLapping;
-	object1Rect.top += object1Rect.height * overLapping;
-	object1Rect.width /= (sizeDecrese);
-	object1Rect.height /= (sizeDecrese);
+	sf::FloatRect overlap;
 
-	object2Rect.left += object2Rect.width * overLapping;
-	object2Rect.top += object2Rect.height * overLapping;
-	object2Rect.width /= (sizeDecrese);
-	object2Rect.height /= (sizeDecrese);
+	object1.getGlobalBounds().intersects(object2.getGlobalBounds(), overlap);
 
-	return object1Rect.intersects(object2Rect);
+	if (overlap.height > OVERLAP && overlap.width > OVERLAP)
+	{
+		return true;
+	}
+	return false;
+
+
+	//float overLapping = 0.1f;
+	//float sizeDecrese = 1.1f;
+
+	//sf::FloatRect object1Rect = object1.getObject().getGlobalBounds(),
+	//			  object2Rect = object2.getObject().getGlobalBounds();
+	//	
+	//object1Rect.left += object1Rect.width * overLapping;
+	//object1Rect.top += object1Rect.height * overLapping;
+	//object1Rect.width /= (sizeDecrese);
+	//object1Rect.height /= (sizeDecrese);
+
+	//object2Rect.left += object2Rect.width * overLapping;
+	//object2Rect.top += object2Rect.height * overLapping;
+	//object2Rect.width /= (sizeDecrese);
+	//object2Rect.height /= (sizeDecrese);
+
+	//return object1Rect.intersects(object2Rect);
 }
 
 //----------------------------------------------------------------------------------------
