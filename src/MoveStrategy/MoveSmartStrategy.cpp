@@ -10,33 +10,31 @@
 bool MoveSmartStrategy::m_register = EnemyFactory::registerMove([]()->std::unique_ptr<MoveStrategy> { return std::make_unique<MoveSmartStrategy>(); });
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// this movment not is not effected by obstcales
 
 void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)
 {
-    //MovingObjects::setObjectSpeed(25.f);
-    //srand(time(nullptr));
-    //m_clock.restart();
+    sf::Vector2f newPosition = enemy.getPosition();
 
-    //Direction direction = static_cast<Direction>(rand() % 4); // Generate a random direction
+    // Move towards the player in the x direction
+    if (newPosition.x < playerPosition.x)
+    {
+        newPosition.x++; // Move right
+    }
+    else if (newPosition.x > playerPosition.x) 
+    {
+        newPosition.x--; // Move left
+    }
 
-    ////Calculate movement vector based on direction and speed
-    //sf::Vector2f movement(0.f, 0.f);
-    //switch (direction)
-    //{
-    //case (D_LEFT):
-    //    m_object.setTexture(HandleResources::instance().getObjectTexture(I_L_CAT));
-    //    movement.x -= m_objectSpeed * deltaTime.asSeconds();
-    //    break;
-    //case D_RIGHT:
-    //    m_object.setTexture(HandleResources::instance().getObjectTexture(I_R_CAT));
-    //    movement.x += m_objectSpeed * deltaTime.asSeconds();
-    //    break;
-    //case D_UP:
-    //    movement.y -= m_objectSpeed * deltaTime.asSeconds();
-    //    break;
-    //case D_DOWN:
-    //    movement.y += m_objectSpeed * deltaTime.asSeconds();
-    //    break;
-    //}
-    //add random movement, enemy walks from side to side trying when colliding with object chaninging direction
+    // Move towards the player in the y direction
+    if (newPosition.y < playerPosition.y) 
+    {
+        newPosition.y++; // Move down
+    }
+    else if (newPosition.y > playerPosition.y) {
+        newPosition.y--; // Move up
+    }
+
+    // Set the enemy's new position
+    enemy.setPosition(newPosition.x,newPosition.y);
 };
