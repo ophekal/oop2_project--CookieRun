@@ -8,7 +8,7 @@ void playerObstcale(GameObject& player, GameObject& obstcale);
 void playerFloor(GameObject& player, GameObject& floor);
 void playerEnhance(GameObject& player, GameObject& enhance);
 //void playerDynamite(GameObject& player, GameObject& dynamite);
-//void playerWeapon(GameObject& player, GameObject& weapon);
+void playerWeapon(GameObject& player, GameObject& weapon);
 void playerBoost(GameObject& player, GameObject& boost);
 //void playerMagnet(GameObject& player, GameObject& magnet);
 void playerFlyingGift(GameObject& player, GameObject& flyingGift);

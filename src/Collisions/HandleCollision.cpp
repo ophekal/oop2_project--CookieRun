@@ -37,7 +37,7 @@ void HandleCollision::initializeCollisionMap()
     m_collisionMap[Key(typeid(Player), typeid(Floor))] = &playerFloor;
     m_collisionMap[Key(typeid(Player), typeid(Enhance))] = &playerEnhance;
     //m_collisionMap[Key(typeid(Player), typeid(Dynamite))] = &playerDynamite;
-   // m_collisionMap[Key(typeid(Player), typeid(Weapon))] = &playerWeapon;
+    m_collisionMap[Key(typeid(Player), typeid(Weapon))] = &playerWeapon;
     m_collisionMap[Key(typeid(Player), typeid(Boost))] = &playerBoost;
     //m_collisionMap[Key(typeid(Player), typeid(Magnet))] = &playerMagnet;
     m_collisionMap[Key(typeid(Player), typeid(FlyingGift))] = &playerFlyingGift;

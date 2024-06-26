@@ -102,7 +102,6 @@ void Player::setPlayer(Players playerType)
 	{
 	case PLAYER_BRAVE:
 	{
-		//m_doubleJump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_DOUBLE_JUMP), sprite);
 		m_jump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_JUMP), sprite);
 		m_slide.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_SLIDE), sprite);
 		m_fly.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_FLY), sprite);
@@ -111,7 +110,6 @@ void Player::setPlayer(Players playerType)
 	}
 	case PLAYER_BRIGHT:
 	{
-		//m_doubleJump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_DOUBLE_JUMP), sprite);
 		m_jump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_JUMP), sprite);
 		m_slide.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_SLIDE), sprite);
 		m_fly.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_FLY), sprite);

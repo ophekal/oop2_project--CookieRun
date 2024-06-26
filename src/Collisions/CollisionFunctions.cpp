@@ -106,21 +106,14 @@ void playerEnhance(GameObject& player, GameObject& enhance)
     p.startEnhanceTimer(enhanceDuration, 1.4f);
 }
 
-////------------------------------------------------------------
-//void playerDynamite(GameObject& player, GameObject& dynamite)
-//{
-//    Player& p = static_cast<Player&>(player);
-//    Dynamite& d = static_cast<Dynamite&>(dynamite);
-//    d.markForDeletion();
-//}
-//
 //------------------------------------------------------------
-//void playerWeapon(GameObject& player, GameObject& weapon)
-//{
-//    Player& p = static_cast<Player&>(player);
-//    Weapon& w = static_cast<Weapon&>(weapon);
-//    w.markForDeletion();
-//}
+void playerWeapon(GameObject& player, GameObject& weapon)
+{
+    Player& p = static_cast<Player&>(player);
+    Weapon& w = static_cast<Weapon&>(weapon);
+    w.markForDeletion();
+    p.setWeapon(p.getWeapons() + 1);
+}
 
 //------------------------------------------------------------
 void playerBoost(GameObject& player, GameObject& boost)
