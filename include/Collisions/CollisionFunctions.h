@@ -13,7 +13,7 @@ void playerBoost(GameObject& player, GameObject& boost);
 //void playerMagnet(GameObject& player, GameObject& magnet);
 void playerFlyingGift(GameObject& player, GameObject& flyingGift);
 //void playerCarrotMissile(GameObject& player, GameObject& carrotMissile);
-//void playerEnemy(GameObject& player, GameObject& enemy);
+void playerEnemy(GameObject& player, GameObject& enemy);
 //void enemyGift(GameObject& enemy, GameObject& gift);
 ////void enemyDynamite(GameObject& player, GameObject& dynamite);
 ////void enemyCarrotMissile(GameObject& enemy, GameObject& carrotMissile);

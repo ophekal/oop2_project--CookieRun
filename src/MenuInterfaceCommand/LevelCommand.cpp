@@ -185,55 +185,20 @@ void LevelCommand::printInformation()
 void LevelCommand::movePlayer(sf::Time deltaTime)
 {
 	m_player.movement(deltaTime);
-	checkAnimationObjectCollision(m_player);
-	checkStaticObjectCollision(m_player);
-
+	checkAnimationObjectCollision();
+	checkStaticObjectCollision();
+	checkEnemyCollision();
 }
 
 //----------------------------------------------------------------------------------------
-// This function id responsible for randomly creating the enemy on the board
-
-//void LevelCommand::addEnemies()
-//{
-//	sf::Sprite sprite;
-//	AnimationType type;
-//
-//	switch (m_levelNumber)
-//	{
-//		case 1:
-//		{
-//			sprite = sf::Sprite(*HandleResources::instance().getLevel1Texture(L1_ENEMY));
-//			type = ANI_DEVIL_COOKIE;
-//			break;
-//		}
-//		case 2:
-//		{
-//			sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L2_ENEMY));
-//			type = ANI_CARROT_COOKIE;			
-//			break;
-//		}
-//		case 3:
-//		{
-//			//sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L3_ENEMY));
-//			//AnimationType type = ANI_ZOMBIE_COOKIE;
-//			//break;
-//		}
-//	}
-//
-//	sf::Vector2f position = { 700, 688 };
-//
-//	m_enemies.emplace_back(std::make_unique<Enemy>(sprite, 350.f, position, type, EnemyFactory::getMove()));
-//}
-
-//----------------------------------------------------------------------------------------
-void LevelCommand::checkAnimationObjectCollision(Player& player)
+void LevelCommand::checkAnimationObjectCollision()
 {
 	//checking if collided with animation object
 	for (auto &animationObject : m_animationObjects)
 	{
-		if (collide(player, *animationObject))
+		if (collide(m_player, *animationObject))
 		{
-			HandleCollision::instance().processCollision(player, *animationObject);
+			HandleCollision::instance().processCollision(m_player, *animationObject);
 		}
 	}
 
@@ -243,14 +208,14 @@ void LevelCommand::checkAnimationObjectCollision(Player& player)
 }
 
 //----------------------------------------------------------------------------------------
-void LevelCommand::checkStaticObjectCollision(Player& player)
+void LevelCommand::checkStaticObjectCollision()
 {
 	//checking if collided with animation object
 	for (auto& staticObject : m_staticObjects)
 	{
-		if (collide(player, *staticObject))
+		if (collide(m_player, *staticObject))
 		{
-			HandleCollision::instance().processCollision(player, *staticObject);
+			HandleCollision::instance().processCollision(m_player, *staticObject);
 		}
 	}
 
@@ -258,7 +223,18 @@ void LevelCommand::checkStaticObjectCollision(Player& player)
 		return staticObject->isMarkedForDeletion();
 		});
 }
-
+//---------------------------------------------------------------------------------------
+void LevelCommand::checkEnemyCollision()
+{
+	//checking if collided with animation object
+	for (auto& enemy : m_enemies)
+	{
+		if (collide(m_player, *enemy))
+		{
+			HandleCollision::instance().processCollision(m_player, *enemy);
+		}
+	}
+}
 //----------------------------------------------------------------------------------------
 bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 {

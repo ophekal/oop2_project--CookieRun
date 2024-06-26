@@ -6,8 +6,6 @@
 #include "StaticObject/Gift.h"
 #include "StaticObject/StaticObstcale.h"
 #include "StaticObject/Floor.h"
-#include "StaticObject/CarrotMissile.h"
-#include "StaticObject/Dynamite.h"
 #include "StaticObject/Weapon.h"
 #include "StaticObject/Enhance.h"
 #include "StaticObject/FlyingGift.h"
@@ -44,7 +42,7 @@ void HandleCollision::initializeCollisionMap()
     //m_collisionMap[Key(typeid(Player), typeid(Magnet))] = &playerMagnet;
     m_collisionMap[Key(typeid(Player), typeid(FlyingGift))] = &playerFlyingGift;
     //m_collisionMap[Key(typeid(Player), typeid(CarrotMissile))] = &playerCarrotMissile;
-    //m_collisionMap[Key(typeid(Player), typeid(Enemy))] = &playerEnemy;
+    m_collisionMap[Key(typeid(Player), typeid(Enemy))] = &playerEnemy;
     //m_collisionMap[Key(typeid(Enemy), typeid(Gift))] = &enemyGift;
    // m_collisionMap[Key(typeid(Enemy), typeid(Player))] = &enemyPlayer;
    // m_collisionMap[Key(typeid(Enemy), typeid(Dynamite))] = &enemyDynamite;

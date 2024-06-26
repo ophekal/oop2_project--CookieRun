@@ -146,8 +146,7 @@ void HandleResources::updateGiftTextureVector()
 	m_giftTextures[G_COIN].loadFromFile("Coins-Sheet.png");
 	m_giftTextures[G_BOOST].loadFromFile("Boost.png");
 	m_giftTextures[G_FLIGHT].loadFromFile("FlyingGift.png");
-	m_giftTextures[G_CARROT].loadFromFile("Carrot_Missile.png");
-	m_giftTextures[G_DYNAMITE].loadFromFile("Dynamite_Missile.png");
+	m_giftTextures[G_WEAPON].loadFromFile("Dynamite_Missile.png");
 }
 
 //-------------------------------------------------------------------------

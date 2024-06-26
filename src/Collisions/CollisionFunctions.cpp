@@ -6,8 +6,6 @@
 #include "StaticObject/Floor.h"
 #include "StaticObject/Gift.h"
 #include "StaticObject/StaticObstcale.h"
-#include "StaticObject/CarrotMissile.h"
-#include "StaticObject/Dynamite.h"
 #include "StaticObject/Weapon.h"
 #include "StaticObject/Enhance.h"
 #include "StaticObject/FlyingGift.h"
@@ -172,14 +170,16 @@ void playerFlyingGift(GameObject& player, GameObject& flyingGift)
 //    p.setWeapon(p.getWeapons() + 1);
 //}
 //
-////------------------------------------------------------------
-//void playerEnemy(GameObject& player, GameObject& enemy)
-//{
-//    Player& p = static_cast<Player&>(player);
-//    Enemy& e = static_cast<Enemy&>(enemy);
-//   // p.changeState(DIE);
-//}
-//
+//------------------------------------------------------------
+void playerEnemy(GameObject& player, GameObject& enemy)
+{
+    Player& p = static_cast<Player&>(player);
+    Enemy& e = static_cast<Enemy&>(enemy);
+
+    std::cout << "the enemy kill the player\n";
+   // p.markForDeletion();
+}
+
 ////------------------------------------------------------------
 //void enemyGift(GameObject& enemy, GameObject& gift)
 //{
