@@ -147,6 +147,7 @@ void HandleResources::updateGiftTextureVector()
 	m_giftTextures[G_BOOST].loadFromFile("Boost.png");
 	m_giftTextures[G_FLIGHT].loadFromFile("FlyingGift.png");
 	m_giftTextures[G_WEAPON].loadFromFile("Dynamite_Missile.png");
+	m_giftTextures[G_BOOM].loadFromFile("Effects.png");
 }
 
 //-------------------------------------------------------------------------
@@ -280,6 +281,7 @@ void HandleResources::updateAnimationData()
 	updateDevilCookieAnimation();
 	updateCarrotCookieAnimation();
 	updateZombieCookieAnimation();
+	updateBoomAnimation();
 }
 //--------------------------------------------------------------------------
 std::vector <sf::IntRect>& HandleResources::getAnimationData(AnimationType type)
@@ -610,4 +612,26 @@ void HandleResources::updateZombieCookieAnimation()
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(nextStart(), size);
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(nextStart(), size);
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(nextStart(), size);
+}
+
+//----------------------------------------------------------------------------
+void HandleResources::updateBoomAnimation()
+{
+	const auto size = sf::Vector2i(208,205);
+	const auto initSpace = sf::Vector2i(13, 1593);
+	const auto middleSpace = sf::Vector2i(1, 0);
+
+	auto currentStart = initSpace;
+
+	auto nextStart = [&]()
+		{
+			currentStart += middleSpace;
+			currentStart.x += size.x;
+			return currentStart;
+		};
+
+
+	m_animationData[ANI_BOOM].emplace_back(currentStart, size);
+	m_animationData[ANI_BOOM].emplace_back(nextStart(), size);
+	m_animationData[ANI_BOOM].emplace_back(nextStart(), size);
 }

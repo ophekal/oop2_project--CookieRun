@@ -62,6 +62,7 @@ public:
 	void changeToEnhanceState();
 	void changeEnhanceBack();
 	const sf::Clock& getGiftClock()const { return m_giftClock; }
+	KeyboardInput getKeyPressed()const { return m_keyPressed; }
 
 private:
 	int m_coins = 0;
