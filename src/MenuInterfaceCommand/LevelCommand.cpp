@@ -290,7 +290,7 @@ void LevelCommand::moveEnemies(sf::Time deltaTime)
 {
 	for (auto& enemyObject : m_enemies)
 	{
-		//enemyObject->MoveEnemy(m_player.getPosition(), m_staticObjects);
+		//enemyObject->MoveEnemy(m_player.getPosition(), m_staticObjects, deltaTime);
 	}
 }
 //--------------------------------------------------------------------------

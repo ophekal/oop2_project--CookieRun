@@ -26,9 +26,12 @@ Enemy::Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position
 
 
 //-------------------------------------------------------------------------------------------------------------
-void Enemy::moveEnemy(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects)
+void Enemy::moveEnemy(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects,
+	                  sf::Time deltaTime)
 {
 	m_move->move(playerPosition, staticObjects,*this);
+	m_animation.update(deltaTime);
+
 }
 
 
@@ -38,6 +41,12 @@ void Enemy::setMoveStrategy(std::unique_ptr<MoveStrategy> movement)
 	m_move = std::move(movement);
 }
 
+//-----------------------------------------------------------------------------------------------------------
+void Enemy::updateAnimation(sf::Time deltaTime)
+{
+	m_object.move(sf::Vector2f{ 0,0 }*deltaTime.asSeconds() * m_objectSpeed);
+	m_animation.update(deltaTime);
+}
 
 
 
