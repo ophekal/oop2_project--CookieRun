@@ -5,34 +5,38 @@
 #include "MovingObject/Enemy.h"
 #include "HandleResources.h"
 #include "Factories/EnemyFactory.h"
+#include "MoveStrategy/MoveStrategy.h"
 
 
-// Register the enemy type with the factory
-//bool Enemy::m_register = EnemyFactory::registerMove([](const sf::Vector2f& playerPosition, 
-//	const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)-> std::unique_ptr<MoveStrategy>
+//// Register the enemy type with the factory
+//bool Enemy::m_register = EnemyFactory::registerMove([](const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)-> std::unique_ptr<MoveStrategy>
 //{
-//	//return std::make_unique<MoveSmart;//, std::move(movement));
+//	return std::make_unique<MoveSmartStrategy>;//, std::move(movement));
 //});
 
+bool Enemy::m_register = EnemyFactory::registerMove([](const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy) -> std::unique_ptr<MoveStrategy>
+	{
+		return std::make_unique<MoveSmartStrategy>();
+	});
 
 //-------------------------------------------------------------------------------------------------------------
-Enemy::Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position, AnimationType type/*, std::unique_ptr<MoveStrategy> movement*/)
-	:/* m_move(std::move(movement))*/ MovingObject(sprite, speed, position),
+Enemy::Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position, AnimationType type, std::unique_ptr<MoveStrategy> movement)
+	:m_move(std::move(movement)), MovingObject(sprite, speed, position),
 	m_animation(HandleResources::instance().getAnimationData(type), m_object, sf::seconds(0.1f))  {};
 
 
 //-------------------------------------------------------------------------------------------------------------
 void Enemy::moveEnemy(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects)
 {
-	//m_move->move(playerPosition, staticObjects,*this);
+	m_move->move(playerPosition, staticObjects,*this);
 }
 
 
-////-------------------------------------------------------------------------------------------------------------
-//void Enemy::setMoveStrategy(std::unique_ptr<MoveStrategy> movement)
-//{
-//	m_move = std::move(movement);
-//}
+//-------------------------------------------------------------------------------------------------------------
+void Enemy::setMoveStrategy(std::unique_ptr<MoveStrategy> movement)
+{
+	m_move = std::move(movement);
+}
 
 
 
