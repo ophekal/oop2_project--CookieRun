@@ -365,6 +365,7 @@ void LevelCommand::checkIfNeedToExplode()
 	if (m_player.getKeyPressed() == K_ENTER)
 	{
 		handleExpolsion();
+		//m_player.setWeapon(m_player.getWeapons() - 1);
 	}
 }
 
@@ -416,7 +417,9 @@ void LevelCommand::performExplosionAnimation(const std::vector<sf::Vector2f>& ex
 {
 	sf::Sprite boomSpriteSheet(*HandleResources::instance().getGiftTexture(G_BOOM));
 	Animation boomAnimation(HandleResources::instance().getAnimationData(ANI_BOOM), boomSpriteSheet, sf::seconds(0.3f));
-
+	
+	boomSpriteSheet.setOrigin(sf::Vector2f(boomSpriteSheet.getTextureRect().getSize() / 2));
+	
 	sf::Clock boomClock;
 	sf::Time boomDuration = sf::seconds(1.0f); // Duration for explosion animation
 	sf::Time boomElapsedTime = sf::Time::Zero;

@@ -17,7 +17,6 @@ Enemy::Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position
 		  m_animation(HandleResources::instance().getAnimationData(type), m_object, sf::seconds(0.1f))  
 {
 	m_object.setOrigin(sf::Vector2f(m_object.getTextureRect().getSize() / 2));
-	std::cout << sf::Vector2f(m_object.getTextureRect().getSize() / 2).x << sf::Vector2f(m_object.getTexture()->getSize() / 2u).y;
 }
 
 
