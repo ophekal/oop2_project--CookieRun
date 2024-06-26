@@ -3,7 +3,7 @@
 #include "Factories/EnemyFactory.h"
 #include "HandleResources.h"
 #include "MovingObject/Enemy.h"
-#include <ctime> // For seeding rand()
+#include <ctime>
 
 
 //-----------------------------------------------------------------------------------------------------------------------------
@@ -62,13 +62,3 @@ std::unique_ptr<Enemy> EnemyFactory::createEnemy(const sf::Vector2f& position, i
 
 	return std::make_unique<Enemy>(sprite, 100.f, position, type, std::move(movement));
 }
-
-
-
-//
-////-----------------------------------------------------------------------------------------------------------------------------
-//bool EnemyFactory::registerEnemy(const std::string& type, std::unique_ptr<Enemy>(*f)(const sf::Vector2f& position, int level))
-//{
-//	getMap().emplace(type, f);
-//	return true;
-//}

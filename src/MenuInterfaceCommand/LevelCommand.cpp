@@ -224,9 +224,9 @@ void LevelCommand::checkStaticObjectCollision()
 		});
 }
 //---------------------------------------------------------------------------------------
+// This function checks 
 void LevelCommand::checkEnemyCollision()
 {
-	//checking if collided with animation object
 	for (auto& enemy : m_enemies)
 	{
 		if (collide(m_player, *enemy))
@@ -235,6 +235,7 @@ void LevelCommand::checkEnemyCollision()
 		}
 	}
 }
+
 //----------------------------------------------------------------------------------------
 bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 {
@@ -244,7 +245,6 @@ bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 	}
 
 	const int OVERLAP = 10;
-
 	sf::FloatRect overlap;
 
 	object1.getGlobalBounds().intersects(object2.getGlobalBounds(), overlap);
@@ -254,25 +254,6 @@ bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 		return true;
 	}
 	return false;
-
-
-	//float overLapping = 0.1f;
-	//float sizeDecrese = 1.1f;
-
-	//sf::FloatRect object1Rect = object1.getObject().getGlobalBounds(),
-	//			  object2Rect = object2.getObject().getGlobalBounds();
-	//	
-	//object1Rect.left += object1Rect.width * overLapping;
-	//object1Rect.top += object1Rect.height * overLapping;
-	//object1Rect.width /= (sizeDecrese);
-	//object1Rect.height /= (sizeDecrese);
-
-	//object2Rect.left += object2Rect.width * overLapping;
-	//object2Rect.top += object2Rect.height * overLapping;
-	//object2Rect.width /= (sizeDecrese);
-	//object2Rect.height /= (sizeDecrese);
-
-	//return object1Rect.intersects(object2Rect);
 }
 
 //----------------------------------------------------------------------------------------
@@ -377,7 +358,8 @@ void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound
 
 	sf::sleep(sf::seconds(1));
 }
-//-------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------
 void LevelCommand::checkIfNeedToExplode()
 {
 	if (m_player.getKeyPressed() == K_ENTER)
@@ -385,7 +367,8 @@ void LevelCommand::checkIfNeedToExplode()
 		handleExpolsion();
 	}
 }
-//-------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------
 void LevelCommand::handleExpolsion()
 {
 	// Get the current view bounds
@@ -400,7 +383,8 @@ void LevelCommand::handleExpolsion()
 	// Remove the marked enemies from the game
 	removeMarkedEnemies();
 }
-//---------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------
 // Helper function to get the current view bounds
 sf::FloatRect LevelCommand::getCurrentViewBounds()
 {
@@ -410,7 +394,7 @@ sf::FloatRect LevelCommand::getCurrentViewBounds()
 	return sf::FloatRect(viewCenter.x - viewSize.x / 2, viewCenter.y - viewSize.y / 2, viewSize.x, viewSize.y);
 }
 
-//--------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 // Helper function to mark enemies within view bounds and return their positions
 std::vector<sf::Vector2f> LevelCommand::markEnemiesForExplosion(const sf::FloatRect& viewBounds)
 {
@@ -431,10 +415,10 @@ std::vector<sf::Vector2f> LevelCommand::markEnemiesForExplosion(const sf::FloatR
 void LevelCommand::performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions)
 {
 	sf::Sprite boomSpriteSheet(*HandleResources::instance().getGiftTexture(G_BOOM));
-	Animation boomAnimation(HandleResources::instance().getAnimationData(ANI_BOOM), boomSpriteSheet, sf::seconds(0.1f));
+	Animation boomAnimation(HandleResources::instance().getAnimationData(ANI_BOOM), boomSpriteSheet, sf::seconds(0.3f));
 
 	sf::Clock boomClock;
-	sf::Time boomDuration = sf::seconds(2.0f); // Duration for explosion animation
+	sf::Time boomDuration = sf::seconds(1.0f); // Duration for explosion animation
 	sf::Time boomElapsedTime = sf::Time::Zero;
 
 	while (boomElapsedTime < boomDuration)
@@ -475,6 +459,7 @@ void LevelCommand::drawGameObjects()
 		animatedObject->draw(m_window);
 	}
 
+	m_infoBar.draw(m_window);
 	m_player.draw(m_window);
 
 	for (const auto& enemy : m_enemies)
