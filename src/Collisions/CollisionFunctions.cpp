@@ -6,8 +6,6 @@
 #include "StaticObject/Floor.h"
 #include "StaticObject/Gift.h"
 #include "StaticObject/StaticObstcale.h"
-#include "StaticObject/CarrotMissile.h"
-#include "StaticObject/Dynamite.h"
 #include "StaticObject/Weapon.h"
 #include "StaticObject/Enhance.h"
 #include "StaticObject/FlyingGift.h"

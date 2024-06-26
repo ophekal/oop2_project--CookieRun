@@ -1,9 +1,11 @@
 #pragma once
-#include "StaticObject.h"
+#include "Gift.h"
 
-class Weapon : public StaticObject
+class Weapon : public Gift
 {
 public:
-	//Weapon();
-	//void handleCollision();
+	Weapon(const sf::Sprite& sprite, const sf::Vector2f& position);
+
+private:
+	static bool m_register;
 };
