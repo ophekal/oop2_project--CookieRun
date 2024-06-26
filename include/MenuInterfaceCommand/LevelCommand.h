@@ -9,6 +9,7 @@
 #include "Loader.h"
 #include "MovingObject/Enemy.h"
 #include "Animation.h"
+#include "AnimationObject/Coin.h"
 
 
 class Player;
@@ -38,6 +39,7 @@ private:
 
 	std::vector<std::unique_ptr<StaticObject>> m_staticObjects;
 	std::vector<std::unique_ptr<AnimationObject>> m_animationObjects;
+	std::vector<std::unique_ptr<Coin>> m_coins;     //for fast search in the gift magnet
 
 	sf::Time m_energyReductionElapsedTime = sf::Time::Zero; // Elapsed time for energy reduction
 

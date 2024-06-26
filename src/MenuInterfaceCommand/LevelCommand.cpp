@@ -308,16 +308,10 @@ bool LevelCommand::checkAndUptadeLevelstatus()
 {
 	if (m_player.isDead()) //to the next level
 	{
-		//print player status that he die because he collide with something
-		//print(window, background);
-		//printFeedback(*HandleResources::instance().getScreenTexture(S_GOODJOB), window, background, G_WIN);
-		// update the total score that the player have after check if the next level can be open?
-		//update the lives for the next level? or this happen in handle exit level?
-
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN));
 		return true;
 	}
-	//else if(m_levelOver && )   //the game over with success
+	//else if(m_levelOver && )   //the game over with success if we arrive to the flag section
 	//{
 	//	printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
 	//	return true;
