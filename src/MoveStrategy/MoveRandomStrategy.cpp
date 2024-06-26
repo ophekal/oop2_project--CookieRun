@@ -11,6 +11,7 @@ bool MoveRandomStrategy::m_register = EnemyFactory::registerMove([]()->std::uniq
 
 //------------------------------------------------------------------------------------------------------
 MoveRandomStrategy::MoveRandomStrategy()
+    :m_direction(0)//change to enum
 {
     // Seed the random number generator once globally
     static bool seeded = false;
@@ -27,14 +28,12 @@ void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vec
 {
     std::cout << "in random enemy movement\n";
 
-    // Generate a random direction (left or right)
-    int direction = (std::rand() % 2 == 0) ? LEFT : RIGHT;
-
-    // Calculate movement based on direction
-    sf::Vector2f movement(direction*4, 0.f);
-
-    // Predict new position
-    sf::Vector2f newPosition = enemy.getPosition() + movement;
+    if (m_direction == 0)
+    {
+        // Generate a random direction (left or right)
+        m_direction = (std::rand() % 2 == 0) ? LEFT : RIGHT;
+    }
+   
 
     // Check for collision with obstacles
     bool collisionDetected = false;
@@ -43,25 +42,16 @@ void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vec
         if (enemy.getGlobalBounds().intersects(obstacle->getGlobalBounds())) 
         {
             collisionDetected = true;
+            m_direction *= -1;
+            enemy.setSpriteFlipped(m_direction);
             break;
         }
     }
 
-    // If collision detected, stop movement
-    if (collisionDetected) 
-    {
-        movement.x = 0.f;
-    }
-    else 
-    {
-        // Set the enemy's new position
-        enemy.setPosition(newPosition.x, newPosition.y);
-    }
+    sf::Vector2f movement(m_direction * 4, 0.f);
+    sf::Vector2f newPosition = enemy.getPosition() + movement;
 
-    // Set the enemy's new position
-    //newPosition = enemy.getPosition() + movement;
-    //enemy.setPosition(newPosition.x, newPosition.y);
+    enemy.setPosition(newPosition.x, newPosition.y);
 
-    // Update sprite facing direction based on movement
-    enemy.setSpriteFlipped(direction == RIGHT);
+    
 }

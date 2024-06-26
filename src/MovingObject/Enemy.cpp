@@ -7,13 +7,18 @@
 #include "Factories/EnemyFactory.h"
 #include "MoveStrategy/MoveStrategy.h"
 #include "MoveStrategy/MoveSmartStrategy.h"
+#include <iostream>
 #include "MoveStrategy/MoveRandomStrategy.h"
 
 
 //-------------------------------------------------------------------------------------------------------------
 Enemy::Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position, AnimationType type, std::unique_ptr<MoveStrategy> movement)
 		: m_move(std::move(movement)), MovingObject(sprite, speed, position),
-		  m_animation(HandleResources::instance().getAnimationData(type), m_object, sf::seconds(0.1f))  {};
+		  m_animation(HandleResources::instance().getAnimationData(type), m_object, sf::seconds(0.1f))  
+{
+	m_object.setOrigin(sf::Vector2f(m_object.getTextureRect().getSize() / 2));
+	std::cout << sf::Vector2f(m_object.getTextureRect().getSize() / 2).x << sf::Vector2f(m_object.getTexture()->getSize() / 2u).y;
+}
 
 
 //-------------------------------------------------------------------------------------------------------------
@@ -39,20 +44,15 @@ void Enemy::updateAnimation(sf::Time deltaTime)
 }
 
 //----------------------------------------------------------------------------
-// In Enemy.cpp (or the appropriate source file)
-void Enemy::setSpriteFlipped(bool flipped) 
+void Enemy::setSpriteFlipped(int direction)
 {
-	if (flipped) 
+	if (direction == LEFT)
 	{
-		m_object.setScale(-1.f, 1.f); // Flip horizontally
+		m_object.setScale(1.f, 1.f); // Flip horizontally
 	}
 	else
 	{
-		m_object.setScale(1.f, 1.f); // Normal scale
+		m_object.setScale(-1.f, 1.f); // Normal scale
 	}
-
-	m_isFlipped = flipped; // Update internal state
 }
-//------------------------------------------------------------------------------
-
 	

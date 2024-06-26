@@ -6,6 +6,8 @@ class MoveRandomStrategy : public MoveStrategy
 {
 private:
 	static bool m_register;
+	int m_direction;
+
 public:
 	MoveRandomStrategy();
 	virtual ~MoveRandomStrategy() {}

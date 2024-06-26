@@ -13,7 +13,7 @@ public:
 	void moveEnemy(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, sf::Time deltaTime);
 	void setMoveStrategy(std::unique_ptr<MoveStrategy> movement);
 	void updateAnimation(sf::Time deltaTime);
-	void setSpriteFlipped(bool flipped);
+	void setSpriteFlipped(int direction);// collided);
 
 
 private:
@@ -21,5 +21,5 @@ private:
 	static bool m_register;
 	Animation m_animation;
 
-	bool m_isFlipped = false;
+	//bool m_isFlipped = false;
 };
