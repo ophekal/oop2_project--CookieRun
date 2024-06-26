@@ -5,7 +5,7 @@
 #include "MovingObject/Enemy.h"
 
 
-using moveFunc = std::unique_ptr<MoveStrategy>(*)(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects);
+using moveFunc = std::unique_ptr<MoveStrategy>(*)();
 
 class EnemyFactory
 {
