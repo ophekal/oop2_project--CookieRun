@@ -67,6 +67,9 @@ private:
 	void updateCookieBraveFlyAnimation();
 	void updateCookieBrightFlyAnimation();
 	void updateBoomAnimation();
+	void updateOven1Animation();
+	void updateKitchen1Animation();
+	void updateGardenAnimation();
 
 
 

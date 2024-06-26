@@ -103,37 +103,39 @@ void HandleResources::updateButtonTextureVector()
 //-------------------------------------------------------------------------
 void HandleResources::updateLevel1TextureVector()
 {
-	m_level1Textures.resize(6);
+	m_level1Textures.resize(7);
 	m_level1Textures[L1_BACKGROUND].loadFromFile("backgroundOven.png");
 	m_level1Textures[L1_FLOOR].loadFromFile("floor.png");
 	m_level1Textures[L1_ENEMY].loadFromFile("devilCookie.png");
 	m_level1Textures[L1_OBSTACLE1].loadFromFile("obstacle1.png");
 	m_level1Textures[L1_OBSTACLE2].loadFromFile("obstacle2.png");
 	m_level1Textures[L1_OBSTACLE3].loadFromFile("obstacle3.png");
+	m_level1Textures[L1_ANI_OBSTACLE1].loadFromFile("kitchen_obstcaleAni.jpg");
 }
 //-------------------------------------------------------------------------
 void HandleResources::updateLevel2TextureVector()
 {
-	m_level2Textures.resize(6);
+	m_level2Textures.resize(7);
 	m_level2Textures[L2_BACKGROUND].loadFromFile("backgroundKitchen.png");
 	m_level2Textures[L2_FLOOR].loadFromFile("floor2.png");
 	m_level2Textures[L2_ENEMY].loadFromFile("carrotCookie.png");
 	m_level2Textures[L2_OBSTACLE1].loadFromFile("kitchen_obstcale1.png");
 	m_level2Textures[L2_OBSTACLE2].loadFromFile("kitchen_obstcale2.png");
 	m_level2Textures[L2_OBSTACLE3].loadFromFile("kitchen_obstcale3.png");
+	m_level2Textures[L2_ANI_OBSTACLE1].loadFromFile("garden_obstcale_ani.png");
 	
-
 }
 //------------------------------------------------------------------------
 void HandleResources::updateLevel3TextureVector()
 {
-	m_level3Textures.resize(6);
+	m_level3Textures.resize(7);
 	m_level3Textures[L3_BACKGROUND].loadFromFile("backgroundGarden.png");
 	m_level3Textures[L3_FLOOR].loadFromFile("floor3.png");
 	m_level3Textures[L3_ENEMY].loadFromFile("zombieCookie.png");
 	m_level3Textures[L3_OBSTACLE1].loadFromFile("garden_obstcale1.png");
 	m_level3Textures[L3_OBSTACLE2].loadFromFile("garden_obstcale2.png");
 	m_level3Textures[L3_OBSTACLE3].loadFromFile("garden_obstcale3.png");
+	m_level3Textures[L3_ANI_OBSTACLE1].loadFromFile("garden_obstcale_ani.png");
 
 }
 //------------------------------------------------------------------------
@@ -282,6 +284,9 @@ void HandleResources::updateAnimationData()
 	updateCarrotCookieAnimation();
 	updateZombieCookieAnimation();
 	updateBoomAnimation();
+	updateOven1Animation();
+	updateKitchen1Animation();
+	updateGardenAnimation();
 }
 //--------------------------------------------------------------------------
 std::vector <sf::IntRect>& HandleResources::getAnimationData(AnimationType type)
@@ -634,4 +639,66 @@ void HandleResources::updateBoomAnimation()
 	m_animationData[ANI_BOOM].emplace_back(currentStart, size);
 	m_animationData[ANI_BOOM].emplace_back(nextStart(), size);
 	m_animationData[ANI_BOOM].emplace_back(nextStart(), size);
+}
+//---------------------------------------------------------------------------
+void HandleResources::updateOven1Animation()
+{
+	const auto size = sf::Vector2i(252, 226);
+	const auto initSpace = sf::Vector2i(0, 0);
+	const auto middleSpace = sf::Vector2i(152, 0);
+
+	auto currentStart = initSpace;
+
+	auto nextStart = [&]()
+		{
+			currentStart += middleSpace;
+			currentStart.x += size.x;
+			return currentStart;
+		};
+
+
+	m_animationData[ANI_OVEN_OBSTCALE1].emplace_back(currentStart, size);
+	m_animationData[ANI_OVEN_OBSTCALE1].emplace_back(nextStart(), size);
+}
+//---------------------------------------------------------------------------
+void HandleResources::updateKitchen1Animation()
+{
+	const auto size = sf::Vector2i(117, 244);
+	const auto initSpace = sf::Vector2i(1, 620);
+	const auto middleSpace = sf::Vector2i(0.5, 0);
+
+	auto currentStart = initSpace;
+
+	auto nextStart = [&]()
+		{
+			currentStart += middleSpace;
+			currentStart.x += size.x;
+			return currentStart;
+		};
+
+
+	m_animationData[ANI_KITCH_OBSTCALE1].emplace_back(currentStart, size);
+	m_animationData[ANI_KITCH_OBSTCALE1].emplace_back(nextStart(), size);
+	m_animationData[ANI_KITCH_OBSTCALE1].emplace_back(nextStart(), size);
+}
+//---------------------------------------------------------------------------
+void HandleResources::updateGardenAnimation()
+{
+	const auto size = sf::Vector2i(129,136);
+	const auto initSpace = sf::Vector2i(0,0);
+	const auto middleSpace = sf::Vector2i(132, 0);
+
+	auto currentStart = initSpace;
+
+	auto nextStart = [&]()
+		{
+			currentStart += middleSpace;
+			currentStart.x += size.x;
+			return currentStart;
+		};
+
+
+	m_animationData[ANI_GARDEN_OBSTCALE1].emplace_back(currentStart, size);
+	m_animationData[ANI_GARDEN_OBSTCALE1].emplace_back(nextStart(), size);
+	m_animationData[ANI_GARDEN_OBSTCALE1].emplace_back(nextStart(), size);
 }

@@ -45,6 +45,7 @@ configure_file ("level1-oven/obstacle1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/obstacle2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/obstacle3.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/level1.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("level1-oven/oven_obstacle1Ani.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("level2-kitchen/backgroundKitchen.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -53,6 +54,7 @@ configure_file ("level2-kitchen/carrotCookie.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/kitchen_obstcale1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/kitchen_obstcale2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/kitchen_obstcale3.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("level2-kitchen/kitchen_obstcaleAni.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("level3-garden/backgroundGarden.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level3-garden/floor3.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -60,6 +62,7 @@ configure_file ("level3-garden/zombieCookie.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level3-garden/garden_obstcale1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level3-garden/garden_obstcale2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level3-garden/garden_obstcale3.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("level3-garden/garden_obstcale_ani.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 
