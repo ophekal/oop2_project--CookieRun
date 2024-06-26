@@ -21,4 +21,5 @@ private:
 	static bool m_register;
 	Animation m_animation;
 
+	bool m_isFlipped = false;
 };
