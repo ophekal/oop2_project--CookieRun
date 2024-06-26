@@ -1,5 +1,3 @@
-
-
 #include "MenuInterfaceCommand/LevelCommand.h"
 #include "Macros.h"
 #include "HandleResources.h"
@@ -11,10 +9,10 @@
 #include "InfoBar.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------
-LevelCommand::LevelCommand(sf::RenderWindow& window, Player& player, InfoBar& infoBar, const sf::Texture& background, bool levelOpen,int levelNumber)
-	:m_window(window), m_player(player),m_infoBar(infoBar), m_levelOpen(levelOpen),
-	 m_backButton(*(HandleResources::instance().getButtonTexture(B_BACK)), BACK_X, BACK_Y, BACK_SIZE),
-	 m_levelNumber(levelNumber)
+LevelCommand::LevelCommand(sf::RenderWindow& window, Player& player, InfoBar& infoBar, const sf::Texture& background, bool levelOpen, int levelNumber)
+	:m_window(window), m_player(player), m_infoBar(infoBar), m_levelOpen(levelOpen),
+	m_backButton(*(HandleResources::instance().getButtonTexture(B_BACK)), BACK_X, BACK_Y, BACK_SIZE),
+	m_levelNumber(levelNumber)
 {
 	m_background.setSize({ WINDOW_WIDTH ,WINDOW_HEIGHT });
 	m_background.setTexture(&background);
@@ -28,11 +26,11 @@ void LevelCommand::execute()
 	{
 		return;
 	}
-	
+
 	//in each execute we load diff level 
 	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies);
 	//addEnemies();
-	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y+2);
+	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y + 2);
 	handleEvent();
 
 }
@@ -40,17 +38,17 @@ void LevelCommand::execute()
 //--------------------------------------------------------------------------------------------------------------------------------
 void LevelCommand::handleEvent()
 {
-	auto clock = sf::Clock();
+	m_clock = sf::Clock();
 	render();
 
 	while (m_window.isOpen())
 	{
-		const auto deltaTime = clock.restart();
+		const auto deltaTime = m_clock.restart();
 
 		updatePlayerEnergy(deltaTime);
 		checkIfNeedToExplode();
 
-	    m_infoBar.updateInfoBar(m_player,m_levelNumber);
+		m_infoBar.updateInfoBar(m_player, m_levelNumber);
 
 		render();
 
@@ -162,7 +160,7 @@ void LevelCommand::updatePlayerEnergy(sf::Time deltaTime)
 	if (m_energyReductionElapsedTime >= sf::seconds(2.0f))
 	{
 		// Reduce player's energy
-		m_player.setEnergy(m_player.getEnergy() - 1); 
+		m_player.setEnergy(m_player.getEnergy() - 1);
 		// Reset the elapsed time, accounting for any extra time
 		m_energyReductionElapsedTime -= sf::seconds(2.0f);
 	}
@@ -194,7 +192,7 @@ void LevelCommand::movePlayer(sf::Time deltaTime)
 void LevelCommand::checkAnimationObjectCollision()
 {
 	//checking if collided with animation object
-	for (auto &animationObject : m_animationObjects)
+	for (auto& animationObject : m_animationObjects)
 	{
 		if (collide(m_player, *animationObject))
 		{
@@ -279,13 +277,13 @@ void LevelCommand::moveAndDrawBackground()
 	float startbackgroundX = m_background.getGlobalBounds().left - 2 * WINDOW_WIDTH;
 	float endbackgroundX = m_window.getView().getCenter().x + WINDOW_WIDTH;
 
-	
+
 	for (; startbackgroundX < endbackgroundX; startbackgroundX += m_background.getSize().x)
 	{
 		m_background.setPosition(startbackgroundX, m_background.getPosition().y);
 		m_window.draw(m_background);
 	}
-	
+
 }
 //----------------------------------------------------------------------------
 void LevelCommand::handleLevelExit()
@@ -297,7 +295,7 @@ void LevelCommand::handleLevelExit()
 	m_levelOver = false; //for the next time we enter
 	m_levelOpen = true;
 	m_window.setView(m_window.getDefaultView());
-		
+
 	// set backgroung to start again
 	m_background.setPosition(0, 0);
 
@@ -315,7 +313,7 @@ bool LevelCommand::checkAndUptadeLevelstatus()
 		//printFeedback(*HandleResources::instance().getScreenTexture(S_GOODJOB), window, background, G_WIN);
 		// update the total score that the player have after check if the next level can be open?
 		//update the lives for the next level? or this happen in handle exit level?
-		
+
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN));
 		return true;
 	}
@@ -329,7 +327,7 @@ bool LevelCommand::checkAndUptadeLevelstatus()
 
 }
 //----------------------------------------------------------------------------------------
-void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound*/)
+void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound */ )
 {
 	sf::sleep(sf::seconds(1));
 
@@ -362,10 +360,11 @@ void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound
 //----------------------------------------------------------------------------------------
 void LevelCommand::checkIfNeedToExplode()
 {
-	if (m_player.getKeyPressed() == K_ENTER)
+	if (m_player.getKeyPressed() == K_ENTER && m_player.getWeapons()>0)
 	{
 		handleExpolsion();
-		//m_player.setWeapon(m_player.getWeapons() - 1);
+		m_player.setWeapon(m_player.getWeapons() - 1);
+		m_clock.restart();
 	}
 }
 
@@ -383,6 +382,7 @@ void LevelCommand::handleExpolsion()
 
 	// Remove the marked enemies from the game
 	removeMarkedEnemies();
+	
 }
 
 //----------------------------------------------------------------------------------------
@@ -417,9 +417,9 @@ void LevelCommand::performExplosionAnimation(const std::vector<sf::Vector2f>& ex
 {
 	sf::Sprite boomSpriteSheet(*HandleResources::instance().getGiftTexture(G_BOOM));
 	Animation boomAnimation(HandleResources::instance().getAnimationData(ANI_BOOM), boomSpriteSheet, sf::seconds(0.3f));
-	
+
 	boomSpriteSheet.setOrigin(sf::Vector2f(boomSpriteSheet.getTextureRect().getSize() / 2));
-	
+
 	sf::Clock boomClock;
 	sf::Time boomDuration = sf::seconds(1.0f); // Duration for explosion animation
 	sf::Time boomElapsedTime = sf::Time::Zero;
@@ -462,7 +462,7 @@ void LevelCommand::drawGameObjects()
 		animatedObject->draw(m_window);
 	}
 
-	m_infoBar.draw(m_window);
+	printInformation();
 	m_player.draw(m_window);
 
 	for (const auto& enemy : m_enemies)
@@ -482,4 +482,3 @@ void LevelCommand::removeMarkedEnemies()
 		return enemy->isMarkedForDeletion();
 		});
 }
-

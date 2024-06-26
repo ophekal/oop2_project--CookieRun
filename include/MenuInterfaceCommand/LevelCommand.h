@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "MenuInterfaceCommand/MenuInterfaceCommand.h"
@@ -18,7 +17,7 @@ class InfoBar;
 class LevelCommand : public MenuInterfaceCommand
 {
 public:
-	LevelCommand(sf::RenderWindow& window,Player& player,InfoBar& infoBar, const sf::Texture& background, bool levelOpen,int levelNumber);
+	LevelCommand(sf::RenderWindow& window, Player& player, InfoBar& infoBar, const sf::Texture& background, bool levelOpen, int levelNumber);
 	void execute()override;
 	bool isOpen()const { return m_levelOpen; }
 	void openLevel() { m_levelOpen = true; }
@@ -26,12 +25,12 @@ public:
 
 private:
 	sf::RenderWindow& m_window;
-	Player& m_player;	
+	Player& m_player;
 	InfoBar& m_infoBar;
 	Button m_backButton;
 	sf::RectangleShape m_background;
 	Loader m_loader;
-	
+
 	// for now trying to see if enemy is printed
 	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	//---------------------------
@@ -46,6 +45,7 @@ private:
 	bool m_levelOpen;
 	bool m_levelOver = false;
 
+	sf::Clock m_clock;
 
 	void render();
 	void handleEvent();
@@ -62,7 +62,7 @@ private:
 	void handleLevelExit();
 	bool checkAndUptadeLevelstatus();
 	void updatePlayerEnergy(sf::Time deltaTime);
-	void printFeedback(const sf::Texture& feedback/*, GameSound sound*/);
+	void printFeedback(const sf::Texture& feedback /*, GameSound sound */ );
 	void checkIfNeedToExplode();
 	void handleExpolsion();
 	sf::FloatRect getCurrentViewBounds();

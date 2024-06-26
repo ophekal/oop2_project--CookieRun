@@ -34,6 +34,7 @@ void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vec
         m_direction = (std::rand() % 2 == 0) ? LEFT : RIGHT;
     }
    
+
     // Check for collision with obstacles
     bool collisionDetected = false;
     for (const auto& obstacle : staticObjects) 
@@ -51,6 +52,4 @@ void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vec
     sf::Vector2f newPosition = enemy.getPosition() + movement;
 
     enemy.setPosition(newPosition.x, newPosition.y);
-
-    
 }
