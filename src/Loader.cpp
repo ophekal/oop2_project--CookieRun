@@ -8,13 +8,15 @@
 #include "Factories/AnimationObjectFactory.h"
 #include "Factories/StaticObjectFactory.h"
 #include "Factories/ObjectFactory.h"
+#include "MovingObject/Enemy.h"
+#include "Factories/EnemyFactory.h"
 
 //--------------------------------------------------------------------------------------------------------------
 // This function reads the level image and according to the pixels color it calls on the appropriate factory and
 // creates the object. ObjectFactory is based on pixel colors.
 
 void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<AnimationObject>>& animationObjects,
-	std::vector < std::unique_ptr<StaticObject>>& staticObjects)
+	std::vector < std::unique_ptr<StaticObject>>& staticObjects, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	auto image = sf::Image();
 	float location_y = 828.f;
@@ -37,21 +39,12 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 			{
 				staticObjects.emplace_back(std::move(staticObject));
 			}
-
-			/*auto animationObject = ObjectFactory<AnimationObject>::create(pixelColor, position, levelNumber);
-			auto staticObject = ObjectFactory<StaticObject>::create(pixelColor, position, levelNumber);
-			if (animationObject)
-			{
-				animationObjects.emplace_back(std::move(animationObject));
-			}
-			else if (staticObject)
-			{
-				staticObjects.emplace_back(std::move(staticObject));
-			}*/
-
 			location_x += 120.f;
 		}
 
 		location_y -= 90.f;
 	}
+
+	//add enemy
+	enemies.emplace_back(EnemyFactory::createEnemy({700,688}, levelNumber));
 }

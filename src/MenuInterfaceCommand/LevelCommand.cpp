@@ -30,8 +30,8 @@ void LevelCommand::execute()
 	}
 	
 	//in each execute we load diff level 
-	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects);
-	addEnemies();
+	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies);
+	//addEnemies();
 	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y+2);
 	handleEvent();
 
@@ -192,37 +192,37 @@ void LevelCommand::movePlayer(sf::Time deltaTime)
 //----------------------------------------------------------------------------------------
 // This function id responsible for randomly creating the enemy on the board
 
-void LevelCommand::addEnemies()
-{
-	sf::Sprite sprite;
-	AnimationType type;
-
-	switch (m_levelNumber)
-	{
-		case 1:
-		{
-			sprite = sf::Sprite(*HandleResources::instance().getLevel1Texture(L1_ENEMY));
-			type = ANI_DEVIL_COOKIE;
-			break;
-		}
-		case 2:
-		{
-			sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L2_ENEMY));
-			type = ANI_CARROT_COOKIE;			
-			break;
-		}
-		case 3:
-		{
-			//sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L3_ENEMY));
-			//AnimationType type = ANI_ZOMBIE_COOKIE;
-			//break;
-		}
-	}
-
-	sf::Vector2f position = { 700, 688 };
-
-	m_enemies.emplace_back(std::make_unique<Enemy>(sprite, 350.f, position, type));
-}
+//void LevelCommand::addEnemies()
+//{
+//	sf::Sprite sprite;
+//	AnimationType type;
+//
+//	switch (m_levelNumber)
+//	{
+//		case 1:
+//		{
+//			sprite = sf::Sprite(*HandleResources::instance().getLevel1Texture(L1_ENEMY));
+//			type = ANI_DEVIL_COOKIE;
+//			break;
+//		}
+//		case 2:
+//		{
+//			sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L2_ENEMY));
+//			type = ANI_CARROT_COOKIE;			
+//			break;
+//		}
+//		case 3:
+//		{
+//			//sprite = sf::Sprite(*HandleResources::instance().getLevel2Texture(L3_ENEMY));
+//			//AnimationType type = ANI_ZOMBIE_COOKIE;
+//			//break;
+//		}
+//	}
+//
+//	sf::Vector2f position = { 700, 688 };
+//
+//	m_enemies.emplace_back(std::make_unique<Enemy>(sprite, 350.f, position, type, EnemyFactory::getMove()));
+//}
 
 //----------------------------------------------------------------------------------------
 void LevelCommand::checkAnimationObjectCollision(Player& player)

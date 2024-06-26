@@ -6,23 +6,25 @@
 #include "HandleResources.h"
 #include "Factories/EnemyFactory.h"
 #include "MoveStrategy/MoveStrategy.h"
+#include "MoveStrategy/MoveSmartStrategy.h"
+#include "MoveStrategy/MoveRandomStrategy.h"
 
 
-//// Register the enemy type with the factory
-//bool Enemy::m_register = EnemyFactory::registerMove([](const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)-> std::unique_ptr<MoveStrategy>
-//{
-//	return std::make_unique<MoveSmartStrategy>;//, std::move(movement));
-//});
-
-bool Enemy::m_register = EnemyFactory::registerMove([](const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy) -> std::unique_ptr<MoveStrategy>
+// Register the enemy type with the factory
+bool Enemy::m_register = EnemyFactory::registerMove([](const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)-> std::unique_ptr<MoveStrategy>
+{
+	return std::make_unique<MoveSmartStrategy>();
+}) 
+&&
+EnemyFactory::registerMove([](const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy) -> std::unique_ptr<MoveStrategy>
 	{
-		return std::make_unique<MoveSmartStrategy>();
+		return std::make_unique<MoveRandomStrategy>();
 	});
 
 //-------------------------------------------------------------------------------------------------------------
 Enemy::Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position, AnimationType type, std::unique_ptr<MoveStrategy> movement)
-	:m_move(std::move(movement)), MovingObject(sprite, speed, position),
-	m_animation(HandleResources::instance().getAnimationData(type), m_object, sf::seconds(0.1f))  {};
+		: m_move(std::move(movement)), MovingObject(sprite, speed, position),
+		  m_animation(HandleResources::instance().getAnimationData(type), m_object, sf::seconds(0.1f))  {};
 
 
 //-------------------------------------------------------------------------------------------------------------
@@ -33,7 +35,6 @@ void Enemy::moveEnemy(const sf::Vector2f& playerPosition, const std::vector<std:
 	m_animation.update(deltaTime);
 
 }
-
 
 //-------------------------------------------------------------------------------------------------------------
 void Enemy::setMoveStrategy(std::unique_ptr<MoveStrategy> movement)
@@ -48,7 +49,18 @@ void Enemy::updateAnimation(sf::Time deltaTime)
 	m_animation.update(deltaTime);
 }
 
-
+//-----------------------------------------------------------------------------------------------------------
+void Enemy::setSpriteFlipped(bool flipped)
+{
+	if (flipped) 
+	{
+		m_object.setScale(-1.f, 1.f); // Flip horizontally
+	}
+	else 
+	{
+		m_object.setScale(1.f, 1.f); // Normal scale
+	}
+}
 
 
 	//switch (level)
