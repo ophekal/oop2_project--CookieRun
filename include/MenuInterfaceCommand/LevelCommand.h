@@ -55,8 +55,9 @@ private:
 	void updateAnimation(sf::Time deltaTime);
 	void movePlayer(sf::Time deltaTime);
 	void moveEnemies(sf::Time deltaTime);
-	void checkAnimationObjectCollision(Player& player);
-	void checkStaticObjectCollision(Player& player);
+	void checkAnimationObjectCollision();
+	void checkStaticObjectCollision();
+	void checkEnemyCollision();
 	bool collide(GameObject& object1, GameObject& object2);
 	void handleLevelExit();
 	bool checkAndUptadeLevelstatus();
