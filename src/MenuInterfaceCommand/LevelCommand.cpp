@@ -18,7 +18,6 @@ LevelCommand::LevelCommand(sf::RenderWindow& window, Player& player, InfoBar& in
 {
 	m_background.setSize({ WINDOW_WIDTH ,WINDOW_HEIGHT });
 	m_background.setTexture(&background);
-
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -49,6 +48,7 @@ void LevelCommand::handleEvent()
 		const auto deltaTime = clock.restart();
 
 		updatePlayerEnergy(deltaTime);
+		checkIfNeedToExplode();
 
 	    m_infoBar.updateInfoBar(m_player,m_levelNumber);
 
@@ -377,3 +377,121 @@ void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound
 
 	sf::sleep(sf::seconds(1));
 }
+//-------------------------------------------------------------------------
+void LevelCommand::checkIfNeedToExplode()
+{
+	if (m_player.getKeyPressed() == K_ENTER)
+	{
+		handleExpolsion();
+	}
+}
+//-------------------------------------------------------------------------
+void LevelCommand::handleExpolsion()
+{
+	// Get the current view bounds
+	sf::FloatRect viewBounds = getCurrentViewBounds();
+
+	// Identify and mark enemies within view for deletion
+	std::vector<sf::Vector2f> explosionPositions = markEnemiesForExplosion(viewBounds);
+
+	// Perform explosion animation at the marked positions
+	performExplosionAnimation(explosionPositions);
+
+	// Remove the marked enemies from the game
+	removeMarkedEnemies();
+}
+//---------------------------------------------------------------------------------------
+// Helper function to get the current view bounds
+sf::FloatRect LevelCommand::getCurrentViewBounds()
+{
+	auto currentView = m_window.getView();
+	auto viewCenter = currentView.getCenter();
+	auto viewSize = currentView.getSize();
+	return sf::FloatRect(viewCenter.x - viewSize.x / 2, viewCenter.y - viewSize.y / 2, viewSize.x, viewSize.y);
+}
+
+//--------------------------------------------------------------------------------------
+// Helper function to mark enemies within view bounds and return their positions
+std::vector<sf::Vector2f> LevelCommand::markEnemiesForExplosion(const sf::FloatRect& viewBounds)
+{
+	std::vector<sf::Vector2f> explosionPositions;
+	for (auto& enemy : m_enemies)
+	{
+		if (viewBounds.intersects(enemy->getGlobalBounds()))
+		{
+			explosionPositions.push_back(enemy->getPosition());
+			enemy->markForDeletion();
+		}
+	}
+	return explosionPositions;
+}
+
+//----------------------------------------------------------------------------------------
+// Helper function to perform the explosion animation
+void LevelCommand::performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions)
+{
+	sf::Sprite boomSpriteSheet(*HandleResources::instance().getGiftTexture(G_BOOM));
+	Animation boomAnimation(HandleResources::instance().getAnimationData(ANI_BOOM), boomSpriteSheet, sf::seconds(0.1f));
+
+	sf::Clock boomClock;
+	sf::Time boomDuration = sf::seconds(2.0f); // Duration for explosion animation
+	sf::Time boomElapsedTime = sf::Time::Zero;
+
+	while (boomElapsedTime < boomDuration)
+	{
+		auto deltaTime = boomClock.restart();
+		boomElapsedTime += deltaTime;
+		boomAnimation.update(deltaTime);
+
+		// Clear the window
+		m_window.clear();
+
+		// Redraw the background
+		moveAndDrawBackground();
+
+		// Draw static and animated objects
+		drawGameObjects();
+
+		// Draw explosion animation at the stored positions
+		for (const auto& position : explosionPositions)
+		{
+			boomSpriteSheet.setPosition(position);
+			m_window.draw(boomSpriteSheet);
+		}
+
+		m_window.display();
+	}
+}
+
+//--------------------------------------------------------------------------
+// Helper function to draw game objects excluding marked enemies
+void LevelCommand::drawGameObjects()
+{
+	for (const auto& staticObject : m_staticObjects) {
+		staticObject->draw(m_window);
+	}
+
+	for (const auto& animatedObject : m_animationObjects) {
+		animatedObject->draw(m_window);
+	}
+
+	m_player.draw(m_window);
+
+	for (const auto& enemy : m_enemies)
+	{
+		if (!enemy->isMarkedForDeletion())
+		{
+			enemy->draw(m_window);
+		}
+	}
+}
+
+//------------------------------------------------------------------------------
+// Helper function to remove marked enemies from the game
+void LevelCommand::removeMarkedEnemies()
+{
+	std::erase_if(m_enemies, [](const auto& enemy) {
+		return enemy->isMarkedForDeletion();
+		});
+}
+

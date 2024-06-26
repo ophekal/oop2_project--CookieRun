@@ -66,6 +66,7 @@ private:
 	void updateZombieCookieAnimation();
 	void updateCookieBraveFlyAnimation();
 	void updateCookieBrightFlyAnimation();
+	void updateBoomAnimation();
 
 
 

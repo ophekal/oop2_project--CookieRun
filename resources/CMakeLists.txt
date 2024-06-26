@@ -35,6 +35,7 @@ configure_file ("Gifts/Enhance.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Gifts/FlyingGift.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Gifts/JellyBean.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Gifts/Magnet.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("Effects.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("level1-oven/backgroundOven.png" ${CMAKE_BINARY_DIR} COPYONLY)

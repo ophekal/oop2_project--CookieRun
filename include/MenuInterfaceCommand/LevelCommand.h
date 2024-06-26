@@ -9,6 +9,7 @@
 #include "Menu.h"
 #include "Loader.h"
 #include "MovingObject/Enemy.h"
+#include "Animation.h"
 
 
 class Player;
@@ -21,7 +22,6 @@ public:
 	void execute()override;
 	bool isOpen()const { return m_levelOpen; }
 	void openLevel() { m_levelOpen = true; }
-	void addEnemies();
 
 
 private:
@@ -63,4 +63,11 @@ private:
 	bool checkAndUptadeLevelstatus();
 	void updatePlayerEnergy(sf::Time deltaTime);
 	void printFeedback(const sf::Texture& feedback/*, GameSound sound*/);
+	void checkIfNeedToExplode();
+	void handleExpolsion();
+	sf::FloatRect getCurrentViewBounds();
+	std::vector<sf::Vector2f> markEnemiesForExplosion(const sf::FloatRect& viewBounds);
+	void performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions);
+	void drawGameObjects();
+	void removeMarkedEnemies();
 };
