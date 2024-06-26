@@ -70,6 +70,7 @@ private:
 	void updateOven1Animation();
 	void updateKitchen1Animation();
 	void updateGardenAnimation();
+	void updateFlagAnimation();
 
 
 

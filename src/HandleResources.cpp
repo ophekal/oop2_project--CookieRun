@@ -103,14 +103,15 @@ void HandleResources::updateButtonTextureVector()
 //-------------------------------------------------------------------------
 void HandleResources::updateLevel1TextureVector()
 {
-	m_level1Textures.resize(7);
+	m_level1Textures.resize(8);
 	m_level1Textures[L1_BACKGROUND].loadFromFile("backgroundOven.png");
 	m_level1Textures[L1_FLOOR].loadFromFile("floor.png");
 	m_level1Textures[L1_ENEMY].loadFromFile("devilCookie.png");
 	m_level1Textures[L1_OBSTACLE1].loadFromFile("obstacle1.png");
 	m_level1Textures[L1_OBSTACLE2].loadFromFile("obstacle2.png");
 	m_level1Textures[L1_OBSTACLE3].loadFromFile("obstacle3.png");
-	m_level1Textures[L1_ANI_OBSTACLE1].loadFromFile("kitchen_obstcaleAni.jpg");
+	m_level1Textures[L1_ANI_OBSTACLE1].loadFromFile("oven_obstacle1Ani.png");
+	m_level1Textures[L1_FLAG].loadFromFile("flag_Animation.png");
 }
 //-------------------------------------------------------------------------
 void HandleResources::updateLevel2TextureVector()
@@ -122,7 +123,7 @@ void HandleResources::updateLevel2TextureVector()
 	m_level2Textures[L2_OBSTACLE1].loadFromFile("kitchen_obstcale1.png");
 	m_level2Textures[L2_OBSTACLE2].loadFromFile("kitchen_obstcale2.png");
 	m_level2Textures[L2_OBSTACLE3].loadFromFile("kitchen_obstcale3.png");
-	m_level2Textures[L2_ANI_OBSTACLE1].loadFromFile("garden_obstcale_ani.png");
+	m_level2Textures[L2_ANI_OBSTACLE1].loadFromFile("kitchen_obstcaleAni.jpg");
 	
 }
 //------------------------------------------------------------------------
@@ -287,6 +288,7 @@ void HandleResources::updateAnimationData()
 	updateOven1Animation();
 	updateKitchen1Animation();
 	updateGardenAnimation();
+	updateFlagAnimation();
 }
 //--------------------------------------------------------------------------
 std::vector <sf::IntRect>& HandleResources::getAnimationData(AnimationType type)
@@ -701,4 +703,24 @@ void HandleResources::updateGardenAnimation()
 	m_animationData[ANI_GARDEN_OBSTCALE1].emplace_back(currentStart, size);
 	m_animationData[ANI_GARDEN_OBSTCALE1].emplace_back(nextStart(), size);
 	m_animationData[ANI_GARDEN_OBSTCALE1].emplace_back(nextStart(), size);
+}
+//-----------------------------------------------------------------------------------
+void HandleResources::updateFlagAnimation()
+{
+	const auto size = sf::Vector2i(245, 233);
+	const auto initSpace = sf::Vector2i(0, 0);
+	const auto middleSpace = sf::Vector2i(49, 0);
+
+	auto currentStart = initSpace;
+
+	auto nextStart = [&]()
+		{
+			currentStart += middleSpace;
+			currentStart.x += size.x;
+			return currentStart;
+		};
+
+
+	m_animationData[ANI_FLAG].emplace_back(currentStart, size);
+	m_animationData[ANI_FLAG].emplace_back(nextStart(), size);
 }

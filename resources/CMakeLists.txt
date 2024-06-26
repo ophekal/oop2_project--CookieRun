@@ -47,6 +47,8 @@ configure_file ("level1-oven/obstacle3.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/level1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/oven_obstacle1Ani.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
+configure_file ("flag_Animation.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 
 configure_file ("level2-kitchen/backgroundKitchen.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/floor2.png" ${CMAKE_BINARY_DIR} COPYONLY)
