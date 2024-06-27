@@ -122,7 +122,7 @@ void HandleResources::updateLevel2TextureVector()
 	m_level2Textures[L2_OBSTACLE1].loadFromFile("kitchen_obstcale1.png");
 	m_level2Textures[L2_OBSTACLE2].loadFromFile("kitchen_obstcale2.png");
 	m_level2Textures[L2_OBSTACLE3].loadFromFile("kitchen_obstcale3.png");
-	m_level2Textures[L2_ANI_OBSTACLE1].loadFromFile("kitchen_obstcaleAni.jpg");
+	m_level2Textures[L2_ANI_OBSTACLE1].loadFromFile("kitchen_obstcaleAni.png");
 	
 }
 //------------------------------------------------------------------------
