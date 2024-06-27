@@ -56,7 +56,7 @@ configure_file ("level2-kitchen/carrotCookie.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/kitchen_obstcale1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/kitchen_obstcale2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/kitchen_obstcale3.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("level2-kitchen/kitchen_obstcaleAni.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("level2-kitchen/kitchen_obstcaleAni.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("level3-garden/backgroundGarden.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level3-garden/floor3.png" ${CMAKE_BINARY_DIR} COPYONLY)
