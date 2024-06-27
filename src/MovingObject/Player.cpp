@@ -12,19 +12,9 @@
 //-------------------------------------------------------------------------------------------------------------
 Player::Player(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
 	:MovingObject(sprite, speed, position)
-	//m_jump(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_JUMP), m_object, sf::seconds(0.3f)),
-	//m_slide(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_SLIDE), m_object, sf::seconds(0.1f)),
-	//m_fly(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_FLY), m_object, sf::seconds(0.3f)),
-	//m_run(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f), m_slide, m_jump),
 {
-	//m_jump.setMembers(m_run);
-	//m_slide.setMembers(m_run);
-	//m_fly.setMembers(m_run);
-	//m_boost.setMembers(m_run);
-	//m_enhance.setMembers(m_run);
 	m_currentPlayerState = std::make_unique<RunState>(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f));
 	m_currentPlayerState -> restartAnimation();
-
 }
 //-------------------------------------------------------------------------------------------------
 int Player::getCoins()const
@@ -101,17 +91,11 @@ void Player::setPlayer(Players playerType)
 	{
 	case PLAYER_BRAVE:
 	{
-		//m_jump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_JUMP), sprite);
-		//m_slide.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_SLIDE), sprite);
-		//m_fly.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_FLY), sprite);
 		m_currentPlayerState-> updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), sprite);
 		break;
 	}
 	case PLAYER_BRIGHT:
 	{
-		//m_jump.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_JUMP), sprite);
-		//m_slide.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_SLIDE), sprite);
-		//m_fly.updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_FLY), sprite);
 		m_currentPlayerState-> updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_RUN), sprite);
 		break;
 	}
@@ -195,7 +179,8 @@ void Player::setOnGround(bool onGround)
 void Player::handleExitFromLevel()
 {
 	// for the next level
-	m_currentPlayerState = std::make_unique<RunState>(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f));
+	AnimationType aniType = (m_playerType == PLAYER_BRAVE) ? ANI_COOKIEBRAVE_RUN : ANI_COOKIEBRIGHT_RUN;
+	m_currentPlayerState = std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.1f));
 	m_currentPlayerState->restartAnimation();
 	m_object.setPosition(PLAYER_INIT_POSITION);
 	m_onGround = true;
@@ -229,7 +214,7 @@ void Player::move(float deltaTime)
 {
 	checkGiftDurations(deltaTime);
 
-	m_object.move({ m_objectSpeed*deltaTime, m_objectSpeed*m_gravity*deltaTime}); // was 350 before
+	m_object.move({ m_objectSpeed*deltaTime,m_objectSpeed*m_gravity*deltaTime}); // was 350 before
 
 	if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y+60)
 	{
