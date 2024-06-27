@@ -1,5 +1,5 @@
 
-#include "LevelGenerator.h"
+#include "LevelPartGenerator.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <fstream>
@@ -8,20 +8,20 @@
 
 
 //------------------------------------------------------------------------
-LevelGenerator::LevelGenerator()
+LevelPartGenerator::LevelPartGenerator()
 {
 	readLevelParts();
 }
 
 //------------------------------------------------------------------------
-LevelGenerator& LevelGenerator::instance()
+LevelPartGenerator& LevelPartGenerator::instance()
 {
-	static LevelGenerator inst;
+	static LevelPartGenerator inst;
 	return inst;
 }
 
 //------------------------------------------------------------------------
-void LevelGenerator::readLevelParts()
+void LevelPartGenerator::readLevelParts()
 {
 	// open streams for reading from level parts playlist
 	auto line = std::string();
@@ -41,11 +41,11 @@ void LevelGenerator::readLevelParts()
 }
 
 //-------------------------------------------------------------------------
-void LevelGenerator::readPart(const sf::Image& levelPartImage)
+void LevelPartGenerator::readPart(const sf::Image& levelPartImage)
 {
 	float location_y = 828.f;
 
-	std::vector<LevelObject> levelSection;
+	level levelSection;
 
 	// read the level and insert it into vector
 	for (int y = int(levelPartImage.getSize().y) - 1; y >= 0; y--)
@@ -71,9 +71,9 @@ void LevelGenerator::readPart(const sf::Image& levelPartImage)
 // This function checks the what level it needs to create (according to 
 // levelNumber). The m_levelPartsVector holds in the first 5 place the secrtions
 // for level1, and in the next 5 it hold level2 and so on.
-// This allows us to get the range of drawing sections from each level
+// This allows us to draw a random level part and send it back
 
-std::vector<LevelObject> LevelGenerator::getRandomLevel(int levelNumber, sf::Vector2f& flagPosition)
+level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flagPosition)
 {
 	int lowerBound, upperBound;
 
@@ -99,34 +99,42 @@ std::vector<LevelObject> LevelGenerator::getRandomLevel(int levelNumber, sf::Vec
 		}
 	}
 
-	std::vector<LevelObject> currLevel;
-	sf::Vector2f lastObject(0,0);		//save in order to addd the next level in the rigth place
-
-
-	for (int i = 0; i < NUM_OF_PARTS_PER_LEVEL; i++) 
-	{
-		int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
-		setLevelObjectsPosition(lastObject, randomIndex);
-		currLevel.emplace_back(m_levelPartsVector[randomIndex]);
-	}
+	//std::vector<LevelObject> currLevel;
 	
-	setLevelObjectsPosition(lastObject, m_levelPartsVector.size() - 1);
-	flagPosition = lastObject;
-	currLevel.emplace_back(m_levelPartsVector[m_levelPartsVector.size()]);
+	//sf::Vector2f lastObject(0,0);		//save in order to addd the next level in the rigth place
+
+	// return random index from range
+
+	//for (int i = 0; i < NUM_OF_PARTS_PER_LEVEL; i++) 
+	//{
+		int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
+		//setLevelObjectsPosition(lastObject, randomIndex);
+		//currLevel.emplace_back(m_levelPartsVector[randomIndex]);
+	//}
+	
+	//setLevelObjectsPosition(lastObject, m_levelPartsVector.size() - 1);
+	//flagPosition = lastObject;
+	//currLevel.emplace_back(m_levelPartsVector[m_levelPartsVector.size()]);
 		
-	return currLevel;
+	return (m_levelPartsVector[randomIndex]);
 }
 
 //-----------------------------------------------------------------------------
-void LevelGenerator::setLevelObjectsPosition(sf::Vector2f& lastObject, int index)
+level& LevelPartGenerator::getLastLevelSection()
 {
-	for (int i = 0; i < m_levelPartsVector[index].size(); i++)
-	{
-		if (i == m_levelPartsVector[index].size() - 1)
-		{
-			lastObject = m_levelPartsVector[index][i]._pos;
-		}
-
-		m_levelPartsVector[index][i]._pos = m_levelPartsVector[index][i]._pos + lastObject;
-	}
+	return m_levelPartsVector[m_levelPartsVector.size()];
 }
+
+
+//void LevelPartGenerator::setLevelObjectsPosition(sf::Vector2f& lastObject, int index)
+//{
+//	for (int i = 0; i < m_levelPartsVector[index].size(); i++)
+//	{
+//		if (i == m_levelPartsVector[index].size() - 1)
+//		{
+//			lastObject = m_levelPartsVector[index][i]._pos;
+//		}
+//
+//		m_levelPartsVector[index][i]._pos.x = m_levelPartsVector[index][i]._pos.x + lastObject.x;
+//	}
+//}

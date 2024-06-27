@@ -10,7 +10,7 @@
 #include "Factories/ObjectFactory.h"
 #include "MovingObject/Enemy.h"
 #include "Factories/EnemyFactory.h"
-#include "LevelGenerator.h"
+
 
 //--------------------------------------------------------------------------------------------------------------
 // This function reads the level image and according to the pixels color it calls on the appropriate factory and
@@ -21,61 +21,44 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 	std::vector< std::unique_ptr<Coin>>& coins, sf::Vector2f & flagPosition)
 {
 
-	levelPartsVector level = LevelGenerator::instance().getRandomlevel(levelNumber, flagPosition);
+	level levelPart;
 
-	
-	for (size_t part = 0; part < levelPartsVector.size(); part++)
+	for (int i = 0; i < NUM_OF_PARTS_PER_LEVEL; i++)
 	{
-		for (size_t object = 0; object < levelPartsVector[part]; object++)
-		{
-			if (auto animationObject = ObjectFactory<AnimationObject>::create(levelPartsVector[part][object].first, levelPartsVector[part][object].second, levelNumber))
-			{
-				animationObjects.emplace_back(std::move(animationObject));
-			}
-			else if (auto staticObject = ObjectFactory<StaticObject>::create(levelPartsVector[part][object].first, levelPartsVector[part][object].second, levelNumber))
-			{
-				staticObjects.emplace_back(std::move(staticObject));
-			}
-			else if (auto coin = ObjectFactory<Coin>::create(levelPartsVector[part][object].first, levelPartsVector[part][object].second, levelNumber))
-			{
-				coins.emplace_back(std::move(coin));
-			}
-		}
-
+		levelPart = LevelPartGenerator::instance().getRandomLevel(levelNumber);
+		addObjectsToVectors(levelNumber,levelPart,animationObjects,staticObjects,enemies,coins);
 	}
 
+	auto lastLevelPart = LevelPartGenerator::instance().getLastLevelSection();
+	addObjectsToVectors(levelNumber, lastLevelPart, animationObjects, staticObjects, enemies, coins);
+	flagPosition = m_lastObjectPosition;
 }
-	//auto image = sf::Image();
-	//float location_y = 828.f;
 
-	//image.loadFromFile("level1.png");
+//--------------------------------------------------------------------------------------
+void Loader::addObjectsToVectors(int levelNumber, level& levelPart, std::vector < std::unique_ptr<AnimationObject>>& animationObjects,
+	std::vector < std::unique_ptr<StaticObject>>& staticObjects, std::vector<std::unique_ptr<Enemy>>& enemies,
+	std::vector< std::unique_ptr<Coin>>& coins)
+{
+	for (size_t object = 0; object < levelPart.size(); object++)
+	{
+		if (object == levelPart.size() - 1)
+		{
+			m_lastObjectPosition = levelPart[object].second;
+		}
 
-	//for (int y = int(image.getSize().y) - 1; y >= 0; y--)
-	//{
-	//	float location_x = 0.f;
-	//	for (int x = 0; x <int(image.getSize().x); x++)
-	//	{
-	//		sf::Color pixelColor = image.getPixel(x, y);
-	//		sf::Vector2f position(location_x, location_y);
+		sf::Vector2f newPosition = { levelPart[object].second.x + m_lastObjectPosition.x, levelPart[object].second.y };
 
-	//		if (auto animationObject = ObjectFactory<AnimationObject>::create(pixelColor, position, levelNumber)) 
-	//		{
-	//			animationObjects.emplace_back(std::move(animationObject));
-	//		}
-	//		else if (auto staticObject = ObjectFactory<StaticObject>::create(pixelColor, position, levelNumber)) 
-	//		{
-	//			staticObjects.emplace_back(std::move(staticObject));
-	//		}
-	//		else if (auto coin = ObjectFactory<Coin>::create(pixelColor, position, levelNumber))
-	//		{
-	//			coins.emplace_back(std::move(coin));
-	//		}
-	//		location_x += 120.f;
-	//	}
-
-	//	location_y -= 90.f;
-	//}
-
-	////add enemy
-	//enemies.emplace_back(EnemyFactory::createEnemy({2000,688}, levelNumber));
-	//enemies.emplace_back(EnemyFactory::createEnemy({3100,688}, levelNumber));
+		if (auto animationObject = ObjectFactory<AnimationObject>::create(levelPart[object].first, newPosition, levelNumber))
+		{
+			animationObjects.emplace_back(std::move(animationObject));
+		}
+		else if (auto staticObject = ObjectFactory<StaticObject>::create(levelPart[object].first, newPosition, levelNumber))
+		{
+			staticObjects.emplace_back(std::move(staticObject));
+		}
+		else if (auto coin = ObjectFactory<Coin>::create(levelPart[object].first, newPosition, levelNumber))
+		{
+			coins.emplace_back(std::move(coin));
+		}
+	}
+}

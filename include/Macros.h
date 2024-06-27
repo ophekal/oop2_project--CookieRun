@@ -4,7 +4,7 @@
 
 //------------LevelGenerator----------------
 
-const int NUM_OF_PARTS_PER_LEVEL = 5;
+const int NUM_OF_PARTS_PER_LEVEL = 4;
 
 //---------------Buttons--------------------
 enum Buttons
