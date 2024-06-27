@@ -223,9 +223,20 @@ void LevelCommand::checkStaticObjectCollision()
 			HandleCollision::instance().processCollision(m_player, *staticObject);
 		}
 	}
+	//checking if collided with animation object
+	for (auto& coin : m_coins)
+	{
+		if (collide(m_player, *coin))
+		{
+			HandleCollision::instance().processCollision(m_player, *coin);
+		}
+	}
 
 	std::erase_if(m_staticObjects, [](const auto& staticObject) {
 		return staticObject->isMarkedForDeletion();
+		});
+	std::erase_if(m_coins, [](const auto& coin) {
+		return coin->isMarkedForDeletion();
 		});
 }
 //---------------------------------------------------------------------------------------

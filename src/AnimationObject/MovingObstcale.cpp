@@ -34,7 +34,7 @@ bool MovingObstcale::m_register = ObjectFactory<AnimationObject>::registerObject
 
 ObjectFactory<AnimationObject>::registerObject(sf::Color(181, 230, 29), [](const sf::Vector2f& position, int level) -> std::unique_ptr<AnimationObject>
 {
-	sf::Sprite sprite = sf::Sprite(*HandleResources::instance().getGiftTexture(G_COIN));
+	sf::Sprite sprite = sf::Sprite(*HandleResources::instance().getLevel1Texture(L1_FLAG));
 	float speed = 40.f;
 	sf::Time animationTime = sf::seconds(0.2f);
 	AnimationType type = ANI_FLAG;
