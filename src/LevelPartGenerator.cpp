@@ -35,7 +35,7 @@ void LevelPartGenerator::readLevelParts()
 	while (std::getline(file, line))
 	{
 		auto levelPartImage = sf::Image();
-		throw levelPartImage.loadFromFile(line);
+		levelPartImage.loadFromFile(line);
 		readPart(levelPartImage);
 	}
 }
@@ -44,7 +44,6 @@ void LevelPartGenerator::readLevelParts()
 void LevelPartGenerator::readPart(const sf::Image& levelPartImage)
 {
 	float location_y = 828.f;
-
 	level levelSection;
 
 	// read the level and insert it into vector
@@ -87,34 +86,19 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 		}
 		case 2:
 		{
-			lowerBound = 2;
-			upperBound = 3;
+			lowerBound = 0;
+			upperBound = 1;
 			break;
 		}
 		case 3:
 		{
-			lowerBound = 4;
-			upperBound = 5;
+			lowerBound = 0;
+			upperBound = 1;
 			break;
 		}
 	}
-
-	//std::vector<LevelObject> currLevel;
 	
-	//sf::Vector2f lastObject(0,0);		//save in order to addd the next level in the rigth place
-
-	// return random index from range
-
-	//for (int i = 0; i < NUM_OF_PARTS_PER_LEVEL; i++) 
-	//{
-		int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
-		//setLevelObjectsPosition(lastObject, randomIndex);
-		//currLevel.emplace_back(m_levelPartsVector[randomIndex]);
-	//}
-	
-	//setLevelObjectsPosition(lastObject, m_levelPartsVector.size() - 1);
-	//flagPosition = lastObject;
-	//currLevel.emplace_back(m_levelPartsVector[m_levelPartsVector.size()]);
+	int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
 		
 	return (m_levelPartsVector[randomIndex]);
 }
@@ -122,19 +106,5 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 //-----------------------------------------------------------------------------
 level& LevelPartGenerator::getLastLevelSection()
 {
-	return m_levelPartsVector[m_levelPartsVector.size()];
+	return m_levelPartsVector[m_levelPartsVector.size()-1];
 }
-
-
-//void LevelPartGenerator::setLevelObjectsPosition(sf::Vector2f& lastObject, int index)
-//{
-//	for (int i = 0; i < m_levelPartsVector[index].size(); i++)
-//	{
-//		if (i == m_levelPartsVector[index].size() - 1)
-//		{
-//			lastObject = m_levelPartsVector[index][i]._pos;
-//		}
-//
-//		m_levelPartsVector[index][i]._pos.x = m_levelPartsVector[index][i]._pos.x + lastObject.x;
-//	}
-//}

@@ -76,3 +76,7 @@ configure_file ("Players/Cookie_Bright.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("font.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 
+
+configure_file ("levelSections/levelSectionsPlaylist.txt" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("levelSections/option1.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("levelSections/option2.png" ${CMAKE_BINARY_DIR} COPYONLY)

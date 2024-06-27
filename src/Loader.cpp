@@ -32,6 +32,7 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 	auto lastLevelPart = LevelPartGenerator::instance().getLastLevelSection();
 	addObjectsToVectors(levelNumber, lastLevelPart, animationObjects, staticObjects, enemies, coins);
 	flagPosition = m_lastObjectPosition;
+	//m_lastObjectPosition = { 0,0 };
 }
 
 //--------------------------------------------------------------------------------------
