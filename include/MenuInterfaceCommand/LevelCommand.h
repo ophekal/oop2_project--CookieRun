@@ -32,22 +32,19 @@ private:
 	sf::RectangleShape m_background;
 	Loader m_loader;
 
-	// for now trying to see if enemy is printed
 	std::vector<std::unique_ptr<Enemy>> m_enemies;
-	//---------------------------
-
-
 	std::vector<std::unique_ptr<StaticObject>> m_staticObjects;
 	std::vector<std::unique_ptr<AnimationObject>> m_animationObjects;
 	std::vector<std::unique_ptr<Coin>> m_coins;     //for fast search in the gift magnet
 
+	sf::Clock m_clock;
 	sf::Time m_energyReductionElapsedTime = sf::Time::Zero; // Elapsed time for energy reduction
+	sf::Vector2f m_flagPosition;
 
 	int m_levelNumber;
 	bool m_levelOpen;
 	bool m_levelOver = false;
 
-	sf::Clock m_clock;
 
 	void render();
 	void handleEvent();

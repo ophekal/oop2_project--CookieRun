@@ -15,6 +15,32 @@ Controller::Controller()
       m_player(sf::Sprite(*HandleResources::instance().getPlayerTexture(PLAYER_BRAVE)), 350.f, PLAYER_INIT_POSITION)
 {
     m_window.setFramerateLimit(60);
+
+    const sf::Texture* texturePtr = HandleResources::instance().getPlayerTexture(CHOOSE_PLAYER_BRAVE);
+
+    // Create an image from the texture
+    sf::Image image = texturePtr->copyToImage();
+
+    // Get the width and height of the texture
+    unsigned int width = image.getSize().x;
+    unsigned int height = image.getSize().y;
+
+    // Get the raw pixel data of the image
+    const sf::Uint8* pixels = image.getPixelsPtr();
+
+    // Set the window's icon using the image's size and pixel data
+    m_window.setIcon(width, height, pixels);
+   
+    // play game music
+
+
+    // Seed the random number generator once globally
+    static bool seeded = false;
+    if (!seeded)
+    {
+        std::srand(static_cast<unsigned int>(std::time(nullptr)));
+        seeded = true;
+    }
 }
 
 

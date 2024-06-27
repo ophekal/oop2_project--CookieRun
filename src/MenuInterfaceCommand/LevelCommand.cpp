@@ -28,7 +28,7 @@ void LevelCommand::execute()
 	}
 
 	//in each execute we load diff level 
-	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins);
+	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
 	//addEnemies();
 	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y + 2);
 	handleEvent();
@@ -128,32 +128,33 @@ void LevelCommand::render()
 
 	m_window.setView(sf::View(center, currView.getSize()));
 
-	// Draw static and animated objects
-	for (const auto& staticObject : m_staticObjects) 
-	{
-		staticObject->draw(m_window);
-	}
+	//// Draw static and animated objects
+	//for (const auto& staticObject : m_staticObjects) 
+	//{
+	//	staticObject->draw(m_window);
+	//}
 
-	for (const auto& animatedObject : m_animationObjects)
-	{
-		animatedObject->draw(m_window);
-	}
+	//for (const auto& animatedObject : m_animationObjects)
+	//{
+	//	animatedObject->draw(m_window);
+	//}
 
-	for (const auto& coin : m_coins)
-	{
-		coin->draw(m_window);
-	}
+	//for (const auto& coin : m_coins)
+	//{
+	//	coin->draw(m_window);
+	//}
 
-	//print the player
-	m_player.draw(m_window);
+	////print the player
+	//m_player.draw(m_window);
 
-	//print enemy
-	for (const auto& enemy : m_enemies)
-	{
-		enemy->draw(m_window);
-	}
+	////print enemy
+	//for (const auto& enemy : m_enemies)
+	//{
+	//	enemy->draw(m_window);
+	//}
 
-	printInformation();
+	//printInformation();
+	drawGameObjects();
 
 	m_window.display();
 }
@@ -334,11 +335,11 @@ bool LevelCommand::checkAndUptadeLevelstatus()
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN));
 		return true;
 	}
-	//else if(m_levelOver && )   //the game over with success if we arrive to the flag section
-	//{
-	//	printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
-	//	return true;
-	//}
+	else if( m_player.getPosition().x >= m_flagPosition.x - 550   )   //the game over with success if we arrive to the flag section
+	{
+		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
+		return true;
+	}
 
 	return false;
 
