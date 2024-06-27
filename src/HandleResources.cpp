@@ -10,7 +10,6 @@
 HandleResources::HandleResources()
 {
 	//update all the resources of the game
-	//updateObjectVector();
 	updateBackgroundVector();
 	updateButtonTextureVector();
 	updatePlayerTextureVector();
@@ -625,7 +624,7 @@ void HandleResources::updateZombieCookieAnimation()
 void HandleResources::updateBoomAnimation()
 {
 	const auto size = sf::Vector2i(208,205);
-	const auto initSpace = sf::Vector2i(14, 1593);
+	const auto initSpace = sf::Vector2i(13, 1593);
 	const auto middleSpace = sf::Vector2i(1, 0);
 
 	auto currentStart = initSpace;
