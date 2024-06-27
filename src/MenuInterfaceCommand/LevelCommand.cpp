@@ -312,6 +312,7 @@ void LevelCommand::handleLevelExit()
 {
 	m_staticObjects.clear();
 	m_animationObjects.clear();
+	m_coins.clear();
 	m_enemies.clear();
 	m_player.handleExitFromLevel();
 	m_levelOver = false; //for the next time we enter
