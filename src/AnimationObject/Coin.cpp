@@ -7,7 +7,7 @@
 #include "Factories/ObjectFactory.h"
 
 // Register the Coin type with the factory
-bool Coin::m_register = ObjectFactory<AnimationObject>::registerObject(sf::Color(255, 242, 0), [](const sf::Vector2f& position, int level) -> std::unique_ptr<AnimationObject> {
+bool Coin::m_register = ObjectFactory<Coin>::registerObject(sf::Color(255, 242, 0), [](const sf::Vector2f& position, int level) -> std::unique_ptr<Coin> {
 	sf::Sprite sprite = sf::Sprite(*HandleResources::instance().getGiftTexture(G_COIN));
 	float speed = 40.f;
 	sf::Time animationTime = sf::seconds(0.2f);
@@ -23,10 +23,3 @@ Coin::Coin(const sf::Sprite& sprite, float speed, const sf::Time& animationTime,
 	m_object.setPosition(position);
 }
 
-//-----------------------------------------------------------------
-void Coin::updateAnimation(sf::Time deltaTime)
-{
-	m_object.move(sf::Vector2f{ 0,0 }*deltaTime.asSeconds() * m_objectSpeed);
-	m_spriteSheet.update(deltaTime);
-
-}

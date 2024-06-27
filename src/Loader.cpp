@@ -16,7 +16,8 @@
 // creates the object. ObjectFactory is based on pixel colors.
 
 void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<AnimationObject>>& animationObjects,
-	std::vector < std::unique_ptr<StaticObject>>& staticObjects, std::vector<std::unique_ptr<Enemy>>& enemies)
+	std::vector < std::unique_ptr<StaticObject>>& staticObjects, std::vector<std::unique_ptr<Enemy>>& enemies,
+	std::vector< std::unique_ptr<Coin>>& coins)
 {
 	auto image = sf::Image();
 	float location_y = 828.f;
@@ -39,6 +40,10 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 			{
 				staticObjects.emplace_back(std::move(staticObject));
 			}
+			else if (auto coin = ObjectFactory<Coin>::create(pixelColor, position, levelNumber))
+			{
+				coins.emplace_back(std::move(coin));
+			}
 			location_x += 120.f;
 		}
 
@@ -47,5 +52,5 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 
 	//add enemy
 	enemies.emplace_back(EnemyFactory::createEnemy({2000,688}, levelNumber));
-	enemies.emplace_back(EnemyFactory::createEnemy({2100,688}, levelNumber));
+	enemies.emplace_back(EnemyFactory::createEnemy({3100,688}, levelNumber));
 }

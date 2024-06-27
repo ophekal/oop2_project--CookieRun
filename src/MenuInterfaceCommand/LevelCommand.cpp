@@ -28,7 +28,7 @@ void LevelCommand::execute()
 	}
 
 	//in each execute we load diff level 
-	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies);
+	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins);
 	//addEnemies();
 	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y + 2);
 	handleEvent();
@@ -129,12 +129,19 @@ void LevelCommand::render()
 	m_window.setView(sf::View(center, currView.getSize()));
 
 	// Draw static and animated objects
-	for (const auto& staticObject : m_staticObjects) {
+	for (const auto& staticObject : m_staticObjects) 
+	{
 		staticObject->draw(m_window);
 	}
 
-	for (const auto& animatedObject : m_animationObjects) {
+	for (const auto& animatedObject : m_animationObjects)
+	{
 		animatedObject->draw(m_window);
+	}
+
+	for (const auto& coin : m_coins)
+	{
+		coin->draw(m_window);
 	}
 
 	//print the player
@@ -265,9 +272,13 @@ void LevelCommand::moveEnemies(sf::Time deltaTime)
 //--------------------------------------------------------------------------
 void LevelCommand::updateAnimation(sf::Time deltaTime)
 {
-	for (size_t index = 0; index < m_animationObjects.size(); index++)
+	for (auto& animationObject : m_animationObjects)
 	{
-		m_animationObjects[index]->updateAnimation(deltaTime);
+		animationObject->updateAnimation(deltaTime);
+	}
+	for (auto& coinObject : m_coins)
+	{
+		coinObject->updateAnimation(deltaTime);
 	}
 }
 
@@ -454,6 +465,10 @@ void LevelCommand::drawGameObjects()
 
 	for (const auto& animatedObject : m_animationObjects) {
 		animatedObject->draw(m_window);
+	}
+	for (const auto& coin : m_coins)
+	{
+		coin->draw(m_window);
 	}
 
 	printInformation();
