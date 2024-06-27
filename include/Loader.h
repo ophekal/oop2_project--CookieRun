@@ -11,8 +11,12 @@ class Loader
 {
 public:
     Loader() = default;
+    void readLevelOptions(int levelNum);
     void updateMembers(int levelNumber, std::vector < std::unique_ptr<AnimationObject>>& animationObjects,
         std::vector < std::unique_ptr<StaticObject>>& staticObjects, std::vector<std::unique_ptr<Enemy>>& enemies,
         std::vector< std::unique_ptr<Coin>>& coins);
+
+public:
+
 
 };
