@@ -6,7 +6,7 @@
 #include <iostream>
 
 JumpState::JumpState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime)
-	: PlayerState(data, sprite, animationTime)
+	: PlayerState(data, sprite, animationTime),m_gravity(0.35)
 {
 }
 //-------------------------------------------------------------------------------
@@ -35,13 +35,14 @@ void JumpState::update(Player& player, sf::Time deltaTime)
 
     if (player.onGround()) // start the jump
     {
-        player.setGravity(-5);
+        player.setVelocityY(-20);
+        player.setOnGround(false);
     }
-    else if( !(player.onGround()) && m_jumpDistance >= MaxJump)   // the player need to get to the ground
-    {
-        m_jumpDistance = 0;
-        player.setGravity(5);
-    }
+    //else if( !(player.onGround()) && m_jumpDistance >= MaxJump)   // the player need to get to the ground
+    //{
+    //    m_jumpDistance = 0;
+    //    player.setGravity(5);
+    //}
 
     player.updateGravity(0.2);
    

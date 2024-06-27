@@ -74,7 +74,7 @@ void playerFloor(GameObject& player, GameObject& floor)
        // Player is not above the floor (collided from the side or bottom)
        // p.die(); // Replace this with the actual method to handle player death
         //std::cout << "player collided with floor, supposed to die" << std::endl;
-        p.markForDeletion();
+        //p.markForDeletion();
         return;
     }
 

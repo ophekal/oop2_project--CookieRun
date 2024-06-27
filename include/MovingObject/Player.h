@@ -60,12 +60,15 @@ public:
 	void changeToBoostState();
 	void changeToEnhanceState();
 	void changeEnhanceBack();
+	void setVelocityY(float y) { m_velocity.y = y; };
+	sf::Vector2f getVelocity() { return m_velocity; }
 	const sf::Clock& getGiftClock()const { return m_giftClock; }
 	KeyboardInput getKeyPressed()const { return m_keyPressed; }
 	Players getPlayerType()const { return m_playerType; }
 	sf::Sprite& getPlayerSpriteForAnimation() { return m_object; }
 
 private:
+	sf::Vector2f m_velocity;
 	int m_coins = 0;
 	int m_weapons = 0;
 	int m_jelly = 0;

@@ -29,7 +29,6 @@ void LevelCommand::execute()
 
 	//in each execute we load diff level 
 	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
-	//addEnemies();
 	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y + 2);
 	handleEvent();
 
@@ -336,11 +335,11 @@ bool LevelCommand::checkAndUptadeLevelstatus()
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN));
 		return true;
 	}
-	else if( m_player.getPosition().x >= m_flagPosition.x - 550   )   //the game over with success if we arrive to the flag section
-	{
-		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
-		return true;
-	}
+	//else if( m_player.getPosition().x >= m_flagPosition.x - 0.1f   )   //the game over with success if we arrive to the flag section
+	//{
+	//	printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
+	//	return true;
+	//}
 
 	return false;
 

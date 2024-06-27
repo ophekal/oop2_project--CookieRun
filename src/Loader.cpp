@@ -42,11 +42,6 @@ void Loader::addObjectsToVectors(int levelNumber, level& levelPart, std::vector 
 {
 	for (size_t object = 0; object < levelPart.size(); object++)
 	{
-		if (object == levelPart.size() - 1)
-		{
-			m_lastObjectPosition = levelPart[object].second;
-		}
-
 		sf::Vector2f newPosition = { levelPart[object].second.x + m_lastObjectPosition.x, levelPart[object].second.y };
 
 		if (auto animationObject = ObjectFactory<AnimationObject>::create(levelPart[object].first, newPosition, levelNumber))
@@ -61,5 +56,11 @@ void Loader::addObjectsToVectors(int levelNumber, level& levelPart, std::vector 
 		{
 			coins.emplace_back(std::move(coin));
 		}
+
+		if (object == levelPart.size() - 1)
+		{
+			m_lastObjectPosition += levelPart[object].second;
+		}
 	}
+
 }

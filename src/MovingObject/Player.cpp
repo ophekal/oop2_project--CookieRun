@@ -11,7 +11,7 @@
 
 //-------------------------------------------------------------------------------------------------------------
 Player::Player(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
-	:MovingObject(sprite, speed, position)
+	:MovingObject(sprite, speed, position),m_velocity(0,0),m_gravity(0.35)
 {
 	m_currentPlayerState = std::make_unique<RunState>(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f));
 	m_currentPlayerState -> restartAnimation();
@@ -107,15 +107,14 @@ void Player::setPlayer(Players playerType)
 ////-----------------------------------------------------------------
 void Player::movement(sf::Time deltaTime)
 {
-	
+	//m_onGround = false;
+
 	if(m_currentPlayerState->handleEvent(*this, m_keyPressed))
 	{
 		m_currentPlayerState = std::move((m_currentPlayerState->handleEvent(*this, m_keyPressed)));
 	}
 	
 	m_currentPlayerState->update(*this, deltaTime);
-
-	m_onGround = false;
 
 }
 //-----------------------------------------------------------------------------
@@ -190,6 +189,7 @@ void Player::handleExitFromLevel()
 	m_weapons = 0;
 	m_objectSpeed = 350;
 	m_gravity = 0;
+	m_velocity = { 0,0 };
 
     m_isBoosted = false;
 	//m_isEnhance = false;
@@ -213,8 +213,9 @@ bool Player::isDead()const
 void Player::move(float deltaTime)
 {
 	checkGiftDurations(deltaTime);
-
-	m_object.move({ m_objectSpeed*deltaTime,m_objectSpeed*m_gravity*deltaTime}); // was 350 before
+	m_velocity.x = m_objectSpeed * deltaTime;
+	m_velocity.y += m_gravity;
+	m_object.move(m_velocity); // was 350 before
 
 	if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y+60)
 	{
