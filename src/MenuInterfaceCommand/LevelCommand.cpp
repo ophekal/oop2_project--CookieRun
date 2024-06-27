@@ -207,9 +207,20 @@ void LevelCommand::checkAnimationObjectCollision()
 			HandleCollision::instance().processCollision(m_player, *animationObject);
 		}
 	}
+	//checking if collided with animation object
+	for (auto& coin : m_coins)
+	{
+		if (collide(m_player, *coin))
+		{
+			HandleCollision::instance().processCollision(m_player, *coin);
+		}
+	}
 
 	std::erase_if(m_animationObjects, [](const auto& animationObject) {
 		return animationObject->isMarkedForDeletion();
+		});
+	std::erase_if(m_coins, [](const auto& coin) {
+		return coin->isMarkedForDeletion();
 		});
 }
 
@@ -224,21 +235,11 @@ void LevelCommand::checkStaticObjectCollision()
 			HandleCollision::instance().processCollision(m_player, *staticObject);
 		}
 	}
-	//checking if collided with animation object
-	for (auto& coin : m_coins)
-	{
-		if (collide(m_player, *coin))
-		{
-			HandleCollision::instance().processCollision(m_player, *coin);
-		}
-	}
 
 	std::erase_if(m_staticObjects, [](const auto& staticObject) {
 		return staticObject->isMarkedForDeletion();
 		});
-	std::erase_if(m_coins, [](const auto& coin) {
-		return coin->isMarkedForDeletion();
-		});
+
 }
 //---------------------------------------------------------------------------------------
 // This function checks 
@@ -335,11 +336,11 @@ bool LevelCommand::checkAndUptadeLevelstatus()
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN));
 		return true;
 	}
-	else if( m_player.getPosition().x >= m_flagPosition.x - 550   )   //the game over with success if we arrive to the flag section
-	{
-		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
-		return true;
-	}
+	//else if( m_player.getPosition().x >= m_flagPosition.x - 550   )   //the game over with success if we arrive to the flag section
+	//{
+	//	printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
+	//	return true;
+	//}
 
 	return false;
 

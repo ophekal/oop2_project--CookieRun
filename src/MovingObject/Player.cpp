@@ -203,7 +203,7 @@ void Player::handleExitFromLevel()
 	m_energy = 100;
 	m_jelly = 0;
 	m_weapons = 0;
-	m_objectSpeed = m_oldSpeed;
+	m_objectSpeed = 350;
 	m_gravity = 0;
 
     m_isBoosted = false;
@@ -253,7 +253,7 @@ void Player::checkGiftDurations(float deltaTime)
 	if (m_isBoosted && m_giftClock.getElapsedTime() >= m_boostDuration)
 	{
 		// Reset the player's speed
-		this->setObjectSpeed(m_oldSpeed);
+		setObjectSpeed(m_oldSpeed);
 		m_isBoosted = false;
 	}
 
@@ -292,18 +292,5 @@ void Player::changeToFlyState()
 {
 	m_giftClock.restart();
 	AnimationType aniType = (m_playerType == PLAYER_BRAVE)? ANI_COOKIEBRAVE_FLY: ANI_COOKIEBRIGHT_FLY;
-	m_currentPlayerState =  std::make_unique<SlideState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.3f));
-}
-//-----------------------------------------------------------------------------------
-void Player::changeToBoostState()
-{
-	//m_giftClock.restart();
-	//m_currentPlayerState = &m_boost;
-	//setObjectSpeed(getSpeed() * 2.0f); // Double the player's speed
-}
-//------------------------------------------------------------------------------------
-void Player::changeToEnhanceState()
-{
-	//m_giftClock.restart();
-	//m_currentPlayerState = &m_enhance;
+	m_currentPlayerState =  std::make_unique<FlyState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.3f));
 }

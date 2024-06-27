@@ -69,7 +69,7 @@ void playerFloor(GameObject& player, GameObject& floor)
         p.setOnGround(true);
         p.resetGravity();
     }
-    else 
+    else if( !p.isEnhance())
     {
        // Player is not above the floor (collided from the side or bottom)
        // p.die(); // Replace this with the actual method to handle player death

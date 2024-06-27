@@ -79,8 +79,8 @@ private:
 
 	sf::Clock m_giftClock;
 	
-	sf::Time m_boostDuration;
-	sf::Time m_enhanceDuration;
+	sf::Time m_boostDuration = sf::seconds(5);
+	sf::Time m_enhanceDuration = sf::seconds(5);
 	float m_oldSpeed= 350.f;
 	float m_originalScale = 1.0f; 
 

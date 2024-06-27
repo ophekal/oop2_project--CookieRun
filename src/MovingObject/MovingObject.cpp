@@ -4,10 +4,8 @@
 
 //--------------------------------------------------------------------------------------------
 MovingObject::MovingObject(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
-    :GameObject(sprite, position), /*m_spriteSheet(HandleResources::instance().getAnimationData(type), m_object, animationTime),*/ m_objectSpeed(speed)//picture, position, size)//, m_position(position), m_initPosition(position)
+    :GameObject(sprite, position),  m_objectSpeed(speed)
 {
-    // m_object.setTexture(&picture);
-    // m_object.setPosition(position);
 }
 //-----------------------------------------------------------------------------------------
 void MovingObject::setPosition(float x, float y)
