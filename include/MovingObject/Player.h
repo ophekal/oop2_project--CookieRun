@@ -9,8 +9,7 @@
 #include "PlayerState/JumpState.h"
 #include "PlayerState/SlideState.h"
 #include "PlayerState/RunState.h"
-#include "PlayerState/BoostState.h"
-#include "PlayerState/EnhanceState.h"
+
 
 class Player : public MovingObject
 {
