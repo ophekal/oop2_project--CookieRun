@@ -125,11 +125,13 @@ int StartGameCommand::getLevelMinCoins(int level)const
 	default:
 		break;
 	}
+
+	return L1_COIN_MIN;
 }
 //----------------------------------------------------------------------------
 void StartGameCommand::updateLevelButton(int levelNumber)
 {
-	Buttons button;
+	Buttons button = B_LEVEL1_ON;
 	switch (levelNumber)
 	{
 	case 2:
