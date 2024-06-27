@@ -57,8 +57,8 @@ void LevelPartGenerator::readPart(const sf::Image& levelPartImage)
 			{
 				sf::Vector2f position(location_x, location_y);
 				levelSection.emplace_back(pixelColor,position);
-				location_x += 120.f;
 			}		
+			location_x += 120.f;
 		}
 		location_y -= 90.f;
 	}
@@ -81,19 +81,19 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 		case 1:
 		{
 			lowerBound = 0;
-			upperBound = 1;
+			upperBound = 0;// 1;
 			break;
 		}
 		case 2:
 		{
 			lowerBound = 0;
-			upperBound = 1;
+			upperBound = 0;
 			break;
 		}
 		case 3:
 		{
 			lowerBound = 0;
-			upperBound = 1;
+			upperBound =0;
 			break;
 		}
 	}
