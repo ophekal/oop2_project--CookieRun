@@ -10,12 +10,12 @@ class SlideState : public PlayerState
 {
 public:
     SlideState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime);
-    PlayerState* handleEvent(Player& player, KeyboardInput pressed) override;
+    std::unique_ptr<PlayerState> handleEvent(Player& player, KeyboardInput pressed) override;
     void update(Player& player, sf::Time deltaTime) override;
-    void setMembers(RunState& runState);
-    void updateAnimation(std::vector<sf::IntRect>& frameSheet, sf::Sprite& sprite);
+    //void setMembers(RunState& runState);
+   // void updateAnimation(std::vector<sf::IntRect>& frameSheet, sf::Sprite& sprite);
 
-private:
-    Animation m_animation;
-    RunState* m_runState;
+//private:
+//    Animation m_animation;
+//    RunState* m_runState;
 };

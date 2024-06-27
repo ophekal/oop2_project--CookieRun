@@ -63,6 +63,8 @@ public:
 	void changeEnhanceBack();
 	const sf::Clock& getGiftClock()const { return m_giftClock; }
 	KeyboardInput getKeyPressed()const { return m_keyPressed; }
+	Players getPlayerType()const { return m_playerType; }
+	sf::Sprite& getPlayerSpriteForAnimation() { return m_object; }
 
 private:
 	int m_coins = 0;
@@ -87,13 +89,13 @@ private:
 	KeyboardInput m_keyPressed = K_NONE;
 
 	//-------------states-----------------------
-	JumpState m_jump;
-	SlideState m_slide;
-	FlyState m_fly;
+	//JumpState m_jump;
+	//SlideState m_slide;
+	//FlyState m_fly;
 	//BoostState m_boost;
 	//EnhanceState m_enhance;
-	RunState m_run;
-	PlayerState* m_currentPlayerState;
+	//RunState m_run;
+	std::unique_ptr<PlayerState> m_currentPlayerState;
 
 	float m_gravity = 0;
 

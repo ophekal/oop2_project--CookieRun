@@ -2,39 +2,30 @@
 #include "MovingObject/Player.h"
 #include "PlayerState/JumpState.h"
 #include "PlayerState/RunState.h"
-
+#include "HandleResources.h"
 #include <iostream>
 
 JumpState::JumpState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime)
-	: m_animation(data, sprite, animationTime)
+	: PlayerState(data, sprite, animationTime)
 {
 }
 //-------------------------------------------------------------------------------
-PlayerState* JumpState::handleEvent(Player& player, KeyboardInput pressed)
+std::unique_ptr<PlayerState> JumpState::handleEvent(Player& player, KeyboardInput pressed)
 {
-    std::cout << "distance in jump0 : " << m_jumpDistance << "\n";
 
     if (pressed == K_NONE && player.onGround()) // end his jump
     {
-        std::cout << "distance in jump1 : " << m_jumpDistance << "\n";
         m_jumpDistance = 0;
-        return m_runState;
+        AnimationType aniType = getRunAnimationType(player.getPlayerType());
+        return std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.1f));
     }
     else if (pressed == K_NONE)
     {
-        std::cout << "distance in jump2 : " << m_jumpDistance << "\n";
-        return this; // Stay in jump state
+        return nullptr; // Stay in jump state
     }
-    //else if (pressed == K_UP && m_jumpDistance >= 0.4 && m_jumpDistance <= 0.8)
-    //{
-    //    std::cout << "distance in jump3 : " << m_jumpDistance << "\n";
-    //    m_jumpDistance = 0;
-    //    return m_doubleJumpState;
-    //}
 
-    // No state change
   
-    return this;
+    return nullptr;
 }
 //---------------------------------------------------------------------------------------
 void JumpState::update(Player& player, sf::Time deltaTime)
@@ -59,15 +50,3 @@ void JumpState::update(Player& player, sf::Time deltaTime)
 
 	m_animation.update(deltaTime);
 }
-//--------------------------------------------------------------------------------
-void JumpState::setMembers(RunState& runState)
-{
-	m_runState = &runState;
-	//m_doubleJumpState = &doubleJump;
-}
-//----------------------------------------------------------------------------------------------
-void JumpState::updateAnimation(std::vector<sf::IntRect>& frameSheet, sf::Sprite& sprite)
-{
-    m_animation.changeAnimation(frameSheet, sprite);
-}
-//---------------------------------------------------------------------------------------------

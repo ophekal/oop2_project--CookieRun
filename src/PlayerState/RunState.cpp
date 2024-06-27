@@ -5,35 +5,36 @@
 #include "PlayerState/JumpState.h"
 #include "PlayerState/RunState.h"
 #include "PlayerState/SlideState.h"
-
+#include "HandleResources.h"
 
 #include <iostream>
 
 //-----------------------------------------------------------------------------------------------
-RunState::RunState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime,
-    SlideState& slideState, JumpState& jumpState)
-    : m_animation(data, sprite, animationTime),
-      m_slideState(slideState), m_jumpState(jumpState)
+RunState::RunState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime)
+    : PlayerState(data, sprite, animationTime)
 {
 
 }
 //--------------------------------------------------------------------------------------
-PlayerState* RunState::handleEvent(Player& player, KeyboardInput pressed)
+std::unique_ptr<PlayerState> RunState::handleEvent(Player& player, KeyboardInput pressed)
 {
     if (pressed == K_NONE)
     {
-        return this;
+        return nullptr;
     }
     else if (pressed == K_UP)
     {
-        return &m_jumpState;
+        AnimationType aniType = getJumpAnimationType(player.getPlayerType());
+        return std::make_unique<JumpState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.3f));
+        
     }
     else if (pressed == K_DOWN)
     {
-        return &m_slideState;
+        AnimationType aniType = getSlideAnimationType(player.getPlayerType());
+        return std::make_unique<SlideState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.1f));
     }
 
-    return this;
+    return nullptr;
 }
 //---------------------------------------------------------------------------------------
 void RunState::update(Player& player, sf::Time deltaTime)
@@ -50,15 +51,3 @@ void RunState::update(Player& player, sf::Time deltaTime)
 
     m_animation.update(deltaTime);
 }
-//---------------------------------------------------------------------------------------
-void RunState::restartAnimation()
-{
-    m_animation.setIndex(0);
-
-}
-//----------------------------------------------------------------------------------------------
-void RunState::updateAnimation(std::vector<sf::IntRect>& frameSheet, sf::Sprite& sprite)
-{
-    m_animation.changeAnimation(frameSheet, sprite);
-}
-//---------------------------------------------------------------------------------------------

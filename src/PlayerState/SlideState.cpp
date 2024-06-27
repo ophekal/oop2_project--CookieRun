@@ -2,26 +2,28 @@
 #include "MovingObject/Player.h"
 #include "PlayerState/SlideState.h"
 #include "PlayerState/RunState.h"
+#include "HandleResources.h"
 
 #include <iostream>
 
 SlideState::SlideState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime)
-	: m_animation(data, sprite, animationTime)
+	: PlayerState(data, sprite, animationTime)
 {
 }
 //--------------------------------------------------------------------------------------
-PlayerState* SlideState::handleEvent(Player& player, KeyboardInput pressed)
+std::unique_ptr<PlayerState> SlideState::handleEvent(Player& player, KeyboardInput pressed)
 {
     if (pressed == K_NONE) 
     {
-        return m_runState;
+        AnimationType aniType = getRunAnimationType(player.getPlayerType());
+        return std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.1f));
     }
     else if (pressed == K_DOWN)
     {
-        return this;
+        return nullptr;
     }
 
-    return this;
+    return nullptr;
 }
 //---------------------------------------------------------------------------------------
 void SlideState::update(Player& player, sf::Time deltaTime)
@@ -32,15 +34,3 @@ void SlideState::update(Player& player, sf::Time deltaTime)
 
     m_animation.update(deltaTime);
 }
-
-//--------------------------------------------------------------------------------
-void SlideState::setMembers(RunState& runState)
-{
-	m_runState = &runState;
-}
-//----------------------------------------------------------------------------------------------
-void SlideState::updateAnimation(std::vector<sf::IntRect>& frameSheet, sf::Sprite& sprite)
-{
-    m_animation.changeAnimation(frameSheet, sprite);
-}
-//---------------------------------------------------------------------------------------------
