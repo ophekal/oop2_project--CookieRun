@@ -366,7 +366,7 @@ void HandleResources::updateCookieBraveSlideAnimation()
 void HandleResources::updateCookieBraveJumpAnimation()
 {
 	const auto size = sf::Vector2i(130, 120);
-	const auto initSpace = sf::Vector2i(1704, 149);
+	const auto initSpace = sf::Vector2i(1978, 149);
 	const auto middleSpace = sf::Vector2i(144, 0);
 
 	auto currentStart = initSpace;
@@ -381,7 +381,7 @@ void HandleResources::updateCookieBraveJumpAnimation()
 
 	m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(nextStart(), size);
+	//m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(nextStart(), size);
 }
 
 //-----------------------------------------------------------------------

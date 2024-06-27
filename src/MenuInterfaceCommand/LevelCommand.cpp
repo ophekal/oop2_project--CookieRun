@@ -12,10 +12,13 @@
 LevelCommand::LevelCommand(sf::RenderWindow& window, Player& player, InfoBar& infoBar, const sf::Texture& background, bool levelOpen, int levelNumber)
 	:m_window(window), m_player(player), m_infoBar(infoBar), m_levelOpen(levelOpen),
 	m_backButton(*(HandleResources::instance().getButtonTexture(B_BACK)), BACK_X, BACK_Y, BACK_SIZE),
-	m_levelNumber(levelNumber)
+	m_levelNumber(levelNumber),
+	m_boomSpriteSheet(*HandleResources::instance().getGiftTexture(G_BOOM)),
+	m_boomAnimation(HandleResources::instance().getAnimationData(ANI_BOOM), m_boomSpriteSheet, sf::seconds(0.3f))
 {
 	m_background.setSize({ WINDOW_WIDTH ,WINDOW_HEIGHT });
 	m_background.setTexture(&background);
+	m_boomSpriteSheet.setOrigin(sf::Vector2f(m_boomSpriteSheet.getTextureRect().getSize() / 2));
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
@@ -49,7 +52,7 @@ void LevelCommand::handleEvent()
 
 		m_infoBar.updateInfoBar(m_player, m_levelNumber);
 
-		render();
+		//render();
 
 		levelPollEvent();
 		if (m_levelOver)
@@ -63,11 +66,15 @@ void LevelCommand::handleEvent()
 		movePlayer(deltaTime);
 		moveEnemies(deltaTime);
 
+		handleExplosion(deltaTime); // Update and render explosion animation
+
 		if (checkAndUptadeLevelstatus())
 		{
 			handleLevelExit();
 			return;
 		}
+
+		render();
 	}
 }
 //------------------------------------------------------------------------------------------------------
@@ -127,33 +134,12 @@ void LevelCommand::render()
 
 	m_window.setView(sf::View(center, currView.getSize()));
 
-	//// Draw static and animated objects
-	//for (const auto& staticObject : m_staticObjects) 
-	//{
-	//	staticObject->draw(m_window);
-	//}
-
-	//for (const auto& animatedObject : m_animationObjects)
-	//{
-	//	animatedObject->draw(m_window);
-	//}
-
-	//for (const auto& coin : m_coins)
-	//{
-	//	coin->draw(m_window);
-	//}
-
-	////print the player
-	//m_player.draw(m_window);
-
-	////print enemy
-	//for (const auto& enemy : m_enemies)
-	//{
-	//	enemy->draw(m_window);
-	//}
-
-	//printInformation();
 	drawGameObjects();
+
+	if (m_isExploding) 
+	{
+		handleExplosion(sf::seconds(0)); // Render explosion if active
+	}
 
 	m_window.display();
 }
@@ -335,11 +321,11 @@ bool LevelCommand::checkAndUptadeLevelstatus()
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN));
 		return true;
 	}
-	//else if( m_player.getPosition().x >= m_flagPosition.x - 0.1f   )   //the game over with success if we arrive to the flag section
-	//{
-	//	printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
-	//	return true;
-	//}
+	else if( m_player.getPosition().x >= m_flagPosition.x)   //the game over with success if we arrive to the flag section
+	{
+		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
+		return true;
+	}
 
 	return false;
 
@@ -375,34 +361,41 @@ void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound
 	sf::sleep(sf::seconds(1));
 }
 
-//----------------------------------------------------------------------------------------
-void LevelCommand::checkIfNeedToExplode()
+////----------------------------------------------------------------------------------------
+//void LevelCommand::checkIfNeedToExplode()
+//{
+//	if (m_player.getKeyPressed() == K_ENTER && m_player.getWeapons()>0)
+//	{
+//		handleExpolsion();
+//		m_player.setWeapon(m_player.getWeapons() - 1);
+//		m_clock.restart();
+//	}
+//}
+//----------------------------------------------------------------------------------
+void LevelCommand::handleExplosion(sf::Time deltaTime)
 {
-	if (m_player.getKeyPressed() == K_ENTER && m_player.getWeapons()>0)
+	if (!m_isExploding) 
 	{
-		handleExpolsion();
-		m_player.setWeapon(m_player.getWeapons() - 1);
-		m_clock.restart();
+		return; // If not exploding, do nothing
+	}
+
+	// Update the explosion animation
+	m_boomAnimation.update(deltaTime);
+
+	// Draw explosion animation at the stored positions
+	for (const auto& position : m_explosionPositions)
+	{
+		m_boomSpriteSheet.setPosition(position);
+		m_window.draw(m_boomSpriteSheet);
+	}
+
+	// Check if the explosion duration has elapsed
+	if (m_explosionClock.getElapsedTime() >= sf::seconds(1.0f))
+	{
+		m_isExploding = false;
+		removeMarkedEnemies(); // Remove enemies marked for deletion after the explosion
 	}
 }
-
-//----------------------------------------------------------------------------------------
-void LevelCommand::handleExpolsion()
-{
-	// Get the current view bounds
-	sf::FloatRect viewBounds = getCurrentViewBounds();
-
-	// Identify and mark enemies within view for deletion
-	std::vector<sf::Vector2f> explosionPositions = markEnemiesForExplosion(viewBounds);
-
-	// Perform explosion animation at the marked positions
-	performExplosionAnimation(explosionPositions);
-
-	// Remove the marked enemies from the game
-	removeMarkedEnemies();
-	
-}
-
 //----------------------------------------------------------------------------------------
 // Helper function to get the current view bounds
 sf::FloatRect LevelCommand::getCurrentViewBounds()
@@ -429,44 +422,44 @@ std::vector<sf::Vector2f> LevelCommand::markEnemiesForExplosion(const sf::FloatR
 	return explosionPositions;
 }
 
-//----------------------------------------------------------------------------------------
-// Helper function to perform the explosion animation
-void LevelCommand::performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions)
-{
-	sf::Sprite boomSpriteSheet(*HandleResources::instance().getGiftTexture(G_BOOM));
-	Animation boomAnimation(HandleResources::instance().getAnimationData(ANI_BOOM), boomSpriteSheet, sf::seconds(0.3f));
-
-	boomSpriteSheet.setOrigin(sf::Vector2f(boomSpriteSheet.getTextureRect().getSize() / 2));
-
-	sf::Clock boomClock;
-	sf::Time boomDuration = sf::seconds(1.0f); // Duration for explosion animation
-	sf::Time boomElapsedTime = sf::Time::Zero;
-
-	while (boomElapsedTime < boomDuration)
-	{
-		auto deltaTime = boomClock.restart();
-		boomElapsedTime += deltaTime;
-		boomAnimation.update(deltaTime);
-
-		// Clear the window
-		m_window.clear();
-
-		// Redraw the background
-		moveAndDrawBackground();
-
-		// Draw static and animated objects
-		drawGameObjects();
-
-		// Draw explosion animation at the stored positions
-		for (const auto& position : explosionPositions)
-		{
-			boomSpriteSheet.setPosition(position);
-			m_window.draw(boomSpriteSheet);
-		}
-
-		m_window.display();
-	}
-}
+////----------------------------------------------------------------------------------------
+//// Helper function to perform the explosion animation
+//void LevelCommand::performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions)
+//{
+//	sf::Sprite boomSpriteSheet(*HandleResources::instance().getGiftTexture(G_BOOM));
+//	Animation boomAnimation(HandleResources::instance().getAnimationData(ANI_BOOM), boomSpriteSheet, sf::seconds(0.3f));
+//
+//	boomSpriteSheet.setOrigin(sf::Vector2f(boomSpriteSheet.getTextureRect().getSize() / 2));
+//
+//	sf::Clock boomClock;
+//	sf::Time boomDuration = sf::seconds(1.0f); // Duration for explosion animation
+//	sf::Time boomElapsedTime = sf::Time::Zero;
+//
+//	while (boomElapsedTime < boomDuration)
+//	{
+//		auto deltaTime = boomClock.restart();
+//		boomElapsedTime += deltaTime;
+//		boomAnimation.update(deltaTime);
+//
+//		// Clear the window
+//		m_window.clear();
+//
+//		// Redraw the background
+//		moveAndDrawBackground();
+//
+//		// Draw static and animated objects
+//		drawGameObjects();
+//
+//		// Draw explosion animation at the stored positions
+//		for (const auto& position : explosionPositions)
+//		{
+//			boomSpriteSheet.setPosition(position);
+//			m_window.draw(boomSpriteSheet);
+//		}
+//
+//		m_window.display();
+//	}
+//}
 
 //--------------------------------------------------------------------------
 // Helper function to draw game objects excluding marked enemies
@@ -503,4 +496,24 @@ void LevelCommand::removeMarkedEnemies()
 	std::erase_if(m_enemies, [](const auto& enemy) {
 		return enemy->isMarkedForDeletion();
 		});
+}
+//------------------------------------------------------------------------------
+void LevelCommand::checkIfNeedToExplode()
+{
+	if (m_player.getKeyPressed() == K_ENTER && m_player.getWeapons() > 0) {
+		handleExplosionStart(); // Start explosion handling
+		m_player.setWeapon(m_player.getWeapons() - 1);
+	}
+}
+//-------------------------------------------------------------------------------
+void LevelCommand::handleExplosionStart()
+{
+	// Get the current view bounds
+	sf::FloatRect viewBounds = getCurrentViewBounds();
+
+	// Identify and mark enemies within view for deletion
+	m_explosionPositions = markEnemiesForExplosion(viewBounds);
+
+	m_isExploding = true; // Set explosion flag
+	m_explosionClock.restart(); // Start explosion timer
 }

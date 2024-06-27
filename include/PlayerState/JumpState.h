@@ -18,6 +18,6 @@ public:
 
 private:
     float m_gravity;
-    float m_jumpDistance = 0.0f;
+    //float m_jumpDistance = 0.0f;
 
 };

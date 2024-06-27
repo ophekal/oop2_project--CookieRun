@@ -104,14 +104,18 @@ void Player::setPlayer(Players playerType)
 		break;
 	}
 }
-////-----------------------------------------------------------------
+//-----------------------------------------------------------------
 void Player::movement(sf::Time deltaTime)
 {
 	//m_onGround = false;
 
-	if(m_currentPlayerState->handleEvent(*this, m_keyPressed))
+	 // Update player state based on input events
+	std::unique_ptr<PlayerState> nextState = m_currentPlayerState->handleEvent(*this, m_keyPressed);
+
+	// Check if the state has changed
+	if (nextState)
 	{
-		m_currentPlayerState = std::move((m_currentPlayerState->handleEvent(*this, m_keyPressed)));
+		m_currentPlayerState = std::move(nextState);
 	}
 	
 	m_currentPlayerState->update(*this, deltaTime);
@@ -277,6 +281,7 @@ void Player::changeEnhanceBack()
 void Player::changeToFlyState()
 {
 	m_giftClock.restart();
+	m_onGround = false;
 	AnimationType aniType = (m_playerType == PLAYER_BRAVE)? ANI_COOKIEBRAVE_FLY: ANI_COOKIEBRIGHT_FLY;
 	m_currentPlayerState =  std::make_unique<FlyState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.3f));
 }

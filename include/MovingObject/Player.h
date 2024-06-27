@@ -22,26 +22,12 @@ public:
 	int getjelly()const;
 	void setCoins(int numOfCoins);
 	void setJelly(int numOfJelly);
-
-	//--------------------------------------------
-	//void setSpeed(float speed);
 	void startBoostTimer(sf::Time duration, float oldSpeed);
-	//void update(sf::Time deltaTime); // New update method to manage timers
-
-	//----------------------------------------------
-
-
 	void setWeapon(int numOfWeapon);
 	bool onGround()const;
 	void handleExitFromLevel();
 	bool isDead()const;
-
-	//void run(float deltaTime);
-	//void handleCollision();
-	//void updateAnimation(sf::Time deltaTime);
-	//void updateAnimation(sf::Time deltaTime, Movement movement);
 	void movement(sf::Time deltaTime);
-	//KeyboardInput getKeyboardInput() const;
 	void move(float deltaTime);
 	void move(const sf::Vector2f& position) { m_object.move(position); }
 	void keyPressed(sf::Event::KeyEvent key);
@@ -57,8 +43,6 @@ public:
 	void startEnhanceTimer(sf::Time duration, float scaleFactor);
 	void checkGiftDurations(float deltaTime);
 	void changeToFlyState();
-	void changeToBoostState();
-	void changeToEnhanceState();
 	void changeEnhanceBack();
 	void setVelocityY(float y) { m_velocity.y = y; };
 	sf::Vector2f getVelocity() { return m_velocity; }
@@ -69,6 +53,7 @@ public:
 
 private:
 	sf::Vector2f m_velocity;
+	float m_gravity;
 	int m_coins = 0;
 	int m_weapons = 0;
 	int m_jelly = 0;
@@ -80,9 +65,9 @@ private:
 	bool m_isEnhance = false;
 
 	sf::Clock m_giftClock;
-	
 	sf::Time m_boostDuration = sf::seconds(5);
 	sf::Time m_enhanceDuration = sf::seconds(5);
+
 	float m_oldSpeed= 350.f;
 	float m_originalScale = 1.0f; 
 
@@ -90,16 +75,6 @@ private:
 	Players m_playerType = PLAYER_BRAVE;
 	KeyboardInput m_keyPressed = K_NONE;
 
-	//-------------states-----------------------
-	//JumpState m_jump;
-	//SlideState m_slide;
-	//FlyState m_fly;
-	//BoostState m_boost;
-	//EnhanceState m_enhance;
-	//RunState m_run;
 	std::unique_ptr<PlayerState> m_currentPlayerState;
-
-	float m_gravity = 0;
-
 };
 

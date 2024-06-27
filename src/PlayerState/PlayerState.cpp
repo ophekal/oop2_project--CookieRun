@@ -19,10 +19,8 @@ AnimationType PlayerState::getRunAnimationType(Players player)
     {
     case PLAYER_BRAVE:
         return ANI_COOKIEBRAVE_RUN;
-        break;
     case PLAYER_BRIGHT:
-        return ANI_COOKIEBRAVE_RUN;
-        break;
+        return ANI_COOKIEBRIGHT_RUN;
     }
     return ANI_COOKIEBRAVE_RUN; //never get here
 }
@@ -33,10 +31,8 @@ AnimationType PlayerState::getSlideAnimationType(Players player)
     {
     case PLAYER_BRAVE:
         return ANI_COOKIEBRAVE_SLIDE;
-        break;
     case PLAYER_BRIGHT:
-        return ANI_COOKIEBRAVE_SLIDE;
-        break;
+        return ANI_COOKIEBRIGHT_SLIDE;
     }
     return ANI_COOKIEBRAVE_SLIDE; //never get here
 }
@@ -47,10 +43,8 @@ AnimationType PlayerState::getJumpAnimationType(Players player)
     {
     case PLAYER_BRAVE:
         return ANI_COOKIEBRAVE_JUMP;
-        break;
     case PLAYER_BRIGHT:
-        return ANI_COOKIEBRAVE_JUMP;
-        break;
+        return ANI_COOKIEBRIGHT_JUMP;
     }
     return ANI_COOKIEBRAVE_JUMP; //never get here
 }
