@@ -78,5 +78,7 @@ configure_file ("font.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("levelSections/levelSectionsPlaylist.txt" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("levelSections/option1.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("levelSections/option2.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("levelSections/1option1.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("levelSections/1option2.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("levelSections/1option3.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("levelSections/1last.png" ${CMAKE_BINARY_DIR} COPYONLY)
