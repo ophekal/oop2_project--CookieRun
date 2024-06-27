@@ -2,17 +2,9 @@
 #include <SFML/Graphics.hpp>
 
 
-//------------------Menu-------------------
-//enum Back
-//{
-//	M_MENU,
-//	M_EXIT,
-//	M_START,
-//	M_PLAYER,
-//	M_INSTRUCTIONS,
-//	M_SETTINGS
-//};
+//------------LevelGenerator----------------
 
+const int NUM_OF_PARTS_PER_LEVEL = 5;
 
 //---------------Buttons--------------------
 enum Buttons

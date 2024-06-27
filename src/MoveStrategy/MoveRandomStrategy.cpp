@@ -12,14 +12,7 @@ bool MoveRandomStrategy::m_register = EnemyFactory::registerMove([]()->std::uniq
 //------------------------------------------------------------------------------------------------------
 MoveRandomStrategy::MoveRandomStrategy()
     :m_direction(0)//change to enum
-{
-    // Seed the random number generator once globally
-    static bool seeded = false;
-    if (!seeded) {
-        std::srand(static_cast<unsigned int>(std::time(nullptr)));
-        seeded = true;
-    }
-}
+{}
 
 //------------------------------------------------------------------------------------------------------
 // Move randomly left or right and handle collisions with obstacles
