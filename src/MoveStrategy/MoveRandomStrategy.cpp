@@ -26,7 +26,7 @@ void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vec
     m_timeSinceLastChange += m_clock.restart();
 
     // Change direction every 5 seconds
-    if (m_timeSinceLastChange.asSeconds() > 5.0f)
+    if (m_timeSinceLastChange.asSeconds() > 3.0f)
     {
         m_direction = (std::rand() % 2 == 0) ? LEFT : RIGHT;
         enemy.setSpriteFlipped(m_direction);
