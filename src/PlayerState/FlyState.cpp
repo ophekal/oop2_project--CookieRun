@@ -108,6 +108,7 @@ void FlyState::freeMovement(Player& player, sf::Time deltaTime)
     else if (newPosition.y > PLAYER_INIT_POSITION.y)
     {
         newPosition.y = PLAYER_INIT_POSITION.y;
+        player.setOnGround(true);
     }
 
     player.setPosition(newPosition.x, newPosition.y);
