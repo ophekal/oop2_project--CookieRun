@@ -79,6 +79,72 @@ void playerFloor(GameObject& player, GameObject& floor)
     }
 
 }
+//------------------------------------------------------------------------------------------
+//void playerFloor(GameObject& player, GameObject& floor)
+//{
+//    Player& p = static_cast<Player&>(player);
+//
+//    // Get the bounds of the floor and the player
+//    auto floorBounds = floor.getObject().getGlobalBounds();
+//    auto playerBounds = p.getObject().getGlobalBounds();
+//
+//    // Check if the player is above the floor and colliding from the bottom
+//    bool playerAboveFloor = (playerBounds.top + playerBounds.height <= floorBounds.top + 5); // Collision margin
+//    bool playerCollidingFromBottom = (playerBounds.left < floorBounds.left + floorBounds.width &&
+//        playerBounds.left + playerBounds.width > floorBounds.left);
+//
+//    if (playerAboveFloor && playerCollidingFromBottom)
+//    {
+//        // Player is above the floor and colliding from the bottom
+//        auto newPlayerYPosition = floorBounds.top - p.getSize().height;
+//        p.setPosition(p.getPosition().x, newPlayerYPosition);
+//
+//        // Indicate that the player is now on the ground
+//        p.setOnGround(true);
+//
+//        // Reset vertical velocity to zero
+//       // p.setVelocityY(0);
+//
+//        // Optional: Reset gravity effect if needed
+//        p.resetGravity();
+//    }
+//    else if (!p.isEnhance())
+//    {
+//        // Handle other collision scenarios only if not in "enhance" mode
+//        if (playerBounds.intersects(floorBounds))
+//        {
+//            // Check if collision is primarily vertical
+//            if (playerBounds.top < floorBounds.top && playerBounds.top + playerBounds.height > floorBounds.top)
+//            {
+//                // Player is colliding with the bottom of the floor (hitting the ceiling)
+//                p.setPosition(p.getPosition().x, floorBounds.top + floorBounds.height);
+//                p.setVelocityY(0); // Stop upward movement
+//            }
+//            else
+//            {
+//                // Handle side collisions
+//                if (playerBounds.left < floorBounds.left)
+//                {
+//                    // Player hits the surface from the left
+//                    p.setPosition(floorBounds.left - playerBounds.width, p.getPosition().y);
+//                }
+//                else
+//                {
+//                    // Player hits the surface from the right
+//                    p.setPosition(floorBounds.left + floorBounds.width, p.getPosition().y);
+//                }
+//
+//                // Set player state to dead if necessary
+//         //       p.markForDeletion(); // Example action on collision if not in enhance mode
+//
+//                // Stop horizontal movement on side collision
+//               // p.setVelocity(0, p.getVelocity().y);
+//            }
+//        }
+//    }
+//}
+
+
 //------------------------------------------------------------
 void playerObstcale(GameObject& player, GameObject& obstcale)
 {

@@ -34,3 +34,23 @@ void SlideState::update(Player& player, sf::Time deltaTime)
 
     m_animation.update(deltaTime);
 }
+////-----------------------------------------------------------------------------------------
+//void SlideState::update(Player& player, sf::Time deltaTime)
+//{
+//    player.resetGravity();
+//
+//    if (player.onGround())
+//    {
+//        // Maintain the player's current height if on a platform or floor
+//        player.setPosition(player.getPosition().x, player.getPosition().y);
+//    }
+//    //else
+//    //{
+//    //    // If not on ground, allow the player to slide downwards
+//    //    player.setPosition(player.getPosition().x, player.getPosition().y + (player.getSize().height / 2));
+//    //}
+//
+//    player.move(deltaTime.asSeconds());
+//
+//    m_animation.update(deltaTime);
+//}

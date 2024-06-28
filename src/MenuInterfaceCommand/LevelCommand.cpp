@@ -500,7 +500,8 @@ void LevelCommand::removeMarkedEnemies()
 //------------------------------------------------------------------------------
 void LevelCommand::checkIfNeedToExplode()
 {
-	if (m_player.getKeyPressed() == K_ENTER && m_player.getWeapons() > 0) {
+	if (m_player.getKeyPressed() == K_ENTER && m_player.getWeapons() > 0)
+	{
 		handleExplosionStart(); // Start explosion handling
 		m_player.setWeapon(m_player.getWeapons() - 1);
 	}

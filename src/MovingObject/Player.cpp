@@ -192,7 +192,7 @@ void Player::handleExitFromLevel()
 	m_jelly = 0;
 	m_weapons = 0;
 	m_objectSpeed = 350;
-	m_gravity = 0;
+	m_gravity = 0.35;
 	m_velocity = { 0,0 };
 
     m_isBoosted = false;
