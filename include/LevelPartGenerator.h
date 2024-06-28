@@ -22,4 +22,5 @@ private:
 	void readLevelParts(); //we will have a vector of vectors, this function reads each png picture into a vector and pushesit into the vectors vector
 	//void setLevelObjectsPosition(sf::Vector2f& lastObject, int index);
 	levelPartsVector m_levelPartsVector;
+	int m_lastIndex; //stores the last index that has be drawn
 };
