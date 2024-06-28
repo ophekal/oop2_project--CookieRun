@@ -3,6 +3,8 @@
 #include "PlayerState/RunState.h"
 #include "HandleResources.h"
 
+
+#include <iostream>
 //-------------------------------------------------------------------------------
 FlyState::FlyState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime)
     : PlayerState(data, sprite, animationTime), m_flyDuration(sf::seconds(7)), m_moveDirection(0, 0)
@@ -11,11 +13,15 @@ FlyState::FlyState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf:
 //---------------------------------------------------------------------------------
 std::unique_ptr<PlayerState> FlyState::handleEvent(Player& player, KeyboardInput pressed)
 {
+    std::cout << "on ground in handle input : " << player.onGround() << "\n";
+
     handleInput(pressed);
 
     // Transition to RunState if the player has landed and fly duration is over
-    if ( pressed == K_NONE && player.onGround()&& m_flyDuration - player.getGiftClock().getElapsedTime() <= sf::Time::Zero)
+    if ( pressed == K_NONE && player.onGround()/*&& m_flyDuration - player.getGiftClock().getElapsedTime() <= sf::Time::Zero*/)
     {
+        player.setIsFlyState(false);
+        m_arriveToTarget = false;
         AnimationType aniType = getRunAnimationType(player.getPlayerType());
         return std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.1f));
     }
@@ -25,15 +31,19 @@ std::unique_ptr<PlayerState> FlyState::handleEvent(Player& player, KeyboardInput
 //--------------------------------------------------------------------------
 void FlyState::update(Player& player, sf::Time deltaTime)
 {
+
     sf::Time elapsedTime = player.getGiftClock().getElapsedTime();
     sf::Time timeRemaining = m_flyDuration - elapsedTime;
+
+    std::cout << "on ground: " << player.onGround() << "\n";
+    std::cout << "remain time: " << timeRemaining.asSeconds() << "\n";
 
     if (timeRemaining > sf::Time::Zero)
     {
         // Target height and vertical bounds for flying
         sf::Vector2f targetPosition(player.getPosition().x, 100.0f);
 
-        if (player.getPosition().y > targetPosition.y)
+        if (player.getPosition().y > targetPosition.y && !m_arriveToTarget)
         {
             moveTowardsTarget(player, deltaTime, targetPosition);
         }
@@ -69,12 +79,14 @@ void FlyState::handleInput(KeyboardInput pressed)
 //--------------------------------------------------------------------------
 void FlyState::moveTowardsTarget(Player& player, sf::Time deltaTime, const sf::Vector2f& target)
 {
+    std::cout << "move to target on ground : " << player.onGround() << "\n";
     float moveAmount = -player.getSpeed() * deltaTime.asSeconds();
     player.move({ player.getSpeed() * deltaTime.asSeconds(), moveAmount });
 
     // Ensure the player does not move past the target height
     if (player.getPosition().y < target.y)
     {
+        m_arriveToTarget = true;
         player.setPosition(player.getPosition().x, target.y);
     }
 }
@@ -92,6 +104,10 @@ void FlyState::freeMovement(Player& player, sf::Time deltaTime)
     if (newPosition.y < upperBound)
     {
         newPosition.y = upperBound;
+    }
+    else if (newPosition.y > PLAYER_INIT_POSITION.y)
+    {
+        newPosition.y = PLAYER_INIT_POSITION.y;
     }
 
     player.setPosition(newPosition.x, newPosition.y);

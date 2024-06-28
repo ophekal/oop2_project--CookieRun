@@ -119,6 +119,7 @@ void Player::movement(sf::Time deltaTime)
 	}
 	
 	m_currentPlayerState->update(*this, deltaTime);
+	//m_onGround = false;
 
 }
 //-----------------------------------------------------------------------------
@@ -196,6 +197,7 @@ void Player::handleExitFromLevel()
 	m_velocity = { 0,0 };
 
     m_isBoosted = false;
+	m_isFlyState = false;
 	//m_isEnhance = false;
 
 	if (m_isEnhance)
@@ -282,6 +284,7 @@ void Player::changeToFlyState()
 {
 	m_giftClock.restart();
 	m_onGround = false;
+	m_isFlyState = true;
 	AnimationType aniType = (m_playerType == PLAYER_BRAVE)? ANI_COOKIEBRAVE_FLY: ANI_COOKIEBRIGHT_FLY;
 	m_currentPlayerState =  std::make_unique<FlyState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.3f));
 }

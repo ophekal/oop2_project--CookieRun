@@ -50,6 +50,8 @@ public:
 	KeyboardInput getKeyPressed()const { return m_keyPressed; }
 	Players getPlayerType()const { return m_playerType; }
 	sf::Sprite& getPlayerSpriteForAnimation() { return m_object; }
+	bool isFlyState()const { return m_isFlyState; }
+	void setIsFlyState(bool fly){  m_isFlyState = fly; }
 
 private:
 	sf::Vector2f m_velocity;
@@ -63,6 +65,7 @@ private:
 	// gift variables
 	bool m_isBoosted = false;
 	bool m_isEnhance = false;
+	bool m_isFlyState = false;
 
 	sf::Clock m_giftClock;
 	sf::Time m_boostDuration = sf::seconds(5);

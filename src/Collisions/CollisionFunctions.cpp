@@ -62,12 +62,15 @@ void playerFloor(GameObject& player, GameObject& floor)
 
     if (playerAboveFloor && playerCollidingFromBottom) 
     {
-        // Player is above the floor and colliding from the bottom
-        auto newPlayerYPosition = floorBounds.top - p.getSize().height;
-        p.setPosition(p.getPosition().x, newPlayerYPosition);
+        if (!p.isFlyState())
+        {
+            // Player is above the floor and colliding from the bottom
+            auto newPlayerYPosition = floorBounds.top - p.getSize().height;
+            p.setPosition(p.getPosition().x, newPlayerYPosition);
+            p.setOnGround(true);
+            p.resetGravity();
+        }
 
-        p.setOnGround(true);
-        p.resetGravity();
     }
     else if( !p.isEnhance())
     {
