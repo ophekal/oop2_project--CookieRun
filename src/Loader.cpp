@@ -40,6 +40,8 @@ void Loader::addObjectsToVectors(int levelNumber, level& levelPart, std::vector 
 	std::vector < std::unique_ptr<StaticObject>>& staticObjects, std::vector<std::unique_ptr<Enemy>>& enemies,
 	std::vector< std::unique_ptr<Coin>>& coins)
 {
+	float startX =0, endX=0;
+
 	for (size_t object = 0; object < levelPart.size(); object++)
 	{
 		sf::Vector2f newPosition = { levelPart[object].second.x + m_lastObjectPosition.x, levelPart[object].second.y };
@@ -51,6 +53,10 @@ void Loader::addObjectsToVectors(int levelNumber, level& levelPart, std::vector 
 		else if (auto staticObject = ObjectFactory<StaticObject>::create(levelPart[object].first, newPosition, levelNumber))
 		{
 			staticObjects.emplace_back(std::move(staticObject));
+			if (object == 0)
+			{
+				startX = newPosition.x;
+			}
 		}
 		else if (auto coin = ObjectFactory<Coin>::create(levelPart[object].first, newPosition, levelNumber))
 		{
@@ -63,4 +69,27 @@ void Loader::addObjectsToVectors(int levelNumber, level& levelPart, std::vector 
 		}
 	}
 
+	
+	endX = startX + 2000;
+
+	createRandomEnemy(enemies, startX, endX, levelNumber);
+	createRandomEnemy(enemies, startX, endX, levelNumber);
+
+}
+
+//-------------------------------------------------------------------------------
+void Loader::createRandomEnemy(std::vector<std::unique_ptr<Enemy>>& enemies, float startX, float endX, int levelNumber)
+{
+	// Define the range for the random y-coordinate
+	int minY = 250;
+	int maxY = 688;
+
+	// Generate a random y-coordinate within the specified range
+	float randomY = minY + std::rand() % (maxY - minY + 1);
+
+	// Generate a random x-coordinate within the specified range
+	float randomX = startX + static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / (endX - startX)));
+
+	// Create an enemy at a random position
+	enemies.emplace_back(EnemyFactory::createEnemy({ randomX, randomY },levelNumber));
 }

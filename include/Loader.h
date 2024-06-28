@@ -19,6 +19,7 @@ private:
     void addObjectsToVectors(int levelNumber, level& levelPart, std::vector < std::unique_ptr<AnimationObject>>& animationObjects,
         std::vector < std::unique_ptr<StaticObject>>& staticObjects, std::vector<std::unique_ptr<Enemy>>& enemies,
         std::vector< std::unique_ptr<Coin>>& coins);
+    void createRandomEnemy(std::vector<std::unique_ptr<Enemy>>& enemies, float startX, float endX,int levelNumber);
 
     sf::Vector2f m_lastObjectPosition = { 0,0 };
 
