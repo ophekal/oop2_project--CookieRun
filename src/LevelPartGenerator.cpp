@@ -98,9 +98,18 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 		}
 	}
 	
-	int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
+	int randomIndex;
+	do {
+		randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
+	} while (randomIndex == m_lastIndex);
+
+	m_lastIndex = randomIndex; // Store the last selected index
+
+	return m_levelPartsVector[randomIndex];
+
+	/*int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
 		
-	return (m_levelPartsVector[randomIndex]);
+	return (m_levelPartsVector[randomIndex]);*/
 }
 
 //-----------------------------------------------------------------------------
