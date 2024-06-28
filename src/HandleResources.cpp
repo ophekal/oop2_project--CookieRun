@@ -623,9 +623,9 @@ void HandleResources::updateZombieCookieAnimation()
 //----------------------------------------------------------------------------
 void HandleResources::updateBoomAnimation()
 {
-	const auto size = sf::Vector2i(208,205);
-	const auto initSpace = sf::Vector2i(13, 1593);
-	const auto middleSpace = sf::Vector2i(1, 0);
+	const auto size = sf::Vector2i(219,219);
+	const auto initSpace = sf::Vector2i(7, 1581);
+	const auto middleSpace = sf::Vector2i(5, 0);
 
 	auto currentStart = initSpace;
 

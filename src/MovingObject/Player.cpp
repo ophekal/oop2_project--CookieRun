@@ -180,11 +180,15 @@ void Player::setOnGround(bool onGround)
 	m_onGround = onGround;
 }
 //-------------------------------------------------------------------------------
+// This function preformes the cleanup for the next entry into the level.
+// it resetting all the members, sets the player to run state and the animation
+// according to the player type.
+
 void Player::handleExitFromLevel()
 {
 	// for the next level
 	AnimationType aniType = (m_playerType == PLAYER_BRAVE) ? ANI_COOKIEBRAVE_RUN : ANI_COOKIEBRIGHT_RUN;
-	m_currentPlayerState = std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.1f));
+	m_currentPlayerState = std::move(std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.1f)));
 	m_currentPlayerState->restartAnimation();
 	m_object.setPosition(PLAYER_INIT_POSITION);
 	m_onGround = true;
@@ -195,6 +199,7 @@ void Player::handleExitFromLevel()
 	m_objectSpeed = 350;
 	m_gravity = 0.35;
 	m_velocity = { 0,0 };
+	m_keyPressed = K_NONE;
 
     m_isBoosted = false;
 	m_isFlyState = false;
@@ -286,5 +291,5 @@ void Player::changeToFlyState()
 	m_onGround = false;
 	m_isFlyState = true;
 	AnimationType aniType = (m_playerType == PLAYER_BRAVE)? ANI_COOKIEBRAVE_FLY: ANI_COOKIEBRIGHT_FLY;
-	m_currentPlayerState =  std::make_unique<FlyState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.3f));
+	m_currentPlayerState = std::move(std::make_unique<FlyState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.3f)));
 }

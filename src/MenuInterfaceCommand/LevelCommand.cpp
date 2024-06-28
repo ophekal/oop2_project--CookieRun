@@ -68,7 +68,7 @@ void LevelCommand::handleEvent()
 
 		handleExplosion(deltaTime); // Update and render explosion animation
 
-		if (checkAndUptadeLevelstatus())
+		if (checkAndUpdateLevelStatus())
 		{
 			handleLevelExit();
 			return;
@@ -314,7 +314,7 @@ void LevelCommand::handleLevelExit()
 }
 
 //-------------------------------------------------------------------------------
-bool LevelCommand::checkAndUptadeLevelstatus()
+bool LevelCommand::checkAndUpdateLevelStatus()
 {
 	if (m_player.isDead()) //to the next level
 	{

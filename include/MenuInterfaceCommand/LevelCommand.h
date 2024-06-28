@@ -68,13 +68,13 @@ private:
 	void checkEnemyCollision();
 	bool collide(GameObject& object1, GameObject& object2);
 	void handleLevelExit();
-	bool checkAndUptadeLevelstatus();
+	bool checkAndUpdateLevelStatus();
 	void updatePlayerEnergy(sf::Time deltaTime);
 	void printFeedback(const sf::Texture& feedback /*, GameSound sound */ );
 	void checkIfNeedToExplode();
-	void handleExpolsion();
 	sf::FloatRect getCurrentViewBounds();
 	std::vector<sf::Vector2f> markEnemiesForExplosion(const sf::FloatRect& viewBounds);
+	void handleExpolsion();
 	void performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions);
 	void drawGameObjects();
 	void removeMarkedEnemies();
