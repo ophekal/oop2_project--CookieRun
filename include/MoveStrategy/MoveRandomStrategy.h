@@ -7,6 +7,8 @@ class MoveRandomStrategy : public MoveStrategy
 private:
 	static bool m_register;
 	int m_direction;
+	sf::Clock m_clock;
+	sf::Time m_timeSinceLastChange;
 
 public:
 	MoveRandomStrategy();

@@ -195,6 +195,7 @@ enum Movement
 //----------------Direction-----------------------
 const int LEFT = -1;
 const int RIGHT = 1;
+const int START = 0;
 const float ENEMY_MOVE_DISTANCE = 1.0f;
 
 
