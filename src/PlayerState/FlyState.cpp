@@ -14,7 +14,7 @@ std::unique_ptr<PlayerState> FlyState::handleEvent(Player& player, KeyboardInput
     handleInput(pressed);
 
     // Transition to RunState if the player has landed and fly duration is over
-    if (player.onGround() && m_flyDuration - player.getGiftClock().getElapsedTime() <= sf::Time::Zero)
+    if (player.onGround()&& m_flyDuration - player.getGiftClock().getElapsedTime() <= sf::Time::Zero)
     {
         AnimationType aniType = getRunAnimationType(player.getPlayerType());
         return std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.1f));
