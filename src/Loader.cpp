@@ -63,7 +63,7 @@ void Loader::addObjectsToVectors(int levelNumber, level& levelPart, std::vector 
 			coins.emplace_back(std::move(coin));
 		}
 
-		if (object == levelPart.size() - 1)
+		if (object == 50)
 		{
 			m_lastObjectPosition += levelPart[object].second;
 		}
