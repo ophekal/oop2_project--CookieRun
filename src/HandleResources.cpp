@@ -554,7 +554,7 @@ void HandleResources::updateDevilCookieAnimation()
 {
 	const auto size = sf::Vector2i(180, 125);
 	const auto initSpace = sf::Vector2i(3398, 593);
-	const auto middleSpace = sf::Vector2i(190, 0);
+	const auto middleSpace = sf::Vector2i(183, 0);
 
 	auto currentStart = initSpace;
 
