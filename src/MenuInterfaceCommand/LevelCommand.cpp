@@ -568,5 +568,5 @@ void LevelCommand::addToEnemiesVector(float  randomX, float randomY)
 
 float LevelCommand::getLastFloorXPosition(int cell) const
 {
-	return m_staticObjects[cell]->getObject().getPosition().x;
+	return (m_staticObjects[cell]->getObject().getPosition().x);
 }
