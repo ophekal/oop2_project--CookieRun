@@ -407,7 +407,9 @@ sf::FloatRect LevelCommand::getCurrentViewBounds()
 }
 
 //----------------------------------------------------------------------------------------
-// Helper function to mark enemies within view bounds and return their positions
+// This function marks the enemies within view bounds as ones needed to be deleted,  
+// and returns their positions
+
 std::vector<sf::Vector2f> LevelCommand::markEnemiesForExplosion(const sf::FloatRect& viewBounds)
 {
 	std::vector<sf::Vector2f> explosionPositions;
@@ -504,8 +506,10 @@ void LevelCommand::checkIfNeedToExplode()
 	{
 		handleExplosionStart(); // Start explosion handling
 		m_player.setWeapon(m_player.getWeapons() - 1);
+		m_player.resetKeyPress();
 	}
 }
+
 //-------------------------------------------------------------------------------
 void LevelCommand::handleExplosionStart()
 {

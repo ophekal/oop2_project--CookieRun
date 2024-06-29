@@ -164,6 +164,12 @@ void Player::keyReleased(sf::Event::KeyEvent key)
 		break;
 	}
 }
+
+//-----------------------------------------------------------------------------
+void Player::resetKeyPress() 
+{
+	m_keyPressed = K_NONE;
+}
 //--------------------------------------------------------------------------------
 void Player::updateGravity(float movement)
 {

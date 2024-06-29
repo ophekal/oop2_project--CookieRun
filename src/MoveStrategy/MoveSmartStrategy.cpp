@@ -14,7 +14,7 @@ bool MoveSmartStrategy::m_register = EnemyFactory::registerMove([]()->std::uniqu
 
 void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)
 {
-    //    std::cout << "in smart enemy movement\n";
+        std::cout << "in smart enemy movement\n";
     //
     //
     //    sf::Vector2f newPosition = enemy.getPosition();
@@ -25,15 +25,7 @@ void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vect
     //        newPosition.x--; // Move left
     //    }
     //
-    //    // Move towards the player in the y direction
-    //    if (newPosition.y < playerPosition.y) 
-    //    {
-    //        newPosition.y++; // Move down
-    //    }
-    //    else if (newPosition.y > playerPosition.y) {
-    //        newPosition.y--; // Move up
-    //    }
-    //
+    //   
     //    // Set the enemy's new position
     //    enemy.setPosition(newPosition.x,newPosition.y);
     //};
@@ -49,6 +41,16 @@ void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vect
         newPosition.x--; // Move left
     }
 
+     //Move towards the player in the y direction
+    if (newPosition.y < playerPosition.y) 
+    {
+        newPosition.y++; // Move down
+    }
+    else if (newPosition.y > playerPosition.y) 
+    {
+        newPosition.y--; // Move up
+    }
+   
     newPosition += movement;
 
     enemy.setPosition(newPosition.x, newPosition.y);

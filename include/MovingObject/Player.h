@@ -52,6 +52,7 @@ public:
 	sf::Sprite& getPlayerSpriteForAnimation() { return m_object; }
 	bool isFlyState()const { return m_isFlyState; }
 	void setIsFlyState(bool fly){  m_isFlyState = fly; }
+	void resetKeyPress();
 
 private:
 	sf::Vector2f m_velocity;
