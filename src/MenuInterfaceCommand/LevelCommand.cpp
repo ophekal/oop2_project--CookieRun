@@ -30,11 +30,11 @@ void LevelCommand::execute()
 		return;
 	}
 
-	//m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
-	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y + 2);
-
 	//in each execute we load diff level 
-	m_loader.updateMembers(*this);
+	//m_loader.updateMembers(*this);
+
+	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
+	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y + 2);
 
 	handleEvent();
 
