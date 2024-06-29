@@ -7,7 +7,11 @@ class Coin : public AnimationObject
 {
 public:
 	Coin(const sf::Sprite& sprite, float speed, const sf::Time& animationTime, AnimationType type, const sf::Vector2f& position);
+	void updatePositionTowardsPlayer(const sf::Vector2f& playerPosition, float deltaTime);
+	//void setMagnetActive(bool isActive) { m_isMagnetActive = isActive; }
 
 private:
 	static bool m_register;
+	//bool m_isMagnetActive = false;
+
 };

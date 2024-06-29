@@ -55,58 +55,62 @@ void Player::startBoostTimer(sf::Time duration, float oldSpeed)
 	m_boostDuration = duration;
 	m_oldSpeed = oldSpeed;
 }
-////--------------------------------------------------------------------------------------
-//void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
-//{
-//	m_isEnhance = true;
-//	m_enhanceDuration = duration;
-//	m_giftClock.restart();
-//
-//	// Get the original position
-//	sf::Vector2f originalPosition = m_object.getPosition();
-//
-//	// Calculate the original height before scaling
-//	float originalHeight = m_object.getLocalBounds().height;
-//
-//	// Apply the scale factor to enhance the player
-//	m_object.setScale(m_originalScale * scaleFactor, m_originalScale * scaleFactor);
-//
-//	// Calculate the new height after scaling
-//	float newHeight = m_object.getGlobalBounds().height;
-//
-//	// Calculate the height change due to scaling
-//	float heightChange = newHeight - originalHeight;
-//
-//	// Since we are using top-left as the origin, adjust the y position by the total height change
-//	m_object.setPosition(originalPosition.x, originalPosition.y - heightChange);
-//
-//
-//}
-//--------------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
 {
 	m_isEnhance = true;
 	m_enhanceDuration = duration;
 	m_giftClock.restart();
 
-	// Store the current position before scaling
+	// Get the original position
 	sf::Vector2f originalPosition = m_object.getPosition();
 
-	// Set the origin to bottom-right
-	sf::FloatRect bounds = m_object.getLocalBounds();
-	m_object.setOrigin(bounds.width, bounds.height);
+	// Calculate the original height before scaling
+	float originalHeight = m_object.getLocalBounds().height;
 
 	// Apply the scale factor to enhance the player
 	m_object.setScale(m_originalScale * scaleFactor, m_originalScale * scaleFactor);
 
+	// Calculate the new height after scaling
+	float newHeight = m_object.getGlobalBounds().height;
 
+	// Calculate the height change due to scaling
+	float heightChange = newHeight - originalHeight;
 
-	// Adjust the player's position to keep them on the ground/platform after scaling
-	//float groundLevelY = originalPosition.y + bounds.height - m_object.getGlobalBounds().height;
-	//m_object.setPosition(originalPosition.x, groundLevelY);
+	// Since we are using top-left as the origin, adjust the y position by the total height change
+	m_object.setPosition(originalPosition.x, originalPosition.y - heightChange);
+
 
 }
-//-----------------------------------------------------------------
+//---------------------------------------------------------------------------
+void Player::startMagnetTimer(sf::Time duration)
+{
+	m_isMagnet= true;
+	m_giftClock.restart();
+	m_magnetDuration = duration;
+}
+////--------------------------------------------------------------------
+//void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
+//{
+//	m_isEnhance = true;
+//	m_enhanceDuration = duration;
+//	m_giftClock.restart();
+//
+//	// Store the current position before scaling
+//	sf::Vector2f originalPosition = m_object.getPosition();
+//
+//	// Set the origin to bottom-center
+//	sf::FloatRect bounds = m_object.getLocalBounds();
+//	m_object.setOrigin(bounds.width / 2.f, bounds.height);
+//
+//	// Apply the scale factor to enhance the player
+//	m_object.setScale(m_originalScale * scaleFactor, m_originalScale * scaleFactor);
+//
+//	// Adjust the position to maintain contact with the ground
+//	m_object.setPosition(originalPosition.x, originalPosition.y + (bounds.height /*- m_object.getLocalBounds().height*/));
+//}
+
+//------------------------------------------------------------------------
 void Player::setPlayer(Players playerType)
 {
 	m_playerType = playerType;
@@ -233,6 +237,7 @@ void Player::handleExitFromLevel()
 
     m_isBoosted = false;
 	m_isFlyState = false;
+	m_isMagnet = false;
 	//m_isEnhance = false;
 
 	if (m_isEnhance)
@@ -263,7 +268,7 @@ void Player::move(float deltaTime)
 		SlideState* currState = dynamic_cast<SlideState*>(m_currentPlayerState.get());
 		if (currState == nullptr)   //if we not in slide state
 		{
-			m_object.setPosition(m_object.getPosition().x, 688);
+			m_object.setPosition(m_object.getPosition().x,688);
 		}
 		else if(m_object.getPosition().y >= PLAYER_INIT_POSITION.y + getSize().height)
 		{
@@ -289,42 +294,48 @@ void Player::checkGiftDurations(float deltaTime)
 	{ 
 		changeEnhanceBack();
 	}
+	// Check if the player is boosted and the boost duration has expired
+	if (m_isMagnet && m_giftClock.getElapsedTime() >= m_magnetDuration)
+	{
+		m_isMagnet = false;
+	}
+
 
 }
-////-----------------------------------------------------------------------------------
-//void Player::changeEnhanceBack()
-//{
-//	// Calculate the original height and scaled height
-//	float originalHeight = m_object.getLocalBounds().height;
-//	float scaledHeight = originalHeight * m_object.getScale().y;
-//
-//	// Calculate the height change due to scaling back to the original scale
-//	float heightChange = scaledHeight - originalHeight;
-//
-//	// Get the current position before resetting the scale
-//	sf::Vector2f currentPosition = m_object.getPosition();
-//
-//	// Revert the scale to the original
-//	m_object.setScale(m_originalScale, m_originalScale);
-//
-//	// Adjust the y position back to maintain the top-left corner position
-//	// Subtract the heightChange to compensate for scaling down
-//	m_object.setPosition(currentPosition.x, currentPosition.y + heightChange);
-//
-//	m_isEnhance = false;
-//
-//}
-//--------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------
 void Player::changeEnhanceBack()
 {
-	// Reset the scale to the original
+	// Calculate the original height and scaled height
+	float originalHeight = m_object.getLocalBounds().height;
+	float scaledHeight = originalHeight * m_object.getScale().y;
+
+	// Calculate the height change due to scaling back to the original scale
+	float heightChange = scaledHeight - originalHeight;
+
+	// Get the current position before resetting the scale
+	sf::Vector2f currentPosition = m_object.getPosition();
+
+	// Revert the scale to the original
 	m_object.setScale(m_originalScale, m_originalScale);
 
-	// Reset the origin back to the top-left
-	m_object.setOrigin(0, 0);
+	// Adjust the y position back to maintain the top-left corner position
+	// Subtract the heightChange to compensate for scaling down
+	m_object.setPosition(currentPosition.x, currentPosition.y + heightChange);
 
 	m_isEnhance = false;
+
 }
+////--------------------------------------------------------------------------------
+//void Player::changeEnhanceBack()
+//{
+//	// Reset the scale to the original
+//	m_object.setScale(m_originalScale, m_originalScale);
+//
+//	// Reset the origin back to the top-left
+//	m_object.setOrigin(0, 0);
+//
+//	m_isEnhance = false;
+//}
 //------------------------------------------------------------------------------------
 void Player::changeToFlyState()
 {

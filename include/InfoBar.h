@@ -13,6 +13,7 @@ public:
 	InfoBar();
 	void draw(sf::RenderWindow& window);
 	void updateInfoBar(const Player& player, int levelNumber);
+	void setGiftTexture();
 
 private:
 	std::string m_numOfCoins;
@@ -23,4 +24,7 @@ private:
 	sf::RectangleShape m_jelly;
 	sf::RectangleShape m_coin;
 	sf::RectangleShape m_weapon;
+
+	// Texture and visibility management for gifts
+	std::vector<std::pair<bool, sf::RectangleShape>> m_gifts;
 };

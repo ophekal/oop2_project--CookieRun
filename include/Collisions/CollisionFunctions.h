@@ -9,7 +9,7 @@ void playerFloor(GameObject& player, GameObject& floor);
 void playerEnhance(GameObject& player, GameObject& enhance);
 void playerWeapon(GameObject& player, GameObject& weapon);
 void playerBoost(GameObject& player, GameObject& boost);
-//void playerMagnet(GameObject& player, GameObject& magnet);
+void playerMagnet(GameObject& player, GameObject& magnet);
 void playerFlyingGift(GameObject& player, GameObject& flyingGift);
 void playerEnemy(GameObject& player, GameObject& enemy);
 //void enemyGift(GameObject& enemy, GameObject& gift);

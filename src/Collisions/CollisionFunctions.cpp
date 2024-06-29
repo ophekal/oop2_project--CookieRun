@@ -206,14 +206,19 @@ void playerBoost(GameObject& player, GameObject& boost)
     p.startBoostTimer(boostDuration, oldSpeed);
 }
 
-////------------------------------------------------------------
-//void playerMagnet(GameObject& player, GameObject& magnet)
-//{
-//    Player& p = static_cast<Player&>(player);
-//    Magnet& m = static_cast<Magnet&>(magnet);
-//    m.markForDeletion();
-//}
-//
+//------------------------------------------------------------
+void playerMagnet(GameObject& player, GameObject& magnet)
+{
+    Player& p = static_cast<Player&>(player);
+    Magnet& m = static_cast<Magnet&>(magnet);
+    m.markForDeletion();
+    // Set the boost duration (10 seconds)
+    sf::Time magnetDuration = sf::seconds(10);
+
+    // Start the boost timer
+    p.startMagnetTimer(magnetDuration);
+}
+
 //------------------------------------------------------------
 void playerFlyingGift(GameObject& player, GameObject& flyingGift)
 {

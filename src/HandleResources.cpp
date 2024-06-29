@@ -143,7 +143,7 @@ void HandleResources::updateGiftTextureVector()
 {
 	m_giftTextures.resize(8);
 	m_giftTextures[G_JELLY].loadFromFile("JellyBean.png");
-	m_giftTextures[G_MAGNENT].loadFromFile("Magnet.png");
+	m_giftTextures[G_MAGNET].loadFromFile("Magnet.png");
 	m_giftTextures[G_ENHANCE].loadFromFile("Enhance.png");
 	m_giftTextures[G_COIN].loadFromFile("Coins-Sheet.png");
 	m_giftTextures[G_BOOST].loadFromFile("Boost.png");

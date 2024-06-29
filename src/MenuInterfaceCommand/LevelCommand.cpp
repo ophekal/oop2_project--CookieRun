@@ -55,7 +55,7 @@ void LevelCommand::handleEvent()
 
 		m_infoBar.updateInfoBar(m_player, m_levelNumber);
 
-		//render();
+		render();
 
 		levelPollEvent();
 		if (m_levelOver)
@@ -77,7 +77,7 @@ void LevelCommand::handleEvent()
 			return;
 		}
 
-		render();
+		//render();
 	}
 }
 //------------------------------------------------------------------------------------------------------
@@ -280,6 +280,25 @@ void LevelCommand::updateAnimation(sf::Time deltaTime)
 	for (auto& coinObject : m_coins)
 	{
 		coinObject->updateAnimation(deltaTime);
+		// Check if the player has a magnet active
+		if (m_player.isMagnet()) 
+		{
+			// Get the bounds of the current view
+			sf::FloatRect viewBounds = getCurrentViewBounds();
+
+			// Calculate distance between player and coin
+			float distance = std::hypot(coinObject->getPosition().x - m_player.getPosition().x,
+				                        coinObject->getPosition().y - m_player.getPosition().y);
+
+			// Adjust this range as needed for attraction
+			constexpr float attractionRange =1000.0f;
+
+			// If the coin is within the attraction range and within view bounds, move towards the player
+			if (distance <= attractionRange && viewBounds.contains(coinObject->getPosition()))
+			{
+				coinObject->updatePositionTowardsPlayer(m_player.getPosition(), deltaTime.asSeconds());
+			}
+		}	
 	}
 }
 
@@ -396,7 +415,7 @@ void LevelCommand::handleExplosion(sf::Time deltaTime)
 	if (m_explosionClock.getElapsedTime() >= sf::seconds(1.0f))
 	{
 		m_isExploding = false;
-		removeMarkedEnemies(); // Remove enemies marked for deletion after the explosion
+		//removeMarkedEnemies(); // Remove enemies marked for deletion after the explosion
 	}
 }
 //----------------------------------------------------------------------------------------
@@ -473,7 +492,6 @@ void LevelCommand::drawGameObjects()
 	for (const auto& staticObject : m_staticObjects) {
 		staticObject->draw(m_window);
 	}
-
 	for (const auto& animatedObject : m_animationObjects) {
 		animatedObject->draw(m_window);
 	}
@@ -481,17 +499,13 @@ void LevelCommand::drawGameObjects()
 	{
 		coin->draw(m_window);
 	}
+	for (const auto& enemy : m_enemies)
+	{
+		enemy->draw(m_window);
+	}
 
 	printInformation();
 	m_player.draw(m_window);
-
-	for (const auto& enemy : m_enemies)
-	{
-		if (!enemy->isMarkedForDeletion())
-		{
-			enemy->draw(m_window);
-		}
-	}
 }
 
 //------------------------------------------------------------------------------
@@ -522,6 +536,8 @@ void LevelCommand::handleExplosionStart()
 	// Identify and mark enemies within view for deletion
 	m_explosionPositions = markEnemiesForExplosion(viewBounds);
 
+	removeMarkedEnemies();
+	
 	m_isExploding = true; // Set explosion flag
 	m_explosionClock.restart(); // Start explosion timer
 }

@@ -40,10 +40,11 @@ void Menu::activate()
 {
 	while (m_window.isOpen())
 	{
+		render();
 		sf::Event event;
 		while (m_window.pollEvent(event))
 		{
-			render();
+			
 			if (event.type == sf::Event::Closed)
 			{
 				m_window.close();

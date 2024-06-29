@@ -42,6 +42,9 @@ InfoBar::InfoBar()
     m_coin.setTextureRect(coins[0]);
     m_coin.setSize({ 40.0f, 40.0f }); 
     m_coin.setPosition({500,20 });
+
+    //Set the texture of the gifts
+    setGiftTexture();
 }
 //-----------------------------------------------------------------------------------------
 void InfoBar::draw(sf::RenderWindow& window)
@@ -53,6 +56,16 @@ void InfoBar::draw(sf::RenderWindow& window)
     window.draw(m_jelly);
     window.draw(m_coin);
     window.draw(m_weapon);
+
+    // Draw gift shapes with textures
+    for (const auto& pair : m_gifts)
+    {
+        if (pair.first) 
+        {
+            window.draw(pair.second);
+        }
+    }
+
 }
 //----------------------------------------------------------------------------------------
 void InfoBar::updateInfoBar(const Player& player, int levelNumber)
@@ -61,4 +74,37 @@ void InfoBar::updateInfoBar(const Player& player, int levelNumber)
     m_infoBar[1].setString("Energy: " + std::to_string(player.getEnergy()));
     m_infoBar[2].setString("Coins: " + std::to_string(player.getCoins()));
     m_infoBar[3].setString("Weapons: " + std::to_string(player.getWeapons()));
+
+    //check if the gifts are on
+    m_gifts[0].first = player.isBoost();
+    m_gifts[1].first = player.isEnhance();
+    m_gifts[2].first = player.isFlyState();
+    m_gifts[3].first = player.isMagnet();
+}
+
+//---------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+void InfoBar::setGiftTexture()
+{
+    m_gifts.resize(4);
+
+    m_gifts[0].first = false;
+    m_gifts[0].second.setTexture(HandleResources::instance().getGiftTexture(G_BOOST));
+    m_gifts[0].second.setSize({40.0f, 40.0f});
+    m_gifts[0].second.setPosition({ 1000,20 });
+
+    m_gifts[1].first = false;
+    m_gifts[1].second.setTexture(HandleResources::instance().getGiftTexture(G_ENHANCE));
+    m_gifts[1].second.setSize({ 40.0f, 40.0f });
+    m_gifts[1].second.setPosition({ 1050,20 });
+
+    m_gifts[2].first = false;
+    m_gifts[2].second.setTexture(HandleResources::instance().getGiftTexture(G_FLIGHT));
+    m_gifts[2].second.setSize({ 40.0f, 40.0f });
+    m_gifts[2].second.setPosition({ 1100,20 });
+
+    m_gifts[3].first = false;
+    m_gifts[3].second.setTexture(HandleResources::instance().getGiftTexture(G_MAGNET));
+    m_gifts[3].second.setSize({ 40.0f, 40.0f });
+    m_gifts[3].second.setPosition({ 1150,20 });
 }

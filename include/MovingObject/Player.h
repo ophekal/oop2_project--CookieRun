@@ -23,6 +23,7 @@ public:
 	void setCoins(int numOfCoins);
 	void setJelly(int numOfJelly);
 	void startBoostTimer(sf::Time duration, float oldSpeed);
+	void startMagnetTimer(sf::Time duration);
 	void setWeapon(int numOfWeapon);
 	bool onGround()const;
 	void handleExitFromLevel();
@@ -40,6 +41,8 @@ public:
 	int getEnergy()const { return m_energy; }
 	void setEnergy(int energy) { m_energy = energy; }
 	bool isEnhance()const { return m_isEnhance; }
+	bool isBoost()const { return m_isBoosted; }
+	bool isMagnet()const { return m_isMagnet; }
 	void startEnhanceTimer(sf::Time duration, float scaleFactor);
 	void checkGiftDurations(float deltaTime);
 	void changeToFlyState();
@@ -67,10 +70,12 @@ private:
 	bool m_isBoosted = false;
 	bool m_isEnhance = false;
 	bool m_isFlyState = false;
+	bool m_isMagnet = false;
 
 	sf::Clock m_giftClock;
 	sf::Time m_boostDuration = sf::seconds(5);
 	sf::Time m_enhanceDuration = sf::seconds(5);
+	sf::Time m_magnetDuration = sf::seconds(5);
 
 	float m_oldSpeed= 350.f;
 	float m_originalScale = 1.0f; 
