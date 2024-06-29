@@ -22,6 +22,13 @@ public:
 	void execute()override;
 	bool isOpen()const { return m_levelOpen; }
 	void openLevel() { m_levelOpen = true; }
+	int getLevelNumber()const;
+	void setFlagPosition(const sf::Vector2f& position);
+	void addToAnimationObjectVector(std::unique_ptr<AnimationObject> object);
+	void addToStaticObjectVector(std::unique_ptr<StaticObject> object);
+	void addToCoinsVector(std::unique_ptr<Coin> object);
+	float getLastFloorXPosition(int cell) const;
+	void addToEnemiesVector(float  randomX, float randomY);
 
 
 private:
@@ -30,16 +37,18 @@ private:
 	InfoBar& m_infoBar;
 	Button m_backButton;
 	sf::RectangleShape m_background;
-	Loader m_loader;
-
 	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	std::vector<std::unique_ptr<StaticObject>> m_staticObjects;
 	std::vector<std::unique_ptr<AnimationObject>> m_animationObjects;
-	std::vector<std::unique_ptr<Coin>> m_coins;     //for fast search in the gift magnet
+	std::vector<std::unique_ptr<Coin>> m_coins; //for fast search in the gift magnet
+	sf::Vector2f m_flagPosition;
+	int m_levelNumber;
+	bool m_levelOpen;
+	bool m_levelOver = false;
+	Loader m_loader;
 
 	sf::Clock m_clock;
 	sf::Time m_energyReductionElapsedTime = sf::Time::Zero; // Elapsed time for energy reduction
-	sf::Vector2f m_flagPosition;
 
 	bool m_isExploding = false;                // Flag to indicate if an explosion is in progress
 	sf::Clock m_explosionClock;                // Clock to track the explosion duration
@@ -49,10 +58,6 @@ private:
 
 	void handleExplosion(sf::Time deltaTime);  // Method to handle explosion animation
 	void handleExplosionStart();               // Method to start explosion handling
-
-	int m_levelNumber;
-	bool m_levelOpen;
-	bool m_levelOver = false;
 
 
 	void render();
@@ -74,8 +79,8 @@ private:
 	void checkIfNeedToExplode();
 	sf::FloatRect getCurrentViewBounds();
 	std::vector<sf::Vector2f> markEnemiesForExplosion(const sf::FloatRect& viewBounds);
-	void handleExpolsion();
-	void performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions);
+	//void handleExpolsion();
+	//void performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions);
 	void drawGameObjects();
 	void removeMarkedEnemies();
 };

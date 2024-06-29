@@ -6,21 +6,17 @@
 #include "AnimationObject/Coin.h"
 #include "LevelPartGenerator.h"
 
+class LevelCommand;
 
 class Loader
 {
 public:
     Loader() = default;
-    void updateMembers(int levelNumber, std::vector < std::unique_ptr<AnimationObject>>& animationObjects,
-        std::vector < std::unique_ptr<StaticObject>>& staticObjects, std::vector<std::unique_ptr<Enemy>>& enemies,
-        std::vector< std::unique_ptr<Coin>>& coins, sf::Vector2f& flagPosition);
+    void updateMembers(LevelCommand& level);
     
-private:
-    void addObjectsToVectors(int levelNumber, level& levelPart, std::vector < std::unique_ptr<AnimationObject>>& animationObjects,
-        std::vector < std::unique_ptr<StaticObject>>& staticObjects, std::vector<std::unique_ptr<Enemy>>& enemies,
-        std::vector< std::unique_ptr<Coin>>& coins);
-    void createRandomEnemy(std::vector<std::unique_ptr<Enemy>>& enemies, float startX, float endX,int levelNumber);
-
+private:    
+    void addObjectsToVectors(LevelCommand& currLevel, const level& levelPart);
+    void createRandomEnemy(LevelCommand& currLevel, float startX, float endX);
     sf::Vector2f m_lastObjectPosition = { 0,0 };
 
 };

@@ -5,6 +5,8 @@
 //------------LevelGenerator----------------
 
 const int NUM_OF_PARTS_PER_LEVEL = 4;
+const int POSITION_OF_LAST_FLOOR = 50;
+const int ENEMIES_PER_LEVEL = 2;
 
 //---------------Buttons--------------------
 enum Buttons

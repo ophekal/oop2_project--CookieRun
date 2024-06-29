@@ -30,9 +30,12 @@ void LevelCommand::execute()
 		return;
 	}
 
-	//in each execute we load diff level 
-	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
+	//m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
 	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y + 2);
+
+	//in each execute we load diff level 
+	m_loader.updateMembers(*this);
+
 	handleEvent();
 
 }
@@ -521,4 +524,49 @@ void LevelCommand::handleExplosionStart()
 
 	m_isExploding = true; // Set explosion flag
 	m_explosionClock.restart(); // Start explosion timer
+}
+
+//-------------------------------------------------------------------------------
+int LevelCommand::getLevelNumber() const
+{
+	return m_levelNumber;
+}
+
+//-------------------------------------------------------------------------------
+void LevelCommand::setFlagPosition(const sf::Vector2f& position)
+{
+	m_flagPosition = position;
+	m_flagPosition.x += 6000;
+}
+
+//-------------------------------------------------------------------------------
+void LevelCommand::addToAnimationObjectVector(std::unique_ptr<AnimationObject> object)
+{
+	m_animationObjects.emplace_back(std::move(object));
+}
+
+//-------------------------------------------------------------------------------
+void LevelCommand::addToStaticObjectVector(std::unique_ptr<StaticObject> object)
+{
+	m_staticObjects.emplace_back(std::move(object));
+}
+
+//-------------------------------------------------------------------------------
+void LevelCommand::addToCoinsVector(std::unique_ptr<Coin> object)
+{
+	m_coins.emplace_back(std::move(object));
+}
+
+//-------------------------------------------------------------------------------
+void LevelCommand::addToEnemiesVector(float  randomX, float randomY)
+{
+	m_enemies.emplace_back(EnemyFactory::createEnemy({ randomX, randomY }, m_levelNumber));
+}
+
+//-------------------------------------------------------------------------------
+// This function gets the x position of the last floor in the level
+
+float LevelCommand::getLastFloorXPosition(int cell) const
+{
+	return m_staticObjects[cell]->getObject().getPosition().x;
 }
