@@ -21,8 +21,6 @@ MoveRandomStrategy::MoveRandomStrategy()
 
 void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)
 {
-    std::cout << "in random enemy movement\n";
-
     m_timeSinceLastChange += m_clock.restart();
 
     // Change direction every 5 seconds

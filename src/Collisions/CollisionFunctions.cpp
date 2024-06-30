@@ -156,7 +156,7 @@ void playerObstcale(GameObject& player, GameObject& obstcale)
     if (!p.isEnhance())   // if not in enhance the player die when collide with obstcale
     {
         //add sound that the player die
-       // p.markForDeletion();
+        p.markForDeletion();
     }
      
 }
