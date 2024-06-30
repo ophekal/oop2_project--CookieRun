@@ -34,7 +34,7 @@ void LevelCommand::execute()
 	m_loader.updateMembers(*this);
 
 	//m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
-	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y + 2);
+	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y);
 
 	handleEvent();
 
@@ -355,7 +355,7 @@ bool LevelCommand::checkAndUpdateLevelStatus()
 //----------------------------------------------------------------------------------------
 void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound */ )
 {
-	sf::sleep(sf::seconds(1));
+	sf::sleep(sf::seconds(1.5));
 
 	sf::Sprite sprite(feedback);
 
@@ -549,8 +549,9 @@ int LevelCommand::getLevelNumber() const
 }
 
 //-------------------------------------------------------------------------------
-void LevelCommand::setFlagPosition(const sf::Vector2f& position)
+void LevelCommand::setFlagPosition(sf::Vector2f position)
 {
+	position.x -= 12 * m_staticObjects[0]->getSize().width;
 	m_flagPosition = position;
 }
 
@@ -583,7 +584,5 @@ void LevelCommand::addToEnemiesVector(float  randomX, float randomY)
 
 float LevelCommand::getLastFloorXPosition(int cell) const
 {
-	float lastPositionX = m_staticObjects[cell]->getObject().getPosition().x;
-	lastPositionX -= 12*m_staticObjects[cell]->getSize().width;
-	return (lastPositionX);
+	return (m_staticObjects[cell]->getObject().getPosition().x);
 }

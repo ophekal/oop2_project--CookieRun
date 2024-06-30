@@ -13,6 +13,10 @@
 Player::Player(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
 	:MovingObject(sprite, speed, position),m_velocity(0,0),m_gravity(0.35)
 {
+
+    // Set the origin to center
+	//sf::FloatRect bounds = m_object.getLocalBounds();
+	//m_object.setOrigin(bounds.width / 2.f, bounds.height/2.f);
 	m_currentPlayerState = std::make_unique<RunState>(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f));
 	m_currentPlayerState -> restartAnimation();
 }
@@ -269,11 +273,11 @@ void Player::move(float deltaTime)
 		SlideState* currState = dynamic_cast<SlideState*>(m_currentPlayerState.get());
 		if (currState == nullptr)   //if we not in slide state
 		{
-			m_object.setPosition(m_object.getPosition().x,688);
+			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y);
 		}
 		else if(m_object.getPosition().y >= PLAYER_INIT_POSITION.y + getSize().height)
 		{
-			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + getSize().height+7);
+			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + getSize().height+10);
 		}
 
 	}

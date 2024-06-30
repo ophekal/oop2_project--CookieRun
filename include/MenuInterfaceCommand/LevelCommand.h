@@ -23,7 +23,7 @@ public:
 	bool isOpen()const { return m_levelOpen; }
 	void openLevel() { m_levelOpen = true; }
 	int getLevelNumber()const;
-	void setFlagPosition(const sf::Vector2f& position);
+	void setFlagPosition(sf::Vector2f position);
 	void addToAnimationObjectVector(std::unique_ptr<AnimationObject> object);
 	void addToStaticObjectVector(std::unique_ptr<StaticObject> object);
 	void addToCoinsVector(std::unique_ptr<Coin> object);
