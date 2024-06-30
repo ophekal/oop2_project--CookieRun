@@ -606,7 +606,7 @@ void HandleResources::updateZombieCookieAnimation()
 
 	auto nextStart = [&]()
 		{
-			currentStart += middleSpace;
+			currentStart -= middleSpace;
 			currentStart.x += size.x;
 			return currentStart;
 		};
