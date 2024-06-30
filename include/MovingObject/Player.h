@@ -85,5 +85,8 @@ private:
 	KeyboardInput m_keyPressed = K_NONE;
 
 	std::unique_ptr<PlayerState> m_currentPlayerState;
+
+
+	void checkInsideWindow();
 };
 

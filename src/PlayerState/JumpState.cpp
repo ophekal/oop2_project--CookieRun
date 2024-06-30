@@ -15,7 +15,6 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Player& player, KeyboardInpu
 
     if (pressed == K_NONE && player.onGround()) // end his jump
     {
-       // m_jumpDistance = 0;
         m_gravity = 0;
         AnimationType aniType = getRunAnimationType(player.getPlayerType());
         return std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.1f));
@@ -31,16 +30,16 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Player& player, KeyboardInpu
 //---------------------------------------------------------------------------------------
 void JumpState::update(Player& player, sf::Time deltaTime)
 {
-	// Update jump distance
-	//m_jumpDistance += std::abs(player.getGravity())* deltaTime.asSeconds() ; // Track absolute distance
-
     if (player.onGround()) // start the jump
     {
-        player.setVelocityY(-25);
+        player.setVelocityY(-10);
         player.setOnGround(false);
     }
 
-    player.updateGravity(0.2);
+   // player.updateGravity(0.2);
+   // Apply gravity to the vertical component
+    player.updateGravity(deltaTime.asSeconds());
+
     player.move(deltaTime.asSeconds());
 
 	m_animation.update(deltaTime);

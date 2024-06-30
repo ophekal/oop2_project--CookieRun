@@ -243,7 +243,6 @@ void Player::handleExitFromLevel()
     m_isBoosted = false;
 	m_isFlyState = false;
 	m_isMagnet = false;
-	//m_isEnhance = false;
 
 	if (m_isEnhance)
 	{
@@ -268,20 +267,32 @@ void Player::move(float deltaTime)
 	m_velocity.y += m_gravity;
 	m_object.move(m_velocity); // was 350 before
 
-	if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y+60)
+	checkInsideWindow();
+}
+//-------------------------------------------------------------------
+//check if the player is in the limit of the window
+
+void Player::checkInsideWindow()
+{
+	if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + 60)
 	{
 		SlideState* currState = dynamic_cast<SlideState*>(m_currentPlayerState.get());
 		if (currState == nullptr)   //if we not in slide state
 		{
 			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y);
 		}
-		else if(m_object.getPosition().y >= PLAYER_INIT_POSITION.y + getSize().height)
+		else if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + getSize().height)
 		{
-			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + getSize().height+10);
+			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + getSize().height + 10);
 		}
-
+		setOnGround(true);
+		m_velocity.y = 0;  // Reset vertical velocity when hitting the ground
+		m_gravity = 0.3;
 	}
-
+	else if (m_object.getPosition().y <= 0)
+	{
+		m_object.setPosition(m_object.getPosition().x,0);
+	}
 }
 //---------------------------------------------------------------
 void Player::checkGiftDurations(float deltaTime)
