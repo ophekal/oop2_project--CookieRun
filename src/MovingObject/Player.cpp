@@ -135,6 +135,7 @@ void Player::setPlayer(Players playerType)
 //-----------------------------------------------------------------
 void Player::movement(sf::Time deltaTime)
 {
+	std::cout << m_object.getGlobalBounds().width << std::endl;
 	//m_onGround = false;
 
 	 // Update player state based on input events

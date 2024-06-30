@@ -28,8 +28,20 @@ std::unique_ptr<PlayerState> SlideState::handleEvent(Player& player, KeyboardInp
 //---------------------------------------------------------------------------------------
 void SlideState::update(Player& player, sf::Time deltaTime)
 {
-    player.resetGravity();
-    player.setPosition(player.getPosition().x, player.getPosition().y + (player.getSize().height / 2)); 
+    //player.resetGravity();
+    //player.setPosition(player.getPosition().x, player.getPosition().y + (player.getSize().height / 2) - 20.f); 
+    //player.move(deltaTime.asSeconds());
+
+    //m_animation.update(deltaTime);
+
+    if (player.onGround())
+    {
+        player.resetGravity();
+    }
+    else
+    {
+        player.updateGravity(deltaTime.asSeconds() * 350);
+    }
     player.move(deltaTime.asSeconds());
 
     m_animation.update(deltaTime);
