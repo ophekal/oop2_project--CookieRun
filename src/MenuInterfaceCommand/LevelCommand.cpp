@@ -31,9 +31,9 @@ void LevelCommand::execute()
 	}
 
 	//in each execute we load diff level 
-	//m_loader.updateMembers(*this);
+	m_loader.updateMembers(*this);
 
-	m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
+	//m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
 	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y + 2);
 
 	handleEvent();
@@ -552,7 +552,6 @@ int LevelCommand::getLevelNumber() const
 void LevelCommand::setFlagPosition(const sf::Vector2f& position)
 {
 	m_flagPosition = position;
-	m_flagPosition.x += 6000;
 }
 
 //-------------------------------------------------------------------------------
