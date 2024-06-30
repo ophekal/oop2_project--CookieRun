@@ -577,9 +577,9 @@ void HandleResources::updateCarrotCookieAnimation()
 {
 	// need to check its okay!
 
-	const auto size = sf::Vector2i(159, 160);
-	const auto initSpace = sf::Vector2i(9, 7);
-	const auto middleSpace = sf::Vector2i(3, 0);
+	const auto size = sf::Vector2i(185, 150);
+	const auto initSpace = sf::Vector2i(1, 12);
+	const auto middleSpace = sf::Vector2i(0, 0);
 
 	auto currentStart = initSpace;
 
@@ -600,9 +600,9 @@ void HandleResources::updateCarrotCookieAnimation()
 //------------------------------------------------------------------------
 void HandleResources::updateZombieCookieAnimation()
 {
-	const auto size = sf::Vector2i(180, 125);
-	const auto initSpace = sf::Vector2i(3398, 593);
-	const auto middleSpace = sf::Vector2i(190, 0);
+	const auto size = sf::Vector2i(125, 170);
+	const auto initSpace = sf::Vector2i(1828, 115);
+	const auto middleSpace = sf::Vector2i(196, 0);
 
 	auto currentStart = initSpace;
 
@@ -706,8 +706,8 @@ void HandleResources::updateGardenAnimation()
 //-----------------------------------------------------------------------------------
 void HandleResources::updateFlagAnimation()
 {
-	const auto size = sf::Vector2i(289, 347);
-	const auto initSpace = sf::Vector2i(3,14);
+	const auto size = sf::Vector2i(289, 363);
+	const auto initSpace = sf::Vector2i(3,0);
 	const auto middleSpace = sf::Vector2i(90, 0);
 
 	auto currentStart = initSpace;
