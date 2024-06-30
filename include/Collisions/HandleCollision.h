@@ -24,7 +24,6 @@ public:
 	
 private:
 	HandleCollision();
-	//void addCollsion(GameObject& object1, GameObject& object2);
 	void initializeCollisionMap();
 	HitMap m_collisionMap;
 };

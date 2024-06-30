@@ -56,20 +56,21 @@ void playerFloor(GameObject& player, GameObject& floor)
     auto playerBounds = p.getObject().getGlobalBounds();
 
     // Check if the player is above the floor
-    bool playerAboveFloor = (playerBounds.top + (playerBounds.height/2)-5 <= floorBounds.top);
+    bool playerAboveFloor = (playerBounds.top + (playerBounds.height)-5 <= floorBounds.top);
     bool playerCollidingFromBottom = (playerBounds.left < floorBounds.left + floorBounds.width &&
         playerBounds.left + playerBounds.width > floorBounds.left);
 
     if (playerAboveFloor && playerCollidingFromBottom) 
     {
-        if (!p.isFlyState())
-        {
+       if (!p.isFlyState())
+       {
             // Player is above the floor and colliding from the bottom
             auto newPlayerYPosition = floorBounds.top - (p.getSize().height/2);
             p.setPosition(p.getPosition().x, newPlayerYPosition);
             p.setOnGround(true);
             p.resetGravity();
-        }
+           // p.setVelocityY(0);
+       }
 
     }
     else if( !p.isEnhance())
@@ -159,61 +160,14 @@ void playerFlyingGift(GameObject& player, GameObject& flyingGift)
     p.changeToFlyState();
 }
 
-////------------------------------------------------------------
-//void playerCarrotMissile(GameObject& player, GameObject& carrotMissile)
-//{
-//    Player& p = static_cast<Player&>(player);
-//    CarrotMissile& c = static_cast<CarrotMissile&>(carrotMissile);
-//    c.markForDeletion();
-//    p.setWeapon(p.getWeapons() + 1);
-//}
-//
 //------------------------------------------------------------
 void playerEnemy(GameObject& player, GameObject& enemy)
 {
     Player& p = static_cast<Player&>(player);
     Enemy& e = static_cast<Enemy&>(enemy);
 
-    std::cout << "the enemy kill the player\n";
-   // p.markForDeletion();
+    if (p.isEnhance())
+    {
+        p.markForDeletion();
+    }   
 }
-
-////------------------------------------------------------------
-//void enemyGift(GameObject& enemy, GameObject& gift)
-//{
-//    Enemy& e = static_cast<Enemy&>(enemy);
-//    Gift& g = static_cast<Gift&>(gift);
-//
-//    // nothing changes
-//}
-//
-//////------------------------------------------------------------
-////void enemyDynamite(GameObject& enemy, GameObject& dynamite)
-////{
-////    Enemy& e = static_cast<Enemy&>(enemy);
-////    Dynamite d = static_cast<Gift&>(gift);
-////
-////    e.
-////}
-//
-//////------------------------------------------------------------
-////void enemyCarrotMissile(GameObject& enemy, GameObject& carrotMissile)
-////{
-////    Enemy& e = static_cast<Enemy&>(enemy);
-////    CarrotMissile c = static_cast<CarrotMissile&>(carrotMissile);
-////}
-//
-////------------------------------------------------------------
-//void enemyPlayer(GameObject& enemy, GameObject& player)
-//{
-//    Enemy& e = static_cast<Enemy&>(enemy);
-//    Player& p = static_cast<Player&>(player);
-//}
-////------------------------------------------------------------
-//void enemyObstcale(GameObject& enemy, GameObject& obstcale)
-//{
-//    Enemy& e = static_cast<Enemy&>(enemy);
-// 
-//    //change the enemy sprite to go the other way?
-//    
-//}

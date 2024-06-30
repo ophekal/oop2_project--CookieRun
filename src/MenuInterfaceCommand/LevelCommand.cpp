@@ -250,7 +250,7 @@ bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 		return false;
 	}
 
-	const int OVERLAP = 10;
+	const int OVERLAP = 5;// 10;
 	sf::FloatRect overlap;
 
 	object1.getGlobalBounds().intersects(object2.getGlobalBounds(), overlap);

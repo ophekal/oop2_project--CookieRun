@@ -138,10 +138,7 @@ void Player::setPlayer(Players playerType)
 //-----------------------------------------------------------------
 void Player::movement(sf::Time deltaTime)
 {
-	std::cout << m_object.getGlobalBounds().width << std::endl;
-	//m_onGround = false;
-
-	 // Update player state based on input events
+	// Update player state based on input events
 	std::unique_ptr<PlayerState> nextState = m_currentPlayerState->handleEvent(*this, m_keyPressed);
 
 	// Check if the state has changed
@@ -288,9 +285,9 @@ void Player::checkInsideWindow()
 		m_velocity.y = 0;  // Reset vertical velocity when hitting the ground
 		m_gravity = 0.3;
 	}
-	else if (m_object.getPosition().y <= 0)
+	else if (m_object.getPosition().y <= (m_object.getGlobalBounds().height/2)+10)
 	{
-		m_object.setPosition(m_object.getPosition().x,0);
+		m_object.setPosition(m_object.getPosition().x, (m_object.getGlobalBounds().height / 2) + 10);
 	}
 }
 //---------------------------------------------------------------
