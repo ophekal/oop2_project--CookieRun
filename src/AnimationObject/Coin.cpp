@@ -22,7 +22,6 @@ Coin::Coin(const sf::Sprite& sprite, float speed, const sf::Time& animationTime,
 	:AnimationObject(sprite, speed, animationTime, type, position)
 {
 	m_object.setPosition(position);
-    //m_isMagnetActive = false;
 }
 //-----------------------------------------------------------------------
 void Coin::updatePositionTowardsPlayer(const sf::Vector2f& playerPosition, float deltaTime)

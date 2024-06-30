@@ -112,7 +112,6 @@ void Loader::updateMembers(int levelNumber, std::vector < std::unique_ptr<Animat
 	auto lastLevelPart = LevelPartGenerator::instance().getLastLevelSection();
 	addObjectsToVectors(levelNumber, lastLevelPart, animationObjects, staticObjects, enemies, coins);
 	flagPosition = m_lastObjectPosition;
-	flagPosition.x += 6000;
 	m_lastObjectPosition = { 0,0 };
 }
 
@@ -122,6 +121,7 @@ void Loader::addObjectsToVectors(int levelNumber, level& levelPart, std::vector 
 	std::vector< std::unique_ptr<Coin>>& coins)
 {
 	float startX =0, endX=0;
+	float lastPositionX = 0;
 
 	for (size_t object = 0; object < levelPart.size(); object++)
 	{
@@ -146,10 +146,12 @@ void Loader::addObjectsToVectors(int levelNumber, level& levelPart, std::vector 
 
 		if (object == 50)
 		{
-			m_lastObjectPosition.x += staticObjects[object]->getObject().getPosition().x;
-			endX = newPosition.x;
+			lastPositionX = staticObjects[object]->getObject().getPosition().x;
 		}
 	}
+
+	m_lastObjectPosition.x += lastPositionX;
+    endX = m_lastObjectPosition.x;
 
 	createRandomEnemy(enemies, startX, endX, levelNumber);
 	createRandomEnemy(enemies, startX, endX, levelNumber);

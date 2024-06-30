@@ -343,7 +343,7 @@ bool LevelCommand::checkAndUpdateLevelStatus()
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN));
 		return true;
 	}
-	else if( m_player.getPosition().x >= m_flagPosition.x)   //the game over with success if we arrive to the flag section
+	else if( m_player.getPosition().x >= m_flagPosition.x-200)   //the game over with success if we arrive to the flag section
 	{
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
 		return true;
