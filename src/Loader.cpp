@@ -22,7 +22,7 @@ void Loader::updateMembers(LevelCommand& currLevel)
 	}
 
 	auto lastLevelPart = LevelPartGenerator::instance().getLastLevelSection();
-	addObjectsToVectors(currLevel, levelPart);
+	addObjectsToVectors(currLevel, lastLevelPart);
 	currLevel.setFlagPosition(m_lastObjectPosition);
 	m_lastObjectPosition = { 0,0 };
 }

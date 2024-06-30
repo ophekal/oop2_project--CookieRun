@@ -15,6 +15,7 @@ std::unique_ptr<PlayerState> SlideState::handleEvent(Player& player, KeyboardInp
 {
     if (pressed == K_NONE) 
     {
+        player.setPosition(player.getPosition().x, player.getPosition().y - (player.getSize().height / 2));
         AnimationType aniType = getRunAnimationType(player.getPlayerType());
         return std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.1f));
     }
