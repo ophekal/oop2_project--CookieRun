@@ -49,6 +49,35 @@ void playerJelly(GameObject& player, GameObject& jelly)
 
 void playerFloor(GameObject& player, GameObject& floor) 
 {
+
+    //Player& p = static_cast<Player&>(player);
+    //sf::FloatRect overlap;
+
+    //player.getGlobalBounds().intersects(floor.getGlobalBounds(), overlap);
+
+    //if (overlap.height > overlap.width) // from the side
+    //{
+    //    if (!p.isEnhance())
+    //    {
+    //        std::cout << "collision from the side\n";
+    //        p.markForDeletion();
+    //        return;
+    //    }
+    //}
+    //else
+    //{
+    //    if (!p.isFlyState())
+    //    {
+    //        std::cout << "collision from above\n";
+    //        // Player is above the floor and colliding from the bottom
+    //        auto newPlayerYPosition = floor.getObject().getGlobalBounds().top - (p.getSize().height/2);
+    //        p.setPosition(p.getPosition().x, newPlayerYPosition);
+    //        p.setOnGround(true);
+    //        p.resetGravity();
+    //    }
+    //}
+    //return ;
+
     Player& p = static_cast<Player&>(player);
 
     // getting the top of the floor's rectangle
@@ -56,7 +85,7 @@ void playerFloor(GameObject& player, GameObject& floor)
     auto playerBounds = p.getObject().getGlobalBounds();
 
     // Check if the player is above the floor
-    bool playerAboveFloor = (playerBounds.top + (playerBounds.height)-5 <= floorBounds.top);
+    bool playerAboveFloor = (playerBounds.top + (playerBounds.height/2)-5 <= floorBounds.top);
     bool playerCollidingFromBottom = (playerBounds.left < floorBounds.left + floorBounds.width &&
         playerBounds.left + playerBounds.width > floorBounds.left);
 
@@ -64,6 +93,7 @@ void playerFloor(GameObject& player, GameObject& floor)
     {
        if (!p.isFlyState())
        {
+           std::cout << "collision from above\n";
             // Player is above the floor and colliding from the bottom
             auto newPlayerYPosition = floorBounds.top - (p.getSize().height/2);
             p.setPosition(p.getPosition().x, newPlayerYPosition);
@@ -75,6 +105,8 @@ void playerFloor(GameObject& player, GameObject& floor)
     }
     else if( !p.isEnhance())
     {
+      std::cout << "collision from the side\n";
+
        p.markForDeletion();
        return;
     }
@@ -166,8 +198,9 @@ void playerEnemy(GameObject& player, GameObject& enemy)
     Player& p = static_cast<Player&>(player);
     Enemy& e = static_cast<Enemy&>(enemy);
 
-    if (p.isEnhance())
+    if (!p.isEnhance())
     {
+        std::cout << "enemy kill the player\n";
         p.markForDeletion();
     }   
 }
