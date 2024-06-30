@@ -52,8 +52,8 @@ void playerFloor(GameObject& player, GameObject& floor)
     Player& p = static_cast<Player&>(player);
 
     // getting the top of the floor's rectangle
-    auto floorBounds = floor.getObject().getGlobalBounds();
-    auto playerBounds = p.getObject().getGlobalBounds();
+    auto floorBounds = floor.getObject().getLocalBounds();
+    auto playerBounds = p.getObject().getLocalBounds();
 
     // Check if the player is above the floor
     bool playerAboveFloor = (playerBounds.top + (playerBounds.height/2)-5 <= floorBounds.top);

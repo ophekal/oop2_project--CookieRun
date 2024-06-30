@@ -57,13 +57,12 @@ HandleResources& HandleResources::instance()
 //-------------------------------------------------------------------------
 void HandleResources::updateBackgroundVector()
 {
-	m_backgroundsTextures.resize(6);
+	m_backgroundsTextures.resize(5);
 	m_backgroundsTextures[MENU].loadFromFile("menuBackground.jpg");
-	m_backgroundsTextures[SETTINGS].loadFromFile("settingBackground.jpg");
+	m_backgroundsTextures[SETTINGS].loadFromFile("settingsBackground.jpg");
 	m_backgroundsTextures[CHOOSE_PLAYER].loadFromFile("choosePlayerBackground.jpg");
 	m_backgroundsTextures[STARTGAME].loadFromFile("startGameBackground.jpg");
 	m_backgroundsTextures[INSTRUCTIONS].loadFromFile("instructionsBackground.jpg");
-	m_backgroundsTextures[FLYSTATE].loadFromFile("flyStateBackground.png");
 
 }
 
@@ -611,7 +610,7 @@ void HandleResources::updateOven1Animation()
 //---------------------------------------------------------------------------
 void HandleResources::updateKitchen1Animation()
 {
-	const auto size = sf::Vector2i(117, 244);
+	const auto size = sf::Vector2i(117, 242);
 	const auto initSpace = sf::Vector2i(1, 620);
 	const auto middleSpace = sf::Vector2i(0.5, 0);
 

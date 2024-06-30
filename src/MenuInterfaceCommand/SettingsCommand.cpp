@@ -11,7 +11,7 @@
 SettingsCommand::SettingsCommand(sf::RenderWindow& window)
 	: m_window(window), m_backToMenuButton(*(HandleResources::instance().getButtonTexture(B_BACK)), BACK_X, BACK_Y, BACK_SIZE)
 {
-	m_background.setTexture(*HandleResources::instance().getBackgroundTexture(INSTRUCTIONS));
+	m_background.setTexture(*HandleResources::instance().getBackgroundTexture(SETTINGS));
 
 	// Get the texture size
 	sf::Vector2u textureSize = m_background.getTexture()->getSize();
