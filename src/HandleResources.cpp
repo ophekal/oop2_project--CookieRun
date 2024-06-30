@@ -278,8 +278,6 @@ void HandleResources::updateAnimationData()
 	updateCookieBrightSlideAnimation();
 	updateCookieBrightJumpAnimation();
 	updateCookieBrightFlyAnimation();
-	updateCookieBraveDieAnimation();
-	updateCookieBrightDieAnimation();
 	updateDevilCookieAnimation();
 	updateCarrotCookieAnimation();
 	updateZombieCookieAnimation();
@@ -347,7 +345,7 @@ void HandleResources::updateCookieBraveSlideAnimation()
 {
 	const auto size = sf::Vector2i(176, 66);
 	const auto initSpace = sf::Vector2i(2493, 201);
-	const auto middleSpace = sf::Vector2i(95, 0); //90
+	const auto middleSpace = sf::Vector2i(95, 0); 
 
 	auto currentStart = initSpace;
 
@@ -381,7 +379,6 @@ void HandleResources::updateCookieBraveJumpAnimation()
 
 	m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(nextStart(), size);
-	//m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(nextStart(), size);
 }
 
 //-----------------------------------------------------------------------
@@ -405,30 +402,6 @@ void HandleResources::updateCookieBraveFlyAnimation()
 	m_animationData[ANI_COOKIEBRAVE_FLY].emplace_back(nextStart(), size);
 	m_animationData[ANI_COOKIEBRAVE_FLY].emplace_back(nextStart(), size);
 	m_animationData[ANI_COOKIEBRAVE_FLY].emplace_back(nextStart(), size);
-}
-//------------------------------------------------------------------------
-void HandleResources::updateCookieBraveDieAnimation()
-{
-	const auto size = sf::Vector2i(186, 138);
-	const auto initSpace = sf::Vector2i(1423, 1220);
-	const auto middleSpace = sf::Vector2i(95, 0);
-
-	auto currentStart = initSpace;
-
-	auto nextStart = [&]()
-		{
-			currentStart += middleSpace;
-			currentStart.x += size.x;
-			return currentStart;
-		};
-
-
-	m_animationData[ANI_COOKIBRAVE_DIE].emplace_back(currentStart, size);
-	m_animationData[ANI_COOKIBRAVE_DIE].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIBRAVE_DIE].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIBRAVE_DIE].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIBRAVE_DIE].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIBRAVE_DIE].emplace_back(nextStart(), size);
 }
 
 //--------------------------cookie bright---------------------------------
@@ -479,7 +452,7 @@ void HandleResources::updateCookieBrightSlideAnimation()
 //------------------------------------------------------------------------
 void HandleResources::updateCookieBrightJumpAnimation()
 {
-	const auto size = sf::Vector2i(142, 152);
+	const auto size = sf::Vector2i(142, 150);
 	const auto initSpace = sf::Vector2i(1825, 139);
 	const auto middleSpace = sf::Vector2i(131, 0);
 
@@ -503,7 +476,7 @@ void HandleResources::updateCookieBrightJumpAnimation()
 //-----------------------------------------------------------------------
 void HandleResources::updateCookieBrightFlyAnimation()
 {
-	const auto size = sf::Vector2i(145, 163);
+	const auto size = sf::Vector2i(145, 166);
 	const auto initSpace = sf::Vector2i(78, 978);
 	const auto middleSpace = sf::Vector2i(145, 0);
 
@@ -521,30 +494,6 @@ void HandleResources::updateCookieBrightFlyAnimation()
 	m_animationData[ANI_COOKIEBRIGHT_FLY].emplace_back(nextStart(), size);
 	m_animationData[ANI_COOKIEBRIGHT_FLY].emplace_back(nextStart(), size);
 	m_animationData[ANI_COOKIEBRIGHT_FLY].emplace_back(nextStart(), size);
-}
-//------------------------------------------------------------------------
-void HandleResources::updateCookieBrightDieAnimation()
-{
-	const auto size = sf::Vector2i(194, 136);
-	const auto initSpace = sf::Vector2i(1535, 1315);
-	const auto middleSpace = sf::Vector2i(84, 0);
-
-	auto currentStart = initSpace;
-
-	auto nextStart = [&]()
-		{
-			currentStart += middleSpace;
-			currentStart.x += size.x;
-			return currentStart;
-		};
-
-
-	m_animationData[ANI_COOKIEBRIGHT_DIE].emplace_back(currentStart, size);
-	m_animationData[ANI_COOKIEBRIGHT_DIE].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRIGHT_DIE].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRIGHT_DIE].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRIGHT_DIE].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRIGHT_DIE].emplace_back(nextStart(), size);
 }
 
 
@@ -598,9 +547,9 @@ void HandleResources::updateCarrotCookieAnimation()
 //------------------------------------------------------------------------
 void HandleResources::updateZombieCookieAnimation()
 {
-	const auto size = sf::Vector2i(125, 170);
-	const auto initSpace = sf::Vector2i(1828, 115);
-	const auto middleSpace = sf::Vector2i(196, 0);
+	const auto size = sf::Vector2i(155, 178);
+	const auto initSpace = sf::Vector2i(1679, 1104);
+	const auto middleSpace = sf::Vector2i(161, 0);
 
 	auto currentStart = initSpace;
 
