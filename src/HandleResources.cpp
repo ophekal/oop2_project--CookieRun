@@ -706,9 +706,9 @@ void HandleResources::updateGardenAnimation()
 //-----------------------------------------------------------------------------------
 void HandleResources::updateFlagAnimation()
 {
-	const auto size = sf::Vector2i(349, 351);
-	const auto initSpace = sf::Vector2i(8,13);
-	const auto middleSpace = sf::Vector2i(3, 0);
+	const auto size = sf::Vector2i(289, 347);
+	const auto initSpace = sf::Vector2i(3,14);
+	const auto middleSpace = sf::Vector2i(90, 0);
 
 	auto currentStart = initSpace;
 
