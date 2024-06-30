@@ -52,8 +52,8 @@ void playerFloor(GameObject& player, GameObject& floor)
     Player& p = static_cast<Player&>(player);
 
     // getting the top of the floor's rectangle
-    auto floorBounds = floor.getObject().getLocalBounds();
-    auto playerBounds = p.getObject().getLocalBounds();
+    auto floorBounds = floor.getObject().getGlobalBounds();
+    auto playerBounds = p.getObject().getGlobalBounds();
 
     // Check if the player is above the floor
     bool playerAboveFloor = (playerBounds.top + (playerBounds.height/2)-5 <= floorBounds.top);
@@ -65,7 +65,7 @@ void playerFloor(GameObject& player, GameObject& floor)
         if (!p.isFlyState())
         {
             // Player is above the floor and colliding from the bottom
-            auto newPlayerYPosition = floorBounds.top - p.getSize().height;
+            auto newPlayerYPosition = floorBounds.top - (p.getSize().height/2);
             p.setPosition(p.getPosition().x, newPlayerYPosition);
             p.setOnGround(true);
             p.resetGravity();
