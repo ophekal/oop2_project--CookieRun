@@ -13,6 +13,9 @@
 Player::Player(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
 	:MovingObject(sprite, speed, position),m_velocity(0,0),m_gravity(0.35)
 {
+	// Set the origin to center
+	sf::FloatRect bounds = m_object.getLocalBounds();
+	m_object.setOrigin(bounds.width / 2.f, bounds.height/2.f);
 	m_currentPlayerState = std::make_unique<RunState>(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f));
 	m_currentPlayerState -> restartAnimation();
 }

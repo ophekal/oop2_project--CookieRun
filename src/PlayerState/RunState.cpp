@@ -30,7 +30,7 @@ std::unique_ptr<PlayerState> RunState::handleEvent(Player& player, KeyboardInput
     }
     else if (pressed == K_DOWN)
     {
-        player.setPosition(player.getPosition().x, player.getPosition().y + (player.getSize().height / 2));
+        player.setPosition(player.getPosition().x, player.getPosition().y + (player.getSize().height/4));
         AnimationType aniType = getSlideAnimationType(player.getPlayerType());
         return std::make_unique<SlideState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.1f));
     }
