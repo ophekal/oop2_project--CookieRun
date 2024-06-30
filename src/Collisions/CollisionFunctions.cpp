@@ -6,6 +6,7 @@
 #include "StaticObject/Floor.h"
 #include "StaticObject/Gift.h"
 #include "StaticObject/StaticObstcale.h"
+#include "AnimationObject/MovingObstcale.h"
 #include "StaticObject/Weapon.h"
 #include "StaticObject/Enhance.h"
 #include "StaticObject/FlyingGift.h"
@@ -89,6 +90,7 @@ void playerFloor(GameObject& player, GameObject& floor)
     bool playerCollidingFromBottom = (playerBounds.left < floorBounds.left + floorBounds.width &&
         playerBounds.left + playerBounds.width > floorBounds.left);
 
+   
     if (playerAboveFloor && playerCollidingFromBottom) 
     {
        if (!p.isFlyState())
@@ -119,8 +121,8 @@ void playerObstcale(GameObject& player, GameObject& obstcale)
 
     if (!p.isEnhance())   // if not in enhance the player die when collide with obstcale
     {
-        ////add sound that the player die
-        //p.markForDeletion();
+        //add sound that the player die
+        p.markForDeletion();
     }
      
 }
@@ -203,4 +205,16 @@ void playerEnemy(GameObject& player, GameObject& enemy)
         std::cout << "enemy kill the player\n";
         p.markForDeletion();
     }   
+}
+//--------------------------------------------------------
+void playerMovingObstcale(GameObject& player, GameObject& obstcale)
+{
+    Player& p = static_cast<Player&>(player);
+    MovingObstcale& m = static_cast<MovingObstcale&>(obstcale);
+
+    if (!p.isEnhance())
+    {
+        std::cout << "enemy kill the player\n";
+        p.markForDeletion();
+    }
 }

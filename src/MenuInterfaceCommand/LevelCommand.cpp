@@ -250,15 +250,28 @@ bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 		return false;
 	}
 
-	const int OVERLAP = 5;// 10;
+	const int OVERLAP = 20;
 	sf::FloatRect overlap;
 
-	object1.getGlobalBounds().intersects(object2.getGlobalBounds(), overlap);
+	//object1.getGlobalBounds().intersects(object2.getGlobalBounds(), overlap);
 
-	if (overlap.height > OVERLAP && overlap.width > OVERLAP)
+	//if (overlap.height > OVERLAP && overlap.width > OVERLAP)
+	//{
+	//	return true;
+	//}
+	//return false;
+	if (object1.getGlobalBounds().intersects(object2.getGlobalBounds(), overlap))
 	{
-		return true;
+		std::cout << "Overlap Detected! Width: " << overlap.width << ", Height: " << overlap.height << std::endl;
+
+		if (overlap.height > OVERLAP && overlap.width > OVERLAP)
+		{
+			std::cout << "Collision confirmed with overlap." << std::endl;
+			return true;
+		}
 	}
+
+	//std::cout << "No significant overlap." << std::endl;
 	return false;
 }
 

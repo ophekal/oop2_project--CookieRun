@@ -12,4 +12,5 @@ void playerBoost(GameObject& player, GameObject& boost);
 void playerMagnet(GameObject& player, GameObject& magnet);
 void playerFlyingGift(GameObject& player, GameObject& flyingGift);
 void playerEnemy(GameObject& player, GameObject& enemy);
+void playerMovingObstcale(GameObject& player, GameObject& MovingObstcale);
 

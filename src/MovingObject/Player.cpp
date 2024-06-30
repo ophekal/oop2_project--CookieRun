@@ -81,7 +81,7 @@ void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
 	float heightChange = newHeight - originalHeight;
 
 	// Since we are using top-left as the origin, adjust the y position by the total height change
-	m_object.setPosition(originalPosition.x, originalPosition.y - heightChange);
+	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange/2));
 
 
 }
@@ -275,7 +275,7 @@ void Player::checkInsideWindow()
 		SlideState* currState = dynamic_cast<SlideState*>(m_currentPlayerState.get());
 		if (currState == nullptr)   //if we not in slide state
 		{
-			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y);
+			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y+10);
 		}
 		else if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + getSize().height)
 		{
@@ -332,7 +332,7 @@ void Player::changeEnhanceBack()
 
 	// Adjust the y position back to maintain the top-left corner position
 	// Subtract the heightChange to compensate for scaling down
-	m_object.setPosition(currentPosition.x, currentPosition.y + heightChange);
+	m_object.setPosition(currentPosition.x, currentPosition.y + (heightChange/2));
 
 	m_isEnhance = false;
 

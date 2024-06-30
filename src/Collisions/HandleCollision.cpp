@@ -11,6 +11,7 @@
 #include "StaticObject/FlyingGift.h"
 #include "StaticObject/JellyBean.h"
 #include "StaticObject/Magnet.h"
+#include "AnimationObject/MovingObstcale.h"
 #include "Collisions/CollisionFunctions.h"
 
 
@@ -41,6 +42,7 @@ void HandleCollision::initializeCollisionMap()
     m_collisionMap[Key(typeid(Player), typeid(Magnet))] = &playerMagnet;
     m_collisionMap[Key(typeid(Player), typeid(FlyingGift))] = &playerFlyingGift;
     m_collisionMap[Key(typeid(Player), typeid(Enemy))] = &playerEnemy;
+    m_collisionMap[Key(typeid(Player), typeid(MovingObstcale))] = &playerEnemy;
 }
 
 //------------------------------------------------------------------------
