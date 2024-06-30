@@ -575,8 +575,6 @@ void HandleResources::updateDevilCookieAnimation()
 //------------------------------------------------------------------------
 void HandleResources::updateCarrotCookieAnimation()
 {
-	// need to check its okay!
-
 	const auto size = sf::Vector2i(185, 150);
 	const auto initSpace = sf::Vector2i(1, 12);
 	const auto middleSpace = sf::Vector2i(0, 0);
@@ -608,7 +606,7 @@ void HandleResources::updateZombieCookieAnimation()
 
 	auto nextStart = [&]()
 		{
-			currentStart -= middleSpace;
+			currentStart += middleSpace;
 			currentStart.x += size.x;
 			return currentStart;
 		};
@@ -707,7 +705,7 @@ void HandleResources::updateGardenAnimation()
 void HandleResources::updateFlagAnimation()
 {
 	const auto size = sf::Vector2i(289, 363);
-	const auto initSpace = sf::Vector2i(3,0);
+	const auto initSpace = sf::Vector2i(3,1);
 	const auto middleSpace = sf::Vector2i(90, 0);
 
 	auto currentStart = initSpace;
