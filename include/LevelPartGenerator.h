@@ -14,7 +14,7 @@ class LevelPartGenerator
 public:
 	static LevelPartGenerator& instance();
 	level& getRandomLevel(int levelNumber);//, sf::Vector2f& flagPosition);	///function that sends back a level that has been made randomly
-	level& getLastLevelSection();
+	level& getLastLevelSection(int levelNumber);
 
 private:
 	LevelPartGenerator();

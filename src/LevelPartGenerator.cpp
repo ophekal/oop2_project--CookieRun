@@ -86,34 +86,57 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 		}
 		case 2:
 		{
-			lowerBound = 3;
-			upperBound = 4;
+			lowerBound = 4;
+			upperBound = 6;
 			break;
 		}
 		case 3:
 		{
-			lowerBound = 3;
-			upperBound = 4;
+			lowerBound = 4;
+			upperBound = 6;
 			break;
 		}
 	}
 	
-	//int randomIndex;
-	//do {
-	//	randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
-	//} while (randomIndex == m_lastIndex);
+	int randomIndex;
+	do {
+		randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
+	} while (randomIndex == m_lastIndex);
 
-	//m_lastIndex = randomIndex; // Store the last selected index
+	m_lastIndex = randomIndex; // Store the last selected index
 
-	//return m_levelPartsVector[randomIndex];
+	return m_levelPartsVector[randomIndex];
 
-	int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
+	/*int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
 		
-	return (m_levelPartsVector[randomIndex]);
+	return (m_levelPartsVector[randomIndex]);*/
 }
 
 //-----------------------------------------------------------------------------
-level& LevelPartGenerator::getLastLevelSection()
+// This function sends back the last level part of the current level
+
+level& LevelPartGenerator::getLastLevelSection(int levelNum)
 {
-	return m_levelPartsVector[m_levelPartsVector.size()-1];
+	int cell=0;
+	switch (levelNum)
+	{
+		case 1:
+		{
+			cell = LAST_PART_LEVEL_1;
+			break;
+		}
+		case 2:
+		{
+			cell = LAST_PART_LEVEL_2;
+			break;
+		}
+		case 3:
+		{
+			cell = LAST_PART_LEVEL_3;
+			break;
+		}
+	}
+
+	return m_levelPartsVector[cell];
+
 }

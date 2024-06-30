@@ -7,6 +7,9 @@
 const int NUM_OF_PARTS_PER_LEVEL = 4;
 const int POSITION_OF_LAST_FLOOR = 50;
 const int ENEMIES_PER_LEVEL = 2;
+const int LAST_PART_LEVEL_1 = 3;
+const int LAST_PART_LEVEL_2 = 7;
+const int LAST_PART_LEVEL_3 = 11;
 
 //---------------Buttons--------------------
 enum Buttons
