@@ -57,7 +57,7 @@ enum KeyboardInput
 	K_NONE
 };
 
-const sf::Vector2f PLAYER_INIT_POSITION{ 620,688 };
+const sf::Vector2f PLAYER_INIT_POSITION{ 620,759 };
 const int JELLY2ENERGY = 3;
 //---------------Player State--------------------------
 //const float MaxJump = 1000.0f;
