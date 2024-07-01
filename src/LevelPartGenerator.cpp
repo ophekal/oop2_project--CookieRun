@@ -56,13 +56,13 @@ void LevelPartGenerator::readPart(const sf::Image& levelPartImage)
 			if (pixelColor != sf::Color::White)
 			{
 				sf::Vector2f position(location_x, location_y);
-				levelSection.emplace_back(pixelColor,position);
-			}		
+				levelSection.emplace_back(pixelColor, position);
+			}
 			location_x += 120.f;
 		}
 		location_y -= 90.f;
 	}
-		
+
 	m_levelPartsVector.emplace_back(levelSection);
 }
 
@@ -79,26 +79,26 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 
 	switch (levelNumber)
 	{
-		case 1:
-		{
-			lowerBound = 0;
-			upperBound = 2;
-			break;
-		}
-		case 2:
-		{
-			lowerBound = 4;
-			upperBound = 6;
-			break;
-		}
-		case 3:
-		{
-			lowerBound = 4;
-			upperBound = 6;
-			break;
-		}
+	case 1:
+	{
+		lowerBound = 0;
+		upperBound = 2;
+		break;
 	}
-	
+	case 2:
+	{
+		lowerBound = 4;
+		upperBound = 6;
+		break;
+	}
+	case 3:
+	{
+		lowerBound = 8;
+		upperBound = 10;
+		break;
+	}
+	}
+
 	int randomIndex;
 	do {
 		randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
@@ -109,7 +109,7 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 	return m_levelPartsVector[randomIndex];
 
 	/*int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
-		
+
 	return (m_levelPartsVector[randomIndex]);*/
 }
 
@@ -118,24 +118,24 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 
 level& LevelPartGenerator::getLastLevelSection(int levelNum)
 {
-	int cell=0;
+	int cell = 0;
 	switch (levelNum)
 	{
-		case 1:
-		{
-			cell = LAST_PART_LEVEL_1;
-			break;
-		}
-		case 2:
-		{
-			cell = LAST_PART_LEVEL_2;
-			break;
-		}
-		case 3:
-		{
-			cell = LAST_PART_LEVEL_3;
-			break;
-		}
+	case 1:
+	{
+		cell = LAST_PART_LEVEL_1;
+		break;
+	}
+	case 2:
+	{
+		cell = LAST_PART_LEVEL_2;
+		break;
+	}
+	case 3:
+	{
+		cell = LAST_PART_LEVEL_3;
+		break;
+	}
 	}
 
 	return m_levelPartsVector[cell];
