@@ -43,7 +43,7 @@ configure_file ("level1-oven/devilCookie.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/obstacle1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/obstacle2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/obstacle3.png" ${CMAKE_BINARY_DIR} COPYONLY)
-configure_file ("level1-oven/oven_obstacle1Ani.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("level1-oven/oven_obstacleAni.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("level2-kitchen/backgroundKitchen.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -80,6 +80,7 @@ configure_file ("levelSections/1option3.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelSections/2option1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelSections/2option2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelSections/2option3.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("levelSections/3option1.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelSections/2last.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelSections/1last.png" ${CMAKE_BINARY_DIR} COPYONLY)
 

@@ -6,3 +6,7 @@
 2option2.png
 2option3.png
 2last.png
+3option1.png
+3option2.png
+3option3.png
+3last.png
