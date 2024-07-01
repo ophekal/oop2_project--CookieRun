@@ -65,7 +65,7 @@ void playerFloor(GameObject& player, GameObject& floor)
     bool playerCollidingFromBottom = (playerBounds.left < floorBounds.left + floorBounds.width &&
         playerBounds.left + playerBounds.width > floorBounds.left);
 
-
+    // checking if player collides with floor from the top
     if (playerAboveFloor && playerCollidingFromBottom)
     {
         if (!p.isFlyState())
@@ -79,6 +79,7 @@ void playerFloor(GameObject& player, GameObject& floor)
         }
 
     }
+    // if the collision is from the side
     else if (!p.isEnhance())
     {
         std::cout << "collision from the side\n";
@@ -108,10 +109,11 @@ void playerEnhance(GameObject& player, GameObject& enhance)
     Enhance& e = static_cast<Enhance&>(enhance);
     e.markForDeletion();
 
-    // Set the boost duration (5 seconds)
+    // Set the boost duration
     sf::Time enhanceDuration = sf::seconds(5);
 
     HandleResources::instance().playSound(S_GIFT);
+
     // Start the boost timer
     p.startEnhanceTimer(enhanceDuration, 1.4f);
 }
@@ -179,6 +181,7 @@ void playerEnemy(GameObject& player, GameObject& enemy)
     Player& p = static_cast<Player&>(player);
     Enemy& e = static_cast<Enemy&>(enemy);
 
+    // if player isn't in enhance and collided with enemy
     if (!p.isEnhance())
     {
         HandleResources::instance().playSound(S_COOKIEDEAD);
@@ -192,10 +195,11 @@ void playerMovingObstcale(GameObject& player, GameObject& obstcale)
     Player& p = static_cast<Player&>(player);
     MovingObstcale& m = static_cast<MovingObstcale&>(obstcale);
 
+    // checking if player isn't in enhance and if collided with obstcale
     if (!p.isEnhance())
     {
         HandleResources::instance().playSound(S_COOKIEDEAD);
-        std::cout << "enemy kill the player\n";
+        std::cout << "obstcale kill the player\n";
         p.markForDeletion();
     }
 }
