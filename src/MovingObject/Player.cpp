@@ -81,7 +81,7 @@ void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
 	float heightChange = newHeight - originalHeight;
 
 	// Since we are using top-left as the origin, adjust the y position by the total height change
-	m_object.setPosition(originalPosition.x, originalPosition.y - heightChange);
+	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange/2));
 
 
 }
@@ -258,6 +258,21 @@ bool Player::isDead()const
 //-----------------------------------------------------------------------------
 void Player::move(float deltaTime)
 {
+	//checkGiftDurations(deltaTime);
+	//m_velocity.x = m_objectSpeed * deltaTime;
+
+	//if (!m_onGround)
+	//{
+	//	m_velocity.y += m_gravity; // Apply gravity if not on the ground
+	//}
+	////else
+	////{
+	////	m_velocity.y = 0; // Reset vertical velocity when on the ground
+	////}
+
+	//m_object.move(m_velocity);
+	//checkInsideWindow(); // Ensure the player stays within the game window
+	
 	checkGiftDurations(deltaTime);
 	m_velocity.x = m_objectSpeed * deltaTime;
 	m_velocity.y += m_gravity;
@@ -275,7 +290,7 @@ void Player::checkInsideWindow()
 		SlideState* currState = dynamic_cast<SlideState*>(m_currentPlayerState.get());
 		if (currState == nullptr)   //if we not in slide state
 		{
-			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y);
+			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y+10);
 		}
 		else if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + getSize().height)
 		{
@@ -285,6 +300,11 @@ void Player::checkInsideWindow()
 		m_velocity.y = 0;  // Reset vertical velocity when hitting the ground
 		m_gravity = 0.3;
 	}
+	//else
+	//{
+	//	setOnGround(false); // Player is not on the ground
+	//}
+
 	else if (m_object.getPosition().y <= (m_object.getGlobalBounds().height/2)+10)
 	{
 		m_object.setPosition(m_object.getPosition().x, (m_object.getGlobalBounds().height / 2) + 10);
@@ -332,7 +352,7 @@ void Player::changeEnhanceBack()
 
 	// Adjust the y position back to maintain the top-left corner position
 	// Subtract the heightChange to compensate for scaling down
-	m_object.setPosition(currentPosition.x, currentPosition.y + heightChange);
+	m_object.setPosition(currentPosition.x, currentPosition.y + (heightChange/2));
 
 	m_isEnhance = false;
 
