@@ -37,13 +37,15 @@ HandleResources& HandleResources::instance()
 //-------------------------------------------------------------------------
 void HandleResources::updateBackgroundVector()
 {
-	m_backgroundsTextures.resize(5);
+	m_backgroundsTextures.resize(8);
 	m_backgroundsTextures[MENU].loadFromFile("menuBackground.jpg");
 	m_backgroundsTextures[SETTINGS].loadFromFile("settingsBackground.jpg");
 	m_backgroundsTextures[CHOOSE_PLAYER].loadFromFile("choosePlayerBackground.jpg");
 	m_backgroundsTextures[STARTGAME].loadFromFile("startGameBackground.jpg");
 	m_backgroundsTextures[INSTRUCTIONS].loadFromFile("instructionsBackground.jpg");
-
+	m_backgroundsTextures[L1_BACKGROUND].loadFromFile("backgroundOven.png");
+	m_backgroundsTextures[L2_BACKGROUND].loadFromFile("backgroundKitchen.png");
+	m_backgroundsTextures[L3_BACKGROUND].loadFromFile("backgroundGarden.png");
 }
 
 //-------------------------------------------------------------------------
@@ -60,7 +62,7 @@ void HandleResources::updatePlayerTextureVector()
 //-------------------------------------------------------------------------
 void HandleResources::updateButtonTextureVector()
 {
-	m_buttonsTextures.resize(16);
+	m_buttonsTextures.resize(12);
 	m_buttonsTextures[B_EXIT].loadFromFile("exitButton.png");
 	m_buttonsTextures[B_START].loadFromFile("startButton.png");
 	m_buttonsTextures[B_PLAYER].loadFromFile("playerButton.png");
@@ -71,18 +73,13 @@ void HandleResources::updateButtonTextureVector()
 	m_buttonsTextures[B_SOUND_OFF].loadFromFile("soundOff.png");
 	m_buttonsTextures[B_MUSIC_ON].loadFromFile("musicOn.png");
 	m_buttonsTextures[B_MUSIC_OFF].loadFromFile("musicOff.png");
-	m_buttonsTextures[B_LEVEL1_ON].loadFromFile("level1on.png");
-	m_buttonsTextures[B_LEVEL1_OFF].loadFromFile("level1off.png");
-	m_buttonsTextures[B_LEVEL2_ON].loadFromFile("level2on.png");
-	m_buttonsTextures[B_LEVEL2_OFF].loadFromFile("level2off.png");
-	m_buttonsTextures[B_LEVEL3_ON].loadFromFile("level3on.png");
-	m_buttonsTextures[B_LEVEL3_OFF].loadFromFile("level3off.png");
+	m_buttonsTextures[B_LEVEL_ON].loadFromFile("levelOn.png");
+	m_buttonsTextures[B_LEVEL_OFF].loadFromFile("levelOff.png");
 }
 //-------------------------------------------------------------------------
 void HandleResources::updateLevel1TextureVector()
 {
-	m_level1Textures.resize(8);
-	m_level1Textures[L1_BACKGROUND].loadFromFile("backgroundOven.png");
+	m_level1Textures.resize(7);
 	m_level1Textures[L1_FLOOR].loadFromFile("floor.png");
 	m_level1Textures[L1_ENEMY].loadFromFile("devilCookie.png");
 	m_level1Textures[L1_OBSTACLE1].loadFromFile("obstacle1.png");
@@ -94,8 +91,7 @@ void HandleResources::updateLevel1TextureVector()
 //-------------------------------------------------------------------------
 void HandleResources::updateLevel2TextureVector()
 {
-	m_level2Textures.resize(7);
-	m_level2Textures[L2_BACKGROUND].loadFromFile("backgroundKitchen.png");
+	m_level2Textures.resize(6);
 	m_level2Textures[L2_FLOOR].loadFromFile("floor2.png");
 	m_level2Textures[L2_ENEMY].loadFromFile("carrotCookie.png");
 	m_level2Textures[L2_OBSTACLE1].loadFromFile("kitchen_obstcale1.png");
@@ -107,15 +103,13 @@ void HandleResources::updateLevel2TextureVector()
 //------------------------------------------------------------------------
 void HandleResources::updateLevel3TextureVector()
 {
-	m_level3Textures.resize(7);
-	m_level3Textures[L3_BACKGROUND].loadFromFile("backgroundGarden.png");
+	m_level3Textures.resize(6);
 	m_level3Textures[L3_FLOOR].loadFromFile("floor3.png");
 	m_level3Textures[L3_ENEMY].loadFromFile("zombieCookie.png");
 	m_level3Textures[L3_OBSTACLE1].loadFromFile("garden_obstcale1.png");
 	m_level3Textures[L3_OBSTACLE2].loadFromFile("garden_obstcale2.png");
 	m_level3Textures[L3_OBSTACLE3].loadFromFile("garden_obstcale3.png");
 	m_level3Textures[L3_ANI_OBSTACLE1].loadFromFile("garden_obstcale_ani.png");
-
 }
 //------------------------------------------------------------------------
 void HandleResources::updateGiftTextureVector()
@@ -587,9 +581,9 @@ void HandleResources::updateOven1Animation()
 //---------------------------------------------------------------------------
 void HandleResources::updateKitchen1Animation()
 {
-	const auto size = sf::Vector2i(49, 99);
-	const auto initSpace = sf::Vector2i(0,0);
-	const auto middleSpace = sf::Vector2i(0,0);
+	const auto size = sf::Vector2i(117, 242);
+	const auto initSpace = sf::Vector2i(1, 620);
+	const auto middleSpace = sf::Vector2i(0.5, 0);
 
 	auto currentStart = initSpace;
 
@@ -608,9 +602,9 @@ void HandleResources::updateKitchen1Animation()
 //---------------------------------------------------------------------------
 void HandleResources::updateGardenAnimation()
 {
-	const auto size = sf::Vector2i(129,150);
-	const auto initSpace = sf::Vector2i(0,9);
-	const auto middleSpace = sf::Vector2i(1, 0);
+	const auto size = sf::Vector2i(129,136);
+	const auto initSpace = sf::Vector2i(0,0);
+	const auto middleSpace = sf::Vector2i(132, 0);
 
 	auto currentStart = initSpace;
 

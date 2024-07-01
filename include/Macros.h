@@ -24,13 +24,8 @@ enum Buttons
 	B_SOUND_OFF,
 	B_MUSIC_ON,
 	B_MUSIC_OFF,
-	B_LEVEL1_ON,
-	B_LEVEL1_OFF,
-	B_LEVEL2_ON,
-	B_LEVEL2_OFF,
-	B_LEVEL3_ON,
-	B_LEVEL3_OFF,
-
+	B_LEVEL_ON,
+	B_LEVEL_OFF
 };
 
 //----------------ChoosePlayers-------------
@@ -64,10 +59,6 @@ const sf::Vector2f PLAYER_INIT_POSITION{ 620,759 };
 const int JELLY2ENERGY = 3;
 //---------------Player State--------------------------
 
-//-----------instructions-------------------
-
-
-
 //----------------Setting-------------------
 
 const sf::Vector2f MUSIC_SIZE = { 300,100 };
@@ -82,12 +73,6 @@ const float MUSIC_Y = 525;
 const int WINDOW_HEIGHT = 950;
 const int WINDOW_WIDTH = 1500;
 
-
-//-----------------InfoBar-------------------
-
-
-
-
 //----------------GameStart---------------------
 enum LEVELS
 {
@@ -96,16 +81,13 @@ enum LEVELS
 	LEVEL3
 };
 
-const float LEVEL_Y = 600;
-const float LEVEL1_X = 225;
-const float LEVEL2_X = 425;
-const float LEVEL3_X = 625;
+const float LEVEL_X = 600;
+const float LEVEL_Y = 225;
 
 
 //-----------------Level---------------------
 enum LEVELTEXTURE1
 {
-	L1_BACKGROUND,
 	L1_FLOOR,
 	L1_ENEMY,
 	L1_OBSTACLE1,
@@ -116,7 +98,6 @@ enum LEVELTEXTURE1
 };
 enum LEVELTEXTURE2
 {
-	L2_BACKGROUND,
 	L2_FLOOR,
 	L2_ENEMY,
 	L2_OBSTACLE1,
@@ -127,7 +108,6 @@ enum LEVELTEXTURE2
 };
 enum LEVELTEXTURE3
 {
-	L3_BACKGROUND,
 	L3_FLOOR,
 	L3_ENEMY,
 	L3_OBSTACLE1,
@@ -150,8 +130,8 @@ enum GIFTTEXTURE
 
 
 const int L1_COIN_MIN = 0;
-const int L2_COIN_MIN = 1;
-const int L3_COIN_MIN = 3;
+const int L2_COIN_MIN = 15;
+const int L3_COIN_MIN = 20;
 
 
 enum FEEDBACK
@@ -186,9 +166,7 @@ enum AnimationType
 enum Movement
 {
 	JUMP,
-	DOUBLE_JUMP,
 	SLIDE,
-	DIE,
 	RUN
 
 };
@@ -208,7 +186,9 @@ enum Background
 	CHOOSE_PLAYER,
 	STARTGAME,
 	INSTRUCTIONS,
-	FLYSTATE
+	L1_BACKGROUND,
+	L2_BACKGROUND,
+	L3_BACKGROUND
 };
 
 const float BACK_X = 20;
@@ -216,19 +196,14 @@ const float BACK_Y = 1385;
 const sf::Vector2f BACK_SIZE = { 65,65 };
 
 
-//const int WINDOW_HEIGHT = 950;
-//const int WINDOW_WIDTH = 1500;
 const float START_X = 750;
 const float START_Y = 75;
 const float LOAD_X = 550;
 const float LOAD_Y = 450;
-//const float INSTRUCTIONS_X = 750;
 const float INSTRUCTIONS_Y = 1125;
 const float SETTINGS_Y = 775;
 const float EXIT_X = 65;
 const float EXIT_Y = 1385;
-//const float SOUND_X = 1385;
-//const float SOUND_Y = 42;
 const float CHOOSEPLAYER_Y = 425;
 
 const sf::Vector2f BUTTON_SIZE = { 300,100 };

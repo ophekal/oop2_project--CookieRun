@@ -7,12 +7,17 @@
 #include "Menu.h"
 #include "InfoBar.h"
 
+
+
+typedef std::pair<sf::Text, Button> levelbutton;
+typedef std::pair<levelbutton, std::unique_ptr<MenuInterfaceCommand>> LevelOption;
+
 class Player;
 
 class StartGameCommand : public MenuInterfaceCommand
 {
 public:
-	StartGameCommand(sf::RenderWindow& window,Player& player);
+	StartGameCommand(sf::RenderWindow& window, Player& player);
 	void execute()override;
 
 private:
@@ -20,14 +25,16 @@ private:
 	Player& m_player;
 	sf::Sprite m_background;
 
-	std::vector<option> m_levels;
+	std::vector<LevelOption> m_levels;
+	std::vector<int> m_minCoinsForLevel;
 	Button m_backToMenuButton;
 	InfoBar m_infoBar;
 
 	void render();
 	void updateGameInfo(int currLevel);
-	int getLevelMinCoins(int level)const ;
+	int getLevelMinCoins(int level)const;
 	void updateLevelButton(int levelIndex);
-
-
+	void createLevelOptionsVector();
+	void createLevelOptions(const std::vector<std::string>& levelsNames);
+	void createCoinsForLevelsVector();
 };
