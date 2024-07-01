@@ -40,6 +40,11 @@ std::unique_ptr<PlayerState> RunState::handleEvent(Player& player, KeyboardInput
 //---------------------------------------------------------------------------------------
 void RunState::update(Player& player, sf::Time deltaTime)
 {
+    // Set the origin of the player's sprite to its center
+    sf::FloatRect bounds = player.getPlayerSpriteForAnimation().getGlobalBounds();
+    player.getPlayerSpriteForAnimation().setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
+
+
     if (player.onGround())
     {
         player.resetGravity();
