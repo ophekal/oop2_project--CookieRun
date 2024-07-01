@@ -93,8 +93,8 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 		}
 		case 3:
 		{
-			lowerBound = 4;
-			upperBound = 6;
+			lowerBound = 8;
+			upperBound = 10;
 			break;
 		}
 	}

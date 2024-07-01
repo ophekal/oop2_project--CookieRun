@@ -150,8 +150,8 @@ enum GIFTTEXTURE
 
 
 const int L1_COIN_MIN = 0;
-const int L2_COIN_MIN = 15;
-const int L3_COIN_MIN = 20;
+const int L2_COIN_MIN = 1;
+const int L3_COIN_MIN = 3;
 
 
 enum FEEDBACK

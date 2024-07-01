@@ -587,9 +587,9 @@ void HandleResources::updateOven1Animation()
 //---------------------------------------------------------------------------
 void HandleResources::updateKitchen1Animation()
 {
-	const auto size = sf::Vector2i(117, 242);
-	const auto initSpace = sf::Vector2i(1, 620);
-	const auto middleSpace = sf::Vector2i(0.5, 0);
+	const auto size = sf::Vector2i(49, 99);
+	const auto initSpace = sf::Vector2i(0,0);
+	const auto middleSpace = sf::Vector2i(0,0);
 
 	auto currentStart = initSpace;
 
@@ -608,9 +608,9 @@ void HandleResources::updateKitchen1Animation()
 //---------------------------------------------------------------------------
 void HandleResources::updateGardenAnimation()
 {
-	const auto size = sf::Vector2i(129,136);
-	const auto initSpace = sf::Vector2i(0,0);
-	const auto middleSpace = sf::Vector2i(132, 0);
+	const auto size = sf::Vector2i(129,150);
+	const auto initSpace = sf::Vector2i(0,9);
+	const auto middleSpace = sf::Vector2i(1, 0);
 
 	auto currentStart = initSpace;
 
