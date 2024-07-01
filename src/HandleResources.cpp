@@ -88,7 +88,7 @@ void HandleResources::updateLevel1TextureVector()
 	m_level1Textures[L1_OBSTACLE1].loadFromFile("obstacle1.png");
 	m_level1Textures[L1_OBSTACLE2].loadFromFile("obstacle2.png");
 	m_level1Textures[L1_OBSTACLE3].loadFromFile("obstacle3.png");
-	m_level1Textures[L1_ANI_OBSTACLE1].loadFromFile("oven_obstacle1Ani.png");
+	m_level1Textures[L1_ANI_OBSTACLE1].loadFromFile("oven_obstacleAni.png");
 	m_level1Textures[L1_FLAG].loadFromFile("flag_Animation.png");
 }
 //-------------------------------------------------------------------------
@@ -567,9 +567,9 @@ void HandleResources::updateBoomAnimation()
 //---------------------------------------------------------------------------
 void HandleResources::updateOven1Animation()
 {
-	const auto size = sf::Vector2i(252, 226);
-	const auto initSpace = sf::Vector2i(0, 0);
-	const auto middleSpace = sf::Vector2i(152, 0);
+	const auto size = sf::Vector2i(114, 111);
+	const auto initSpace = sf::Vector2i(4, 5);
+	const auto middleSpace = sf::Vector2i(4, 0);
 
 	auto currentStart = initSpace;
 

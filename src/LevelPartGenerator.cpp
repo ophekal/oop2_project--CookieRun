@@ -74,7 +74,8 @@ void LevelPartGenerator::readPart(const sf::Image& levelPartImage)
 
 level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flagPosition)
 {
-	int lowerBound, upperBound;
+	int lowerBound = 0,
+		upperBound = 0;
 
 	switch (levelNumber)
 	{
