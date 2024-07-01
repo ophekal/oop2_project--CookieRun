@@ -19,4 +19,5 @@ private:
 	Menu m_menu;
 	Player m_player;
 
+	void setIcon();
 };

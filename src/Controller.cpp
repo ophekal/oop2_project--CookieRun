@@ -16,24 +16,10 @@ Controller::Controller()
 {
     m_window.setFramerateLimit(60);
 
-    const sf::Texture* texturePtr = HandleResources::instance().getPlayerTexture(CHOOSE_PLAYER_BRAVE);
+    setIcon();
 
-    // Create an image from the texture
-    sf::Image image = texturePtr->copyToImage();
-
-    // Get the width and height of the texture
-    unsigned int width = image.getSize().x;
-    unsigned int height = image.getSize().y;
-
-    // Get the raw pixel data of the image
-    const sf::Uint8* pixels = image.getPixelsPtr();
-
-    // Set the window's icon using the image's size and pixel data
-    m_window.setIcon(width, height, pixels);
-   
     // play game music
     HandleResources::instance().playMusic();
-
 
     // Seed the random number generator once globally
     static bool seeded = false;
@@ -59,23 +45,22 @@ void Controller::run()
 
     m_menu.activate();
 }
+//-----------------------------------------------------------------
+void Controller::setIcon()
+{
+   const sf::Texture* texturePtr = HandleResources::instance().getPlayerTexture(CHOOSE_PLAYER_BRAVE);
 
+    // Create an image from the texture
+    sf::Image image = texturePtr->copyToImage();
 
-////-----------------------------------------------------------------
-//// Changing the state according to the state sent
-//
-//void Controller::setState(std::unique_ptr<GameState> state)
-//{
-//    currentState = std::move(state);
-//}
-//
-////------------------------------------------------------------------------
-//// this function is responsible of calling the render func of currentState
-//
-//void Controller::render()
-//{
-//    if (currentState)
-//    {
-//        currentState->render(*this);
-//    }
-//}
+    // Get the width and height of the texture
+    unsigned int width = image.getSize().x;
+    unsigned int height = image.getSize().y;
+
+    // Get the raw pixel data of the image
+    const sf::Uint8* pixels = image.getPixelsPtr();
+
+    // Set the window's icon using the image's size and pixel data
+    m_window.setIcon(width, height, pixels);
+
+}
