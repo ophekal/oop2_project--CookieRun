@@ -45,8 +45,6 @@ configure_file ("level1-oven/obstacle2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/obstacle3.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level1-oven/oven_obstacle1Ani.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
-configure_file ("flag_Animation.png" ${CMAKE_BINARY_DIR} COPYONLY)
-
 
 configure_file ("level2-kitchen/backgroundKitchen.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/floor2.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -55,6 +53,7 @@ configure_file ("level2-kitchen/kitchen_obstcale1.png" ${CMAKE_BINARY_DIR} COPYO
 configure_file ("level2-kitchen/kitchen_obstcale2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/kitchen_obstcale3.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level2-kitchen/kitchen_obstcaleAni.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 
 configure_file ("level3-garden/backgroundGarden.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("level3-garden/floor3.png" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -65,14 +64,13 @@ configure_file ("level3-garden/garden_obstcale3.png" ${CMAKE_BINARY_DIR} COPYONL
 configure_file ("level3-garden/garden_obstcale_ani.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
+configure_file ("flag_Animation.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("Players/ChoosePlayerGingerBrave.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Players/ChoosePlayerGingerBright.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Players/Cookie_Brave.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Players/Cookie_Bright.png" ${CMAKE_BINARY_DIR} COPYONLY)
-
-configure_file ("font.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
 
 
 configure_file ("levelSections/levelSectionsPlaylist.txt" ${CMAKE_BINARY_DIR} COPYONLY)
@@ -84,3 +82,16 @@ configure_file ("levelSections/2option2.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelSections/2option3.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelSections/2last.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelSections/1last.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
+
+configure_file ("sounds/coins.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("sounds/cookieObstcale.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("sounds/cookieJelly.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("sounds/explosion.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("sounds/gameMusic.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("sounds/gift.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("sounds/goodJob.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("sounds/tryAgain.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+
+
+configure_file ("font.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
