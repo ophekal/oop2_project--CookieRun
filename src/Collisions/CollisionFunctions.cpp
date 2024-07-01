@@ -20,13 +20,13 @@ void playerCoin(GameObject& player, GameObject& coin)
 {
     Player& p = static_cast<Player&>(player);
     Coin& c = static_cast<Coin&>(coin);
-    p.setCoins(p.getCoins()+1);
+    p.setCoins(p.getCoins() + 1);
     HandleResources::instance().playSound(S_COIN);
     c.markForDeletion();
 }
 
 //------------------------------------------------------------
-void playerJelly(GameObject& player, GameObject& jelly) 
+void playerJelly(GameObject& player, GameObject& jelly)
 {
     Player& p = static_cast<Player&>(player);
     JellyBean& j = static_cast<JellyBean&>(jelly);
@@ -52,37 +52,8 @@ void playerJelly(GameObject& player, GameObject& jelly)
 // Handeling the collision of the player and the floor by setting the
 // player to stand on top of the floor
 
-void playerFloor(GameObject& player, GameObject& floor) 
+void playerFloor(GameObject& player, GameObject& floor)
 {
-
-    //Player& p = static_cast<Player&>(player);
-    //sf::FloatRect overlap;
-
-    //player.getGlobalBounds().intersects(floor.getGlobalBounds(), overlap);
-
-    //if (overlap.height > overlap.width) // from the side
-    //{
-    //    if (!p.isEnhance())
-    //    {
-    //        std::cout << "collision from the side\n";
-    //        p.markForDeletion();
-    //        return;
-    //    }
-    //}
-    //else
-    //{
-    //    if (!p.isFlyState())
-    //    {
-    //        std::cout << "collision from above\n";
-    //        // Player is above the floor and colliding from the bottom
-    //        auto newPlayerYPosition = floor.getObject().getGlobalBounds().top - (p.getSize().height/2);
-    //        p.setPosition(p.getPosition().x, newPlayerYPosition);
-    //        p.setOnGround(true);
-    //        p.resetGravity();
-    //    }
-    //}
-    //return ;
-
     Player& p = static_cast<Player&>(player);
 
     // getting the top of the floor's rectangle
@@ -90,31 +61,30 @@ void playerFloor(GameObject& player, GameObject& floor)
     auto playerBounds = p.getObject().getGlobalBounds();
 
     // Check if the player is above the floor
-    bool playerAboveFloor = (playerBounds.top + (playerBounds.height/2)-5 <= floorBounds.top);
+    bool playerAboveFloor = (playerBounds.top + (playerBounds.height / 2) - 5 <= floorBounds.top);
     bool playerCollidingFromBottom = (playerBounds.left < floorBounds.left + floorBounds.width &&
         playerBounds.left + playerBounds.width > floorBounds.left);
 
-   
-    if (playerAboveFloor && playerCollidingFromBottom) 
+
+    if (playerAboveFloor && playerCollidingFromBottom)
     {
-       if (!p.isFlyState())
-       {
-           std::cout << "collision from above\n";
+        if (!p.isFlyState())
+        {
+            std::cout << "collision from above\n";
             // Player is above the floor and colliding from the bottom
-            auto newPlayerYPosition = floorBounds.top - (p.getSize().height/2);
+            auto newPlayerYPosition = floorBounds.top - (p.getSize().height / 2) + 20;
             p.setPosition(p.getPosition().x, newPlayerYPosition);
             p.setOnGround(true);
             p.resetGravity();
-           // p.setVelocityY(0);
-       }
+        }
 
     }
-    else if( !p.isEnhance())
+    else if (!p.isEnhance())
     {
-       std::cout << "collision from the side\n";
-       HandleResources::instance().playSound(S_COOKIEDEAD);
-       p.markForDeletion();
-       return;
+        std::cout << "collision from the side\n";
+        HandleResources::instance().playSound(S_COOKIEDEAD);
+        p.markForDeletion();
+        return;
     }
 
 }
@@ -128,7 +98,7 @@ void playerObstcale(GameObject& player, GameObject& obstcale)
         HandleResources::instance().playSound(S_COOKIEDEAD);
         p.markForDeletion();
     }
-     
+
 }
 
 //------------------------------------------------------------
@@ -163,10 +133,8 @@ void playerBoost(GameObject& player, GameObject& boost)
     Boost& b = static_cast<Boost&>(boost);
     b.markForDeletion();
 
-    //p.changeToBoostState();
-    
     float oldSpeed = p.getSpeed();
-    
+
     // Increase the player's speed
     float boostedSpeed = oldSpeed * 2.0f; // Boost speed by 50%
     p.setObjectSpeed(boostedSpeed);
@@ -186,7 +154,6 @@ void playerMagnet(GameObject& player, GameObject& magnet)
     Player& p = static_cast<Player&>(player);
     Magnet& m = static_cast<Magnet&>(magnet);
     m.markForDeletion();
-    // Set the boost duration (10 seconds)
     sf::Time magnetDuration = sf::seconds(10);
 
     HandleResources::instance().playSound(S_GIFT);
@@ -217,7 +184,7 @@ void playerEnemy(GameObject& player, GameObject& enemy)
         HandleResources::instance().playSound(S_COOKIEDEAD);
         std::cout << "enemy kill the player\n";
         p.markForDeletion();
-    }   
+    }
 }
 //--------------------------------------------------------
 void playerMovingObstcale(GameObject& player, GameObject& obstcale)

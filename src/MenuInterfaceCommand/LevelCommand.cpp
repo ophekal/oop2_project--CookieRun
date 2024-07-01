@@ -139,7 +139,7 @@ void LevelCommand::render()
 
 	drawGameObjects();
 
-	if (m_isExploding) 
+	if (m_isExploding)
 	{
 		handleExplosion(sf::seconds(0)); // Render explosion if active
 	}
@@ -156,7 +156,7 @@ void LevelCommand::updatePlayerEnergy(sf::Time deltaTime)
 	if (m_energyReductionElapsedTime >= sf::seconds(2.0f))
 	{
 		// Reduce player's energy
-		m_player.setEnergy(m_player.getEnergy() - 1);
+		m_player.setEnergy(m_player.getEnergy() - 3);
 		// Reset the elapsed time, accounting for any extra time
 		m_energyReductionElapsedTime -= sf::seconds(2.0f);
 	}
@@ -250,16 +250,9 @@ bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 		return false;
 	}
 
-	const int OVERLAP = 5;
+	const int OVERLAP = 17;
 	sf::FloatRect overlap;
 
-	//object1.getGlobalBounds().intersects(object2.getGlobalBounds(), overlap);
-
-	//if (overlap.height > OVERLAP && overlap.width > OVERLAP)
-	//{
-	//	return true;
-	//}
-	//return false;
 	if (object1.getGlobalBounds().intersects(object2.getGlobalBounds(), overlap))
 	{
 		std::cout << "Overlap Detected! Width: " << overlap.width << ", Height: " << overlap.height << std::endl;
@@ -270,8 +263,6 @@ bool LevelCommand::collide(GameObject& object1, GameObject& object2)
 			return true;
 		}
 	}
-
-	//std::cout << "No significant overlap." << std::endl;
 	return false;
 }
 
@@ -294,24 +285,24 @@ void LevelCommand::updateAnimation(sf::Time deltaTime)
 	{
 		coinObject->updateAnimation(deltaTime);
 		// Check if the player has a magnet active
-		if (m_player.isMagnet()) 
+		if (m_player.isMagnet())
 		{
 			// Get the bounds of the current view
 			sf::FloatRect viewBounds = getCurrentViewBounds();
 
 			// Calculate distance between player and coin
 			float distance = std::hypot(coinObject->getPosition().x - m_player.getPosition().x,
-				                        coinObject->getPosition().y - m_player.getPosition().y);
+				coinObject->getPosition().y - m_player.getPosition().y);
 
 			// Adjust this range as needed for attraction
-			constexpr float attractionRange =1000.0f;
+			constexpr float attractionRange = 1000.0f;
 
 			// If the coin is within the attraction range and within view bounds, move towards the player
 			if (distance <= attractionRange && viewBounds.contains(coinObject->getPosition()))
 			{
 				coinObject->updatePositionTowardsPlayer(m_player.getPosition(), deltaTime.asSeconds());
 			}
-		}	
+		}
 	}
 }
 
@@ -356,9 +347,9 @@ bool LevelCommand::checkAndUpdateLevelStatus()
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN), S_TRYAGAIN);
 		return true;
 	}
-	else if( m_player.getPosition().x >= m_flagPosition.x-200)   //the game over with success if we arrive to the flag section
+	else if (m_player.getPosition().x >= m_flagPosition.x - 200)   //the game over with success if we arrive to the flag section
 	{
-		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB),S_GOODJOB);
+		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB), S_GOODJOB);
 		return true;
 	}
 
@@ -366,7 +357,7 @@ bool LevelCommand::checkAndUpdateLevelStatus()
 
 }
 //----------------------------------------------------------------------------------------
-void LevelCommand::printFeedback(const sf::Texture& feedback , GameSound sound  )
+void LevelCommand::printFeedback(const sf::Texture& feedback, GameSound sound)
 {
 	sf::sleep(sf::seconds(1.5));
 
@@ -396,21 +387,10 @@ void LevelCommand::printFeedback(const sf::Texture& feedback , GameSound sound  
 
 	sf::sleep(sf::seconds(1));
 }
-
-////----------------------------------------------------------------------------------------
-//void LevelCommand::checkIfNeedToExplode()
-//{
-//	if (m_player.getKeyPressed() == K_ENTER && m_player.getWeapons()>0)
-//	{
-//		handleExpolsion();
-//		m_player.setWeapon(m_player.getWeapons() - 1);
-//		m_clock.restart();
-//	}
-//}
 //----------------------------------------------------------------------------------
 void LevelCommand::handleExplosion(sf::Time deltaTime)
 {
-	if (!m_isExploding) 
+	if (!m_isExploding)
 	{
 		return; // If not exploding, do nothing
 	}
@@ -429,7 +409,6 @@ void LevelCommand::handleExplosion(sf::Time deltaTime)
 	if (m_explosionClock.getElapsedTime() >= sf::seconds(1.0f))
 	{
 		m_isExploding = false;
-		//removeMarkedEnemies(); // Remove enemies marked for deletion after the explosion
 	}
 }
 //----------------------------------------------------------------------------------------
@@ -459,46 +438,6 @@ std::vector<sf::Vector2f> LevelCommand::markEnemiesForExplosion(const sf::FloatR
 	}
 	return explosionPositions;
 }
-
-////----------------------------------------------------------------------------------------
-//// Helper function to perform the explosion animation
-//void LevelCommand::performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions)
-//{
-//	sf::Sprite boomSpriteSheet(*HandleResources::instance().getGiftTexture(G_BOOM));
-//	Animation boomAnimation(HandleResources::instance().getAnimationData(ANI_BOOM), boomSpriteSheet, sf::seconds(0.3f));
-//
-//	boomSpriteSheet.setOrigin(sf::Vector2f(boomSpriteSheet.getTextureRect().getSize() / 2));
-//
-//	sf::Clock boomClock;
-//	sf::Time boomDuration = sf::seconds(1.0f); // Duration for explosion animation
-//	sf::Time boomElapsedTime = sf::Time::Zero;
-//
-//	while (boomElapsedTime < boomDuration)
-//	{
-//		auto deltaTime = boomClock.restart();
-//		boomElapsedTime += deltaTime;
-//		boomAnimation.update(deltaTime);
-//
-//		// Clear the window
-//		m_window.clear();
-//
-//		// Redraw the background
-//		moveAndDrawBackground();
-//
-//		// Draw static and animated objects
-//		drawGameObjects();
-//
-//		// Draw explosion animation at the stored positions
-//		for (const auto& position : explosionPositions)
-//		{
-//			boomSpriteSheet.setPosition(position);
-//			m_window.draw(boomSpriteSheet);
-//		}
-//
-//		m_window.display();
-//	}
-//}
-
 //--------------------------------------------------------------------------
 // Helper function to draw game objects excluding marked enemies
 void LevelCommand::drawGameObjects()
@@ -552,7 +491,7 @@ void LevelCommand::handleExplosionStart()
 	m_explosionPositions = markEnemiesForExplosion(viewBounds);
 
 	removeMarkedEnemies();
-	
+
 	m_isExploding = true; // Set explosion flag
 	m_explosionClock.restart(); // Start explosion timer
 }

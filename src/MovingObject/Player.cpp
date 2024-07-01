@@ -11,13 +11,13 @@
 
 //-------------------------------------------------------------------------------------------------------------
 Player::Player(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
-	:MovingObject(sprite, speed, position),m_velocity(0,0),m_gravity(0.35)
+	:MovingObject(sprite, speed, position), m_velocity(0, 0), m_gravity(0.35)
 {
 	// Set the origin to center
 	sf::FloatRect bounds = m_object.getLocalBounds();
-	m_object.setOrigin(bounds.width / 2.f, bounds.height/2.f);
+	m_object.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 	m_currentPlayerState = std::make_unique<RunState>(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f));
-	m_currentPlayerState -> restartAnimation();
+	m_currentPlayerState->restartAnimation();
 }
 //-------------------------------------------------------------------------------------------------
 int Player::getCoins()const
@@ -51,7 +51,7 @@ void Player::setWeapon(int numOfWeapon)
 }
 
 //---------------------------------------------------------------------------
-void Player::startBoostTimer(sf::Time duration, float oldSpeed) 
+void Player::startBoostTimer(sf::Time duration, float oldSpeed)
 {
 	m_isBoosted = true;
 	m_giftClock.restart();
@@ -81,38 +81,17 @@ void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
 	float heightChange = newHeight - originalHeight;
 
 	// Since we are using top-left as the origin, adjust the y position by the total height change
-	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange/2));
+	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange / 2));
 
 
 }
 //---------------------------------------------------------------------------
 void Player::startMagnetTimer(sf::Time duration)
 {
-	m_isMagnet= true;
+	m_isMagnet = true;
 	m_giftClock.restart();
 	m_magnetDuration = duration;
 }
-////--------------------------------------------------------------------
-//void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
-//{
-//	m_isEnhance = true;
-//	m_enhanceDuration = duration;
-//	m_giftClock.restart();
-//
-//	// Store the current position before scaling
-//	sf::Vector2f originalPosition = m_object.getPosition();
-//
-//	// Set the origin to bottom-center
-//	sf::FloatRect bounds = m_object.getLocalBounds();
-//	m_object.setOrigin(bounds.width / 2.f, bounds.height);
-//
-//	// Apply the scale factor to enhance the player
-//	m_object.setScale(m_originalScale * scaleFactor, m_originalScale * scaleFactor);
-//
-//	// Adjust the position to maintain contact with the ground
-//	m_object.setPosition(originalPosition.x, originalPosition.y + (bounds.height /*- m_object.getLocalBounds().height*/));
-//}
-
 //------------------------------------------------------------------------
 void Player::setPlayer(Players playerType)
 {
@@ -122,12 +101,12 @@ void Player::setPlayer(Players playerType)
 	{
 	case PLAYER_BRAVE:
 	{
-		m_currentPlayerState-> updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), sprite);
+		m_currentPlayerState->updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), sprite);
 		break;
 	}
 	case PLAYER_BRIGHT:
 	{
-		m_currentPlayerState-> updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_RUN), sprite);
+		m_currentPlayerState->updateAnimation(HandleResources::instance().getAnimationData(ANI_COOKIEBRIGHT_RUN), sprite);
 		break;
 	}
 
@@ -146,10 +125,8 @@ void Player::movement(sf::Time deltaTime)
 	{
 		m_currentPlayerState = std::move(nextState);
 	}
-	
-	m_currentPlayerState->update(*this, deltaTime);
-	//m_onGround = false;
 
+	m_currentPlayerState->update(*this, deltaTime);
 }
 //-----------------------------------------------------------------------------
 void Player::keyPressed(sf::Event::KeyEvent key)
@@ -195,7 +172,7 @@ void Player::keyReleased(sf::Event::KeyEvent key)
 }
 
 //-----------------------------------------------------------------------------
-void Player::resetKeyPress() 
+void Player::resetKeyPress()
 {
 	m_keyPressed = K_NONE;
 }
@@ -227,7 +204,7 @@ void Player::handleExitFromLevel()
 	m_currentPlayerState->restartAnimation();
 	m_object.setPosition(PLAYER_INIT_POSITION);
 	m_onGround = true;
-	toBeDeleted = false ;   // for the next time 
+	toBeDeleted = false;   // for the next time 
 	m_energy = 100;
 	m_jelly = 0;
 	m_weapons = 0;
@@ -236,7 +213,7 @@ void Player::handleExitFromLevel()
 	m_velocity = { 0,0 };
 	m_keyPressed = K_NONE;
 
-    m_isBoosted = false;
+	m_isBoosted = false;
 	m_isFlyState = false;
 	m_isMagnet = false;
 
@@ -244,7 +221,7 @@ void Player::handleExitFromLevel()
 	{
 		changeEnhanceBack();
 	}
-		
+
 }
 //--------------------------------------------------------------------------------
 bool Player::isDead()const
@@ -258,54 +235,51 @@ bool Player::isDead()const
 //-----------------------------------------------------------------------------
 void Player::move(float deltaTime)
 {
-	//checkGiftDurations(deltaTime);
-	//m_velocity.x = m_objectSpeed * deltaTime;
-
-	//if (!m_onGround)
-	//{
-	//	m_velocity.y += m_gravity; // Apply gravity if not on the ground
-	//}
-	////else
-	////{
-	////	m_velocity.y = 0; // Reset vertical velocity when on the ground
-	////}
-
-	//m_object.move(m_velocity);
-	//checkInsideWindow(); // Ensure the player stays within the game window
-	
 	checkGiftDurations(deltaTime);
 	m_velocity.x = m_objectSpeed * deltaTime;
-	m_velocity.y += m_gravity;
-	m_object.move(m_velocity); // was 350 before
 
-	checkInsideWindow();
+	if (!m_onGround)
+	{
+		m_velocity.y += m_gravity; // Apply gravity if not on the ground
+	}
+	else
+	{
+		m_velocity.y = 0; // Reset vertical velocity when on the ground
+	}
+
+	m_object.move(m_velocity);
+	checkInsideWindow(); // Ensure the player stays within the game window
+
 }
 //-------------------------------------------------------------------
 //check if the player is in the limit of the window
 
 void Player::checkInsideWindow()
 {
+	std::cout << "in check inside window, gravity: " << m_gravity << "\n";
+	std::cout << "in check inside window, velocityY: " << m_velocity.y << "\n";
+
 	if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + 30)
 	{
 		SlideState* currState = dynamic_cast<SlideState*>(m_currentPlayerState.get());
 		if (currState == nullptr)   //if we not in slide state
 		{
-			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y+10);
+			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + 20);
 		}
 		else if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + getSize().height)
 		{
-			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + getSize().height + 10);
+			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + getSize().height + 20);
 		}
 		setOnGround(true);
 		m_velocity.y = 0;  // Reset vertical velocity when hitting the ground
 		m_gravity = 0.3;
 	}
-	//else
-	//{
-	//	setOnGround(false); // Player is not on the ground
-	//}
+	else
+	{
+		setOnGround(false); // Player is not on the ground
+	}
 
-	else if (m_object.getPosition().y <= (m_object.getGlobalBounds().height/2)+10)
+	if (m_object.getPosition().y <= (m_object.getGlobalBounds().height / 2) + 10)
 	{
 		m_object.setPosition(m_object.getPosition().x, (m_object.getGlobalBounds().height / 2) + 10);
 	}
@@ -323,10 +297,10 @@ void Player::checkGiftDurations(float deltaTime)
 
 	// Check if the enhance duration has expired
 	if (m_isEnhance && m_giftClock.getElapsedTime() >= m_enhanceDuration)
-	{ 
+	{
 		changeEnhanceBack();
 	}
-	// Check if the player is boosted and the boost duration has expired
+	// Check if the player is on magnet and the magnet duration has expired
 	if (m_isMagnet && m_giftClock.getElapsedTime() >= m_magnetDuration)
 	{
 		m_isMagnet = false;
@@ -352,28 +326,18 @@ void Player::changeEnhanceBack()
 
 	// Adjust the y position back to maintain the top-left corner position
 	// Subtract the heightChange to compensate for scaling down
-	m_object.setPosition(currentPosition.x, currentPosition.y + (heightChange/2));
+	m_object.setPosition(currentPosition.x, currentPosition.y + (heightChange / 2));
 
 	m_isEnhance = false;
 
 }
-////--------------------------------------------------------------------------------
-//void Player::changeEnhanceBack()
-//{
-//	// Reset the scale to the original
-//	m_object.setScale(m_originalScale, m_originalScale);
-//
-//	// Reset the origin back to the top-left
-//	m_object.setOrigin(0, 0);
-//
-//	m_isEnhance = false;
-//}
+
 //------------------------------------------------------------------------------------
 void Player::changeToFlyState()
 {
 	m_giftClock.restart();
 	m_onGround = false;
 	m_isFlyState = true;
-	AnimationType aniType = (m_playerType == PLAYER_BRAVE)? ANI_COOKIEBRAVE_FLY: ANI_COOKIEBRIGHT_FLY;
+	AnimationType aniType = (m_playerType == PLAYER_BRAVE) ? ANI_COOKIEBRAVE_FLY : ANI_COOKIEBRIGHT_FLY;
 	m_currentPlayerState = std::move(std::make_unique<FlyState>(HandleResources::instance().getAnimationData(aniType), m_object, sf::seconds(0.3f)));
 }

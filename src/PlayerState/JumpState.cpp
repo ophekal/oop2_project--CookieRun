@@ -6,7 +6,7 @@
 #include <iostream>
 
 JumpState::JumpState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime)
-	: PlayerState(data, sprite, animationTime),m_gravity(0.35)
+    : PlayerState(data, sprite, animationTime)
 {
 }
 //-------------------------------------------------------------------------------
@@ -15,7 +15,6 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Player& player, KeyboardInpu
 
     if (pressed == K_NONE && player.onGround()) // end his jump
     {
-        m_gravity = 0.35;
         AnimationType aniType = getRunAnimationType(player.getPlayerType());
         return std::make_unique<RunState>(HandleResources::instance().getAnimationData(aniType), player.getPlayerSpriteForAnimation(), sf::seconds(0.1f));
     }
@@ -24,7 +23,7 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Player& player, KeyboardInpu
         return nullptr; // Stay in jump state
     }
 
-  
+
     return nullptr;
 }
 //---------------------------------------------------------------------------------------
@@ -36,12 +35,12 @@ void JumpState::update(Player& player, sf::Time deltaTime)
         player.setOnGround(false);
     }
 
-   // player.updateGravity(0.2);
-   // Apply gravity to the vertical component
-   player.updateGravity(deltaTime.asSeconds());
-   
+    // player.updateGravity(0.2);
+    // Apply gravity to the vertical component
+    player.updateGravity(deltaTime.asSeconds());
+
 
     player.move(deltaTime.asSeconds());
 
-	m_animation.update(deltaTime);
+    m_animation.update(deltaTime);
 }
