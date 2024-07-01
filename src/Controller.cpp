@@ -32,6 +32,7 @@ Controller::Controller()
     m_window.setIcon(width, height, pixels);
    
     // play game music
+    HandleResources::instance().playMusic();
 
 
     // Seed the random number generator once globally

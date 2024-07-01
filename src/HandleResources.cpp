@@ -20,13 +20,11 @@ HandleResources::HandleResources()
 	updateGiftTextureVector();
 
 	updateAnimationData();
-
-	//updateInfoBarVector();
 	updateFeedbackVector();
-	//updateBufferSounds();
-	//updateGameSounds();
+	updateBufferSounds();
+	updateGameSounds();
 	m_font.loadFromFile("font.ttf");
-	//m_gameMusic.openFromFile("gameMusic.wav");
+	m_gameMusic.openFromFile("gameMusic.wav");
 }
 
 //------------------------------------------------------------------------
@@ -35,24 +33,6 @@ HandleResources& HandleResources::instance()
 	static HandleResources inst;
 	return inst;
 }
-
-////------------------------------------------------------------------------
-//void HandleResources::updateObjectVector()
-//{
-//	m_objectsTextures.resize(12);
-//	m_objectsTextures[I_L_CAT].loadFromFile("leftCat.png");
-//	m_objectsTextures[I_R_CAT].loadFromFile("rightCat.png");
-//	m_objectsTextures[I_L_MOUSE].loadFromFile("leftMouse.png");
-//	m_objectsTextures[I_R_MOUSE].loadFromFile("rightMouse.png");
-//	m_objectsTextures[I_KEY].loadFromFile("key.png");
-//	m_objectsTextures[I_ADDLIFEGIFT].loadFromFile("addLifeGift.png");
-//	m_objectsTextures[I_ADDTIMEGIFT].loadFromFile("addTimeGift.png");
-//	m_objectsTextures[I_FREEZECATGIFT].loadFromFile("freezeCatGift.png");
-//	m_objectsTextures[I_KILLCATGIFT].loadFromFile("killCatGift.png");
-//	m_objectsTextures[I_CHEESE].loadFromFile("cheese.png");
-//	m_objectsTextures[I_DOOR].loadFromFile("door.png");
-//	m_objectsTextures[I_WALL].loadFromFile("wall.png");
-//}
 
 //-------------------------------------------------------------------------
 void HandleResources::updateBackgroundVector()
@@ -86,7 +66,7 @@ void HandleResources::updateButtonTextureVector()
 	m_buttonsTextures[B_PLAYER].loadFromFile("playerButton.png");
 	m_buttonsTextures[B_INSTRUCTIONS].loadFromFile("instructionsButton.png");
 	m_buttonsTextures[B_SETTINGS].loadFromFile("settingsButton.png");
-	m_buttonsTextures[B_BACK].loadFromFile("backButton.png");			//to change!!
+	m_buttonsTextures[B_BACK].loadFromFile("backButton.png");		
 	m_buttonsTextures[B_SOUND_ON].loadFromFile("soundOn.png");
 	m_buttonsTextures[B_SOUND_OFF].loadFromFile("soundOff.png");
 	m_buttonsTextures[B_MUSIC_ON].loadFromFile("musicOn.png");
@@ -197,73 +177,71 @@ void HandleResources::updateFeedbackVector()
 	m_feedbackTextures[F_TRYAGAIN].loadFromFile("tryAgain.png");
 }
 
-////-------------------------------------------------------------------------
-//void HandleResources::updateBufferSounds()
-//{
-//	m_bufferSounds.resize(6);
-//	m_bufferSounds[G_CHEESE].loadFromFile("yummy.wav");
-//	m_bufferSounds[G_GIFT].loadFromFile("gift.wav");
-//	m_bufferSounds[G_MOUSE].loadFromFile("mouseEaten.wav");
-//	m_bufferSounds[G_WIN].loadFromFile("goodJobYouWin.wav");
-//	m_bufferSounds[G_LOST].loadFromFile("tryAgainGameOver.wav");
-//	m_bufferSounds[G_KEY].loadFromFile("keys.wav");
-//}
-//
-////-------------------------------------------------------------------------
-//void HandleResources::updateGameSounds()
-//{
-//	m_gameSound.resize(6);
-//	m_gameSound[G_CHEESE].setBuffer(m_bufferSounds[G_CHEESE]);
-//	m_gameSound[G_GIFT].setBuffer(m_bufferSounds[G_GIFT]);
-//	m_gameSound[G_MOUSE].setBuffer(m_bufferSounds[G_MOUSE]);
-//	m_gameSound[G_WIN].setBuffer(m_bufferSounds[G_WIN]);
-//	m_gameSound[G_LOST].setBuffer(m_bufferSounds[G_LOST]);
-//	m_gameSound[G_KEY].setBuffer(m_bufferSounds[G_KEY]);
-//}
-//
-////--------------------------------------------------------------------------
-//const sf::Texture* HandleResources::getInfoBarTexture(Bar icon)
-//{
-//	return &(m_infoBarTextures[icon]);
-//}
-//
+//-------------------------------------------------------------------------
+void HandleResources::updateBufferSounds()
+{
+	m_bufferSounds.resize(7);
+	m_bufferSounds[S_COIN].loadFromFile("coins.wav");
+	m_bufferSounds[S_COOKIEDEAD].loadFromFile("cookieObstcale.wav");
+	m_bufferSounds[S_GOODJOB].loadFromFile("goodJob.wav");
+	m_bufferSounds[S_TRYAGAIN].loadFromFile("tryAgain.wav");
+	m_bufferSounds[S_JELLY].loadFromFile("cookieJelly.wav");
+	m_bufferSounds[S_GIFT].loadFromFile("gift.wav");
+	m_bufferSounds[S_BOOM].loadFromFile("explosion.wav");
+}
+
+//-------------------------------------------------------------------------
+void HandleResources::updateGameSounds()
+{
+	m_gameSound.resize(7);
+	m_gameSound[S_COIN].setBuffer(m_bufferSounds[S_COIN]);
+	m_gameSound[S_COOKIEDEAD].setBuffer(m_bufferSounds[S_COOKIEDEAD]);
+	m_gameSound[S_GOODJOB].setBuffer(m_bufferSounds[S_GOODJOB]);
+	m_gameSound[S_TRYAGAIN].setBuffer(m_bufferSounds[S_TRYAGAIN]);
+	m_gameSound[S_JELLY].setBuffer(m_bufferSounds[S_JELLY]);
+	m_gameSound[S_GIFT].setBuffer(m_bufferSounds[S_GIFT]);
+	m_gameSound[S_BOOM].setBuffer(m_bufferSounds[S_BOOM]);
+}
+
 //--------------------------------------------------------------------------
 const sf::Texture* HandleResources::getFeedbackTexture(FEEDBACK icon)
 {
 	return &(m_feedbackTextures[icon]);
 }
 
-////-------------------------------------------------------------------------
-//const sf::Texture* HandleResources::getObjectTexture(IconType icon)
-//{
-//	return &(m_objectsTextures[icon]);
-//}
- 
 //-------------------------------------------------------------------------
 const sf::Font* HandleResources::getFont()
 {
 	return &m_font;
 }
 
-////-------------------------------------------------------------------------
-//void HandleResources::playSound(GameSound sound)
-//{
-//	m_gameSound[sound].setVolume(50);
-//	m_gameSound[sound].play();
-//}
-//
-////-------------------------------------------------------------------------
-//void HandleResources::playMusic()
-//{
-//	m_gameMusic.setLoop(true);
-//	m_gameMusic.play();
-//}
-//
-////--------------------------------------------------------------------------
-//void HandleResources::stopMusic()
-//{
-//	m_gameMusic.pause();
-//}
+//-------------------------------------------------------------------------
+void HandleResources::playSound(GameSound sound)
+{
+	if (m_soundOn)
+	{
+		m_gameSound[sound].setVolume(50);
+		m_gameSound[sound].play();
+	}
+}
+//-------------------------------------------------------------------------
+void HandleResources::updateSoundOn(bool sound)
+{
+	m_soundOn = sound;
+}
+
+//-------------------------------------------------------------------------
+void HandleResources::playMusic()
+{
+	m_gameMusic.setLoop(true);
+	m_gameMusic.play();
+}
+
+//--------------------------------------------------------------------------
+void HandleResources::stopMusic()
+{
+	m_gameMusic.pause();
+}
 //---------------------------------------------------------------------------
 
 void HandleResources::updateAnimationData()
@@ -298,7 +276,6 @@ void HandleResources::updateCoinsAnimation()
 	const auto initSpace = sf::Vector2i(0, 0);
 	const auto middleSpace = sf::Vector2i(0, 0);
 
-	//auto pacman = AnimationData{};
 	auto currentStart = initSpace;
 
 	auto nextStart = [&]()

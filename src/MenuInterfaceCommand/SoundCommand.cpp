@@ -21,4 +21,6 @@ void SoundCommand::execute()
 		m_soundOn = true;
 		m_soundButton.setButtonTexture(HandleResources::instance().getButtonTexture(B_SOUND_ON));
 	}
+
+	HandleResources::instance().updateSoundOn(m_soundOn);
 }

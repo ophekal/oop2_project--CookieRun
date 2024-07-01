@@ -75,7 +75,7 @@ private:
 	void handleLevelExit();
 	bool checkAndUpdateLevelStatus();
 	void updatePlayerEnergy(sf::Time deltaTime);
-	void printFeedback(const sf::Texture& feedback /*, GameSound sound */ );
+	void printFeedback(const sf::Texture& feedback, GameSound sound);
 	void checkIfNeedToExplode();
 	sf::FloatRect getCurrentViewBounds();
 	std::vector<sf::Vector2f> markEnemiesForExplosion(const sf::FloatRect& viewBounds);

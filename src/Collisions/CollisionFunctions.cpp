@@ -12,6 +12,8 @@
 #include "StaticObject/FlyingGift.h"
 #include "StaticObject/JellyBean.h"
 #include "StaticObject/Magnet.h"
+#include "HandleResources.h"
+#include "Macros.h"
 
 //------------------------------------------------------------
 void playerCoin(GameObject& player, GameObject& coin)
@@ -19,6 +21,7 @@ void playerCoin(GameObject& player, GameObject& coin)
     Player& p = static_cast<Player&>(player);
     Coin& c = static_cast<Coin&>(coin);
     p.setCoins(p.getCoins()+1);
+    HandleResources::instance().playSound(S_COIN);
     c.markForDeletion();
 }
 
@@ -29,6 +32,7 @@ void playerJelly(GameObject& player, GameObject& jelly)
     JellyBean& j = static_cast<JellyBean&>(jelly);
     p.setJelly(p.getjelly() + 1);
     j.markForDeletion();
+    HandleResources::instance().playSound(S_JELLY);
 
     if (p.getjelly() == JELLY2ENERGY)
     {
@@ -107,8 +111,8 @@ void playerFloor(GameObject& player, GameObject& floor)
     }
     else if( !p.isEnhance())
     {
-      std::cout << "collision from the side\n";
-
+       std::cout << "collision from the side\n";
+       HandleResources::instance().playSound(S_COOKIEDEAD);
        p.markForDeletion();
        return;
     }
@@ -121,7 +125,7 @@ void playerObstcale(GameObject& player, GameObject& obstcale)
 
     if (!p.isEnhance())   // if not in enhance the player die when collide with obstcale
     {
-        //add sound that the player die
+        HandleResources::instance().playSound(S_COOKIEDEAD);
         p.markForDeletion();
     }
      
@@ -137,6 +141,7 @@ void playerEnhance(GameObject& player, GameObject& enhance)
     // Set the boost duration (5 seconds)
     sf::Time enhanceDuration = sf::seconds(5);
 
+    HandleResources::instance().playSound(S_GIFT);
     // Start the boost timer
     p.startEnhanceTimer(enhanceDuration, 1.4f);
 }
@@ -147,6 +152,7 @@ void playerWeapon(GameObject& player, GameObject& weapon)
     Player& p = static_cast<Player&>(player);
     Weapon& w = static_cast<Weapon&>(weapon);
     w.markForDeletion();
+    HandleResources::instance().playSound(S_GIFT);
     p.setWeapon(p.getWeapons() + 1);
 }
 
@@ -168,6 +174,8 @@ void playerBoost(GameObject& player, GameObject& boost)
     // Set the boost duration (5 seconds)
     sf::Time boostDuration = sf::seconds(5);
 
+    HandleResources::instance().playSound(S_GIFT);
+
     // Start the boost timer
     p.startBoostTimer(boostDuration, oldSpeed);
 }
@@ -181,6 +189,8 @@ void playerMagnet(GameObject& player, GameObject& magnet)
     // Set the boost duration (10 seconds)
     sf::Time magnetDuration = sf::seconds(10);
 
+    HandleResources::instance().playSound(S_GIFT);
+
     // Start the boost timer
     p.startMagnetTimer(magnetDuration);
 }
@@ -192,6 +202,8 @@ void playerFlyingGift(GameObject& player, GameObject& flyingGift)
     FlyingGift& f = static_cast<FlyingGift&>(flyingGift);
     f.markForDeletion();
     p.changeToFlyState();
+
+    HandleResources::instance().playSound(S_GIFT);
 }
 
 //------------------------------------------------------------
@@ -202,6 +214,7 @@ void playerEnemy(GameObject& player, GameObject& enemy)
 
     if (!p.isEnhance())
     {
+        HandleResources::instance().playSound(S_COOKIEDEAD);
         std::cout << "enemy kill the player\n";
         p.markForDeletion();
     }   
@@ -214,6 +227,7 @@ void playerMovingObstcale(GameObject& player, GameObject& obstcale)
 
     if (!p.isEnhance())
     {
+        HandleResources::instance().playSound(S_COOKIEDEAD);
         std::cout << "enemy kill the player\n";
         p.markForDeletion();
     }

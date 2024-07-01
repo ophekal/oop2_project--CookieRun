@@ -353,12 +353,12 @@ bool LevelCommand::checkAndUpdateLevelStatus()
 {
 	if (m_player.isDead()) //to the next level
 	{
-		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN));
+		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN), S_TRYAGAIN);
 		return true;
 	}
 	else if( m_player.getPosition().x >= m_flagPosition.x-200)   //the game over with success if we arrive to the flag section
 	{
-		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB));
+		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB),S_GOODJOB);
 		return true;
 	}
 
@@ -366,7 +366,7 @@ bool LevelCommand::checkAndUpdateLevelStatus()
 
 }
 //----------------------------------------------------------------------------------------
-void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound */ )
+void LevelCommand::printFeedback(const sf::Texture& feedback , GameSound sound  )
 {
 	sf::sleep(sf::seconds(1.5));
 
@@ -391,6 +391,7 @@ void LevelCommand::printFeedback(const sf::Texture& feedback /*, GameSound sound
 
 	// Draw the feedback sprite centered in the current view
 	m_window.draw(sprite);
+	HandleResources::instance().playSound(sound);
 	m_window.display();
 
 	sf::sleep(sf::seconds(1));
@@ -534,6 +535,7 @@ void LevelCommand::checkIfNeedToExplode()
 {
 	if (m_player.getKeyPressed() == K_ENTER && m_player.getWeapons() > 0)
 	{
+		HandleResources::instance().playSound(S_BOOM);
 		handleExplosionStart(); // Start explosion handling
 		m_player.setWeapon(m_player.getWeapons() - 1);
 		m_player.resetKeyPress();

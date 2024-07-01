@@ -63,9 +63,7 @@ enum KeyboardInput
 const sf::Vector2f PLAYER_INIT_POSITION{ 620,759 };
 const int JELLY2ENERGY = 3;
 //---------------Player State--------------------------
-//const float MaxJump = 1000.0f;
-const float MaxJump = 2; // Represents a jump height of 200 pixels
-const float MaxDoubleJump = 5.5f;// 2500.0f;
+
 //-----------instructions-------------------
 
 
@@ -246,53 +244,15 @@ const float BOARD_WID = 1050;
 const float BOARD_START_X = 450;
 const float BOARD_START_Y = 0;
 
-//-------------------infoBar-----------------------
-const float INFO_HIG = 950;
-const float INFO_WID = 450;
-const float INFO_START_X = 0;
-const float INFO_START_Y = 0;
-
-enum Bar
-{
-	B_TIME,
-	B_SAVE,
-	B_HOME,
-	B_FREE,
-	B_PICKEDUP,
-	B_LEFT,
-	B_SCORE,
-	B_HINT
-};
-
-const sf::Vector2f INFO_SIZE = { 300,90 };
-
-const float INFO_X = 70;
-const float INFO_Y = 50;
-const float CLOCK_Y = 120;
-const float FREE_Y = 225;
-const float PICKEDUP_Y = 330;
-const float LEFT_Y = 435;
-const float SCORE_Y = 540;
-const float SAVE_Y = 750;
-const float HINT_Y = 645;
-const float I_SOUND_X = 70;
-const float I_SOUND_Y = 855;
-const float HOME_X = 305;
-const float HOME_Y = 855;
-
-// text size
-const int INFOBAR_TEXT_SIZE = 30;
-const int SCORE_TEXT_SIZE = 80;
-
-
-//----------------levelLength----------------------
-const float LONG_LEVEL = (3 * 60) + 1;
-const float SHORT_LEVEL = (1.5 * 60) + 1;
-
 
 //-------------------sounds------------------------
 enum GameSound
 {
-	G_FREE,
-	G_BLOCKED,
+	S_COIN,
+	S_COOKIEDEAD,
+	S_GOODJOB,
+	S_TRYAGAIN,
+	S_JELLY,
+	S_GIFT,
+	S_BOOM
 };
