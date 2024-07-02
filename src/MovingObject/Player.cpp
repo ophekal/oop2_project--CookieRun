@@ -65,23 +65,16 @@ void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
 	m_enhanceDuration = duration;
 	m_giftClock.restart();
 
-	// Get the original position
 	sf::Vector2f originalPosition = m_object.getPosition();
-
-	// Calculate the original height before scaling
 	float originalHeight = m_object.getLocalBounds().height;
 
 	// Apply the scale factor to enhance the player
 	m_object.setScale(m_originalScale * scaleFactor, m_originalScale * scaleFactor);
-
-	// Calculate the new height after scaling
 	float newHeight = m_object.getGlobalBounds().height;
-
-	// Calculate the height change due to scaling
 	float heightChange = newHeight - originalHeight;
 
 	// Since we are using top-left as the origin, adjust the y position by the total height change
-	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange / 2)+ 60);
+	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange / 2));//+ 30);
 
 
 }
@@ -264,8 +257,11 @@ void Player::checkInsideWindow()
 		//SlideState* currState = dynamic_cast<SlideState*>(m_currentPlayerState.get());
 		if (/*currState == nullptr*/ m_keyPressed != K_DOWN && !m_isFlyState)   //if we not in slide state
 		{
-			if(!m_isEnhance)
-			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + 20);
+			if (!m_isEnhance)
+			{
+				m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + 20);
+
+			}
 		}
 		else if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + getSize().height)
 		{
