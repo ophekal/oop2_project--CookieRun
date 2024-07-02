@@ -114,12 +114,12 @@ enum LEVELTEXTURE3
 enum GIFTTEXTURE
 {
 	G_JELLY,
+	G_COIN,
+	G_WEAPON,
 	G_MAGNET,
 	G_ENHANCE,
-	G_COIN,
 	G_BOOST,
 	G_FLIGHT,
-	G_WEAPON,
 	G_BOOM
 };
 
@@ -192,11 +192,9 @@ const float CHOOSEPLAYER_Y = 425;
 
 const sf::Vector2f BUTTON_SIZE = { 300,100 };
 const sf::Vector2f EXIT_SIZE = { 65,65 };
+//------------------Info Bar-----------------------
 
-
-//----------------Exceptions----------------------
-const float EXCEPTIONS_WID = 650;
-const float EXCEPTIONS_HIG = 150;
+const sf::Vector2f ICON_SIZE = { 40.f, 40.f };
 
 //-------------------Sounds------------------------
 enum GameSound

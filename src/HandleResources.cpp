@@ -118,12 +118,12 @@ void HandleResources::updateGiftTextureVector()
 {
 	m_giftTextures.resize(8);
 	m_giftTextures[G_JELLY].loadFromFile("JellyBean.png");
+	m_giftTextures[G_COIN].loadFromFile("Coins-Sheet.png");
+	m_giftTextures[G_WEAPON].loadFromFile("Dynamite_Missile.png");
 	m_giftTextures[G_MAGNET].loadFromFile("Magnet.png");
 	m_giftTextures[G_ENHANCE].loadFromFile("Enhance.png");
-	m_giftTextures[G_COIN].loadFromFile("Coins-Sheet.png");
 	m_giftTextures[G_BOOST].loadFromFile("Boost.png");
 	m_giftTextures[G_FLIGHT].loadFromFile("FlyingGift.png");
-	m_giftTextures[G_WEAPON].loadFromFile("Dynamite_Missile.png");
 	m_giftTextures[G_BOOM].loadFromFile("Effects.png");
 }
 

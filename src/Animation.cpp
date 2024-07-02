@@ -1,5 +1,4 @@
 #include "Animation.h"
-#include <iostream>
 
 #include "HandleResources.h"
 
@@ -24,7 +23,6 @@ void Animation::update(sf::Time delta)
 //--------------------------------------------------------------------------------------
 void Animation::update()
 {
-   //m_sprite.setOrigin(m_frameSheet[m_frameIndex].width / 2, m_frameSheet[m_frameIndex].height / 2);
     m_sprite.setTextureRect(m_frameSheet[m_frameIndex]);
 }
 //--------------------------------------------------------------------------------------

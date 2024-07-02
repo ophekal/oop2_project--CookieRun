@@ -8,9 +8,8 @@
 //----------------------------------------------------------------------------------------
 InfoBar::InfoBar()
 {
-    // Access the font from HandleResources
     const sf::Font& font = *HandleResources::instance().getFont();
-    float horizontalSpacing = 250.0f; // Adjust as needed for your layout
+    float horizontalSpacing = 250.0f; 
 
     // Initialize the m_infoBar with sf::Text objects
     m_infoBar.resize(4);
@@ -25,39 +24,25 @@ InfoBar::InfoBar()
         m_infoBar[i].setString(labels[i]); 
     }
 
-    // Set texture and position for the m_jelly
-	m_jelly.setTexture(HandleResources::instance().getGiftTexture(G_JELLY));
-    m_jelly.setSize({ 40.0f, 40.0f }); 
-	m_jelly.setPosition({ 250,20 });
-
-    // Set texture and position for the m_jelly
-    m_weapon.setTexture(HandleResources::instance().getGiftTexture(G_WEAPON));
-    m_weapon.setSize({ 40.0f, 40.0f });
-    m_weapon.setPosition({ 750,20 });
-
-    // Set texture and position for the m_coin
-    const sf::Texture& coinTexture = *HandleResources::instance().getGiftTexture(G_COIN);
-    const std::vector<sf::IntRect>& coins = HandleResources::instance().getAnimationData(ANI_COIN);
-    m_coin.setTexture(&coinTexture);
-    m_coin.setTextureRect(coins[0]);
-    m_coin.setSize({ 40.0f, 40.0f }); 
-    m_coin.setPosition({500,20 });
-
-    //Set the texture of the gifts
+    setInfoBarIcons();
     setGiftTexture();
 }
 //-----------------------------------------------------------------------------------------
 void InfoBar::draw(sf::RenderWindow& window)
 {
+    // Draw text in the m_infoBar vector
     for (const auto& text : m_infoBar)
     {
         window.draw(text);
     }
-    window.draw(m_jelly);
-    window.draw(m_coin);
-    window.draw(m_weapon);
 
-    // Draw gift shapes with textures
+    // Draw each icon in the m_infoBarIcons vector
+    for (const auto& icon : m_infoBarIcons)
+    {
+        window.draw(icon);
+    }
+
+    // Draw each gift that the player take 
     for (const auto& pair : m_gifts)
     {
         if (pair.first) 
@@ -81,8 +66,32 @@ void InfoBar::updateInfoBar(const Player& player, int levelNumber)
     m_gifts[2].first = player.isFlyState();
     m_gifts[3].first = player.isMagnet();
 }
+//-----------------------------------------------------------------------------------------
+ void InfoBar::setInfoBarIcons()
+{
+    // Initialize the m_infoBarIcons vector with the appropriate size
+    m_infoBarIcons.resize(3);
+    m_infoBarIcons[G_JELLY].setTexture(HandleResources::instance().getGiftTexture(G_JELLY));
+    m_infoBarIcons[G_COIN].setTexture(HandleResources::instance().getGiftTexture(G_COIN));
+    m_infoBarIcons[G_WEAPON].setTexture(HandleResources::instance().getGiftTexture(G_WEAPON));
 
-//---------------------------------------------------------------------------------------
+    // Get animation data for coins
+    const std::vector<sf::IntRect>& coins = HandleResources::instance().getAnimationData(ANI_COIN);
+
+    // Set size and position for each icon
+    for (size_t i = 0; i < m_infoBarIcons.size(); ++i)
+    {
+        m_infoBarIcons[i].setSize(ICON_SIZE);
+        m_infoBarIcons[i].setPosition({ 250.0f + (i * 250.0f), 20.0f });
+
+        // Apply animation texture rect for the last icon (assuming coins are the last)
+        if (GIFTTEXTURE(i) == G_COIN)
+        {
+            m_infoBarIcons[i].setTextureRect(coins[0]);
+        }
+    }
+}
+
 //----------------------------------------------------------------------------------------
 void InfoBar::setGiftTexture()
 {
