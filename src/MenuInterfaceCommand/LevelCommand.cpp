@@ -50,10 +50,8 @@ void LevelCommand::handleEvent()
 	while (m_window.isOpen())
 	{
 		const auto deltaTime = m_clock.restart();
-
 		updatePlayerEnergy(deltaTime);
 		checkIfNeedToExplode();
-
 		m_infoBar.updateInfoBar(m_player, m_levelNumber);
 
 		render();
@@ -65,13 +63,11 @@ void LevelCommand::handleEvent()
 			return;
 		}
 
-		//const auto deltaTime = clock.restart();
 		updateAnimation(deltaTime);
 		movePlayer(deltaTime);
 		cleanVectors();
 		moveEnemies(deltaTime);
-
-		handleExplosion(deltaTime); // Update and render explosion animation
+		handleExplosion(deltaTime);
 
 		if (checkAndUpdateLevelStatus())
 		{
@@ -159,7 +155,11 @@ void LevelCommand::updatePlayerEnergy(sf::Time deltaTime)
 	{
 		// Reduce player's energy
 		m_player.setEnergy(m_player.getEnergy() - 3);
+		if (m_player.getEnergy() <= 0)
+		{
+			m_player.setEnergy(0);	//set energy to zero since dead
 
+		}
 		// Reset the elapsed time, accounting for any extra time
 		m_energyReductionElapsedTime -= sf::seconds(2.0f);
 	}
