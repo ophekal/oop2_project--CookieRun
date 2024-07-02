@@ -21,11 +21,16 @@ LevelPartGenerator& LevelPartGenerator::instance()
 }
 
 //------------------------------------------------------------------------
+// This function open the file stream and reads from the levelParts file
+// the names of the pngs that can create the level. Then it reads each
+// level part into m_levelPartsVector
+
 void LevelPartGenerator::readLevelParts()
 {
 	// open streams for reading from level parts playlist
 	auto line = std::string();
 	auto file = std::ifstream("levelSectionsPlaylist.txt");
+
 	if (!file.is_open())
 	{
 		throw std::runtime_error("Failed to open levelSectionsPlaylist.txt");
@@ -41,6 +46,9 @@ void LevelPartGenerator::readLevelParts()
 }
 
 //-------------------------------------------------------------------------
+// This function reads a levelPart into a vector and enters it into the
+// m_levelPartsVector
+
 void LevelPartGenerator::readPart(const sf::Image& levelPartImage)
 {
 	float location_y = 828.f;
@@ -67,12 +75,12 @@ void LevelPartGenerator::readPart(const sf::Image& levelPartImage)
 }
 
 //-----------------------------------------------------------------------------
-// This function checks the what level it needs to create (according to 
-// levelNumber). The m_levelPartsVector holds in the first 5 place the secrtions
-// for level1, and in the next 5 it hold level2 and so on.
+// This function checks what level it needs to create (according to 
+// levelNumber). The m_levelPartsVector holds in the first 4 place the sections
+// for level1, and in the next 4 it hold level2 and so on.
 // This allows us to draw a random level part and send it back
 
-level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flagPosition)
+level& LevelPartGenerator::getRandomLevel(int levelNumber)
 {
 	int lowerBound = 0,
 		upperBound = 0;
@@ -80,25 +88,20 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 	switch (levelNumber)
 	{
 	case 1:
-	{
 		lowerBound = 0;
 		upperBound = 2;
 		break;
-	}
 	case 2:
-	{
 		lowerBound = 4;
 		upperBound = 6;
 		break;
-	}
 	case 3:
-	{
 		lowerBound = 8;
 		upperBound = 10;
 		break;
 	}
-	}
 
+	// making sure we don't draw the same section twice in a level
 	int randomIndex;
 	do {
 		randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
@@ -110,7 +113,7 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 }
 
 //-----------------------------------------------------------------------------
-// This function sends back the last level part of the current level
+// This function sends back the last level section of the current level
 
 level& LevelPartGenerator::getLastLevelSection(int levelNum)
 {
@@ -118,22 +121,15 @@ level& LevelPartGenerator::getLastLevelSection(int levelNum)
 	switch (levelNum)
 	{
 	case 1:
-	{
 		cell = LAST_PART_LEVEL_1;
 		break;
-	}
 	case 2:
-	{
 		cell = LAST_PART_LEVEL_2;
 		break;
-	}
 	case 3:
-	{
 		cell = LAST_PART_LEVEL_3;
 		break;
 	}
-	}
 
 	return m_levelPartsVector[cell];
-
 }

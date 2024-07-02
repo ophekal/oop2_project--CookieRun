@@ -7,7 +7,7 @@
 #include "Factories/ObjectFactory.h"
 
 
-// Register the obstcales, different colors represent different obstcales
+// Register the obstcales into the factory, different colors represent different obstcales
 bool StaticObstcale::m_register = ObjectFactory<StaticObject>::registerObject(sf::Color(34, 177, 76), [](const sf::Vector2f& position, int level) -> std::unique_ptr<StaticObject>
 {
 	sf::Sprite sprite;
@@ -65,6 +65,6 @@ ObjectFactory<StaticObject>::registerObject(sf::Color(163, 73, 164), [](const sf
 });
 
 
-//-----------------------------------------------------------------
+//-------------------------------------------------------------------------------------
 StaticObstcale::StaticObstcale(const sf::Sprite& sprite, const sf::Vector2f& position)
 	:StaticObject(sprite, position) {}

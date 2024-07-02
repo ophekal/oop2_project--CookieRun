@@ -9,13 +9,12 @@
 #include "MenuInterfaceCommand/StartGameCommand.h"
 
 
-//-----------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------
 Controller::Controller()
     : m_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Cookie Run: OvenBreak"), m_menu(m_window),
       m_player(sf::Sprite(*HandleResources::instance().getPlayerTexture(PLAYER_BRAVE)), 350.f, PLAYER_INIT_POSITION)
 {
     m_window.setFramerateLimit(60);
-
     setIcon();
 
     // play game music
@@ -31,9 +30,8 @@ Controller::Controller()
 }
 
 
-//------------------------------------------------------------------------
-// This function is responsible of handling the different states while the
-// window is open
+//-----------------------------------------------------------------------------------------------------
+// This function creates the buttons of the menu, and activites the menu
 
 void Controller::run() 
 {
@@ -45,7 +43,10 @@ void Controller::run()
 
     m_menu.activate();
 }
-//-----------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------------
+// This function sets the icon of the the game in the windows border
+
 void Controller::setIcon()
 {
    const sf::Texture* texturePtr = HandleResources::instance().getPlayerTexture(CHOOSE_PLAYER_BRAVE);
@@ -62,5 +63,4 @@ void Controller::setIcon()
 
     // Set the window's icon using the image's size and pixel data
     m_window.setIcon(width, height, pixels);
-
 }

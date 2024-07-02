@@ -4,7 +4,7 @@
 
 //--------------------------------------------------------------------------------------------
 MovingObject::MovingObject(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
-    :GameObject(sprite, position),  m_objectSpeed(speed)
+    :GameObject(sprite, position), m_objectSpeed(speed)
 {
 }
 //-----------------------------------------------------------------------------------------

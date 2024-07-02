@@ -11,8 +11,8 @@ void PlayerState::updateAnimation(std::vector<sf::IntRect>& frameSheet, sf::Spri
 {
 	m_animation.changeAnimation(frameSheet, sprite);
 }
-//---------------------------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------------------------
 AnimationType PlayerState::getRunAnimationType(Players player)
 {
     switch (player)
@@ -22,8 +22,9 @@ AnimationType PlayerState::getRunAnimationType(Players player)
     case PLAYER_BRIGHT:
         return ANI_COOKIEBRIGHT_RUN;
     }
-    return ANI_COOKIEBRAVE_RUN; //never get here
+    return ANI_COOKIEBRAVE_RUN; //never gets here
 }
+
 //---------------------------------------------------------------------------------------------
 AnimationType PlayerState::getSlideAnimationType(Players player)
 {
@@ -34,8 +35,9 @@ AnimationType PlayerState::getSlideAnimationType(Players player)
     case PLAYER_BRIGHT:
         return ANI_COOKIEBRIGHT_SLIDE;
     }
-    return ANI_COOKIEBRAVE_SLIDE; //never get here
+    return ANI_COOKIEBRAVE_SLIDE; //never gets here
 }
+
 //--------------------------------------------------------------------------------------------
 AnimationType PlayerState::getJumpAnimationType(Players player)
 {
@@ -46,5 +48,5 @@ AnimationType PlayerState::getJumpAnimationType(Players player)
     case PLAYER_BRIGHT:
         return ANI_COOKIEBRIGHT_JUMP;
     }
-    return ANI_COOKIEBRAVE_JUMP; //never get here
+    return ANI_COOKIEBRAVE_JUMP; //never gets here
 }

@@ -3,12 +3,15 @@
 #include "PlayerState/RunState.h"
 #include "HandleResources.h"
 
-//-------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 FlyState::FlyState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime)
-    : PlayerState(data, sprite, animationTime), m_flyDuration(sf::seconds(7)), m_moveDirection(0, 0)
-{
-}
-//---------------------------------------------------------------------------------
+    : PlayerState(data, sprite, animationTime), m_flyDuration(sf::seconds(7)), m_moveDirection(0, 0) {}
+
+
+//-------------------------------------------------------------------------------------------------
+// This function is responsible for handeling the key presses and sending back pointers to the
+// next state the player needs to transfer into according to the pressed variable
+
 std::unique_ptr<PlayerState> FlyState::handleEvent(Player& player, KeyboardInput pressed)
 {
     handleInput(pressed);
@@ -25,7 +28,7 @@ std::unique_ptr<PlayerState> FlyState::handleEvent(Player& player, KeyboardInput
     return nullptr; // Stay in FlyState
 }
 
-//---------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 void FlyState::handleInput(KeyboardInput pressed)
 {
     if (pressed == K_UP)
@@ -41,7 +44,7 @@ void FlyState::handleInput(KeyboardInput pressed)
         m_moveDirection = DIRECTION_NONE;
     }
 }
-//--------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 void FlyState::update(Player& player, sf::Time deltaTime)
 {
     // Set the origin of the player's sprite to its center
@@ -63,8 +66,9 @@ void FlyState::update(Player& player, sf::Time deltaTime)
     // Update the animation for the player sprite
     m_animation.update(deltaTime);
 }
-//-------------------------------------------------------------------------
-//function to handle flight behavior
+
+//-------------------------------------------------------------------------------------------------
+// This function handles the flight behavior
 
 void FlyState::handleFlightBehavior(Player& player, sf::Time deltaTime)
 {
@@ -80,7 +84,11 @@ void FlyState::handleFlightBehavior(Player& player, sf::Time deltaTime)
         freeMovement(player, deltaTime);
     }
 }
-//--------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+// This function is called when the player enters the flight state and it makes sure the player
+// gets to the target height defined
+
 void FlyState::moveTowardsTarget(Player& player, sf::Time deltaTime, const sf::Vector2f& target)
 {
     float moveAmount = -player.getSpeed() * deltaTime.asSeconds();
@@ -93,7 +101,12 @@ void FlyState::moveTowardsTarget(Player& player, sf::Time deltaTime, const sf::V
         player.setPosition(player.getPosition().x, target.y);
     }
 }
-//------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+// This function allows the player once he arrives the target height to move freely. It moves him
+// according to the direction that's sotred in m_moveDirection which was updated according to the
+// key pressed in handleInput
+
 void FlyState::freeMovement(Player& player, sf::Time deltaTime)
 {
     // Movement amount is proportional to the player's speed and the direction vector
@@ -113,7 +126,8 @@ void FlyState::freeMovement(Player& player, sf::Time deltaTime)
 
     player.setPosition(newPosition.x, newPosition.y);
 }
-//-----------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
 void FlyState::returnToGround(Player& player, sf::Time deltaTime)
 {
 
@@ -133,8 +147,9 @@ void FlyState::returnToGround(Player& player, sf::Time deltaTime)
         resetPlayerToGround(player);
     }
 }
-//----------------------------------------------------------------------------
-//Reset player to the ground position
+
+//-------------------------------------------------------------------------------------------------
+//This function resets the player to the ground position
 void FlyState::resetPlayerToGround(Player& player)
 {
     player.setPosition(player.getPosition().x, PLAYER_INIT_POSITION.y);

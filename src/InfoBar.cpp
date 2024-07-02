@@ -27,7 +27,10 @@ InfoBar::InfoBar()
     setInfoBarIcons();
     setGiftTexture();
 }
-//-----------------------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------------------
+// This function is responsible for drawing the information and game status
+
 void InfoBar::draw(sf::RenderWindow& window)
 {
     // Draw text in the m_infoBar vector
@@ -42,7 +45,7 @@ void InfoBar::draw(sf::RenderWindow& window)
         window.draw(icon);
     }
 
-    // Draw each gift that the player take 
+    // Draw the gifts that the player took, the ones who's boolean value is true  
     for (const auto& pair : m_gifts)
     {
         if (pair.first) 
@@ -52,7 +55,11 @@ void InfoBar::draw(sf::RenderWindow& window)
     }
 
 }
+
 //----------------------------------------------------------------------------------------
+// This function prints the status of the game and updates the boolean value inside the 
+// m_gifts pair-vector that indicates with gift the player has
+
 void InfoBar::updateInfoBar(const Player& player, int levelNumber)
 {
     m_infoBar[0].setString("Level: " + std::to_string(levelNumber));
@@ -66,7 +73,10 @@ void InfoBar::updateInfoBar(const Player& player, int levelNumber)
     m_gifts[2].first = player.isFlyState();
     m_gifts[3].first = player.isMagnet();
 }
+
 //-----------------------------------------------------------------------------------------
+// This function is responsible for setting the icons for the power-ups in the infobar
+
  void InfoBar::setInfoBarIcons()
 {
     // Initialize the m_infoBarIcons vector with the appropriate size
@@ -92,7 +102,10 @@ void InfoBar::updateInfoBar(const Player& player, int levelNumber)
     }
 }
 
-//----------------------------------------------------------------------------------------
+
+ //-----------------------------------------------------------------------------------------
+ // This function is responsible for creating the icons for the power-ups in the infobar
+
 void InfoBar::setGiftTexture()
 {
     m_gifts.resize(4);

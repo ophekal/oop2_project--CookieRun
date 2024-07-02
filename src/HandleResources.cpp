@@ -54,7 +54,6 @@ void HandleResources::updatePlayerTextureVector()
 	m_playersTextures[CHOOSE_PLAYER_BRIGHT].loadFromFile("ChoosePlayerGingerBright.jpg");
 	m_playersTextures[PLAYER_BRAVE].loadFromFile("Cookie_Brave.png");
 	m_playersTextures[PLAYER_BRIGHT].loadFromFile("Cookie_Bright.png");
-
 }
 
 //-------------------------------------------------------------------------
@@ -98,7 +97,6 @@ void HandleResources::updateLevel2TextureVector()
 	m_level2Textures[L2_OBSTACLE2].loadFromFile("kitchen_obstcale2.png");
 	m_level2Textures[L2_OBSTACLE3].loadFromFile("kitchen_obstcale3.png");
 	m_level2Textures[L2_ANI_OBSTACLE1].loadFromFile("kitchen_obstcaleAni.png");
-	
 }
 
 //------------------------------------------------------------------------
@@ -220,6 +218,7 @@ void HandleResources::playSound(GameSound sound)
 		m_gameSound[sound].play();
 	}
 }
+
 //-------------------------------------------------------------------------
 void HandleResources::updateSoundOn(bool sound)
 {
@@ -291,7 +290,6 @@ void HandleResources::updateCookieBraveRunAnimation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_COOKIEBRAVE_RUN].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRAVE_RUN].emplace_back(nextStart(), size);
 	m_animationData[ANI_COOKIEBRAVE_RUN].emplace_back(nextStart(), size);
@@ -314,10 +312,10 @@ void HandleResources::updateCookieBraveSlideAnimation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_COOKIEBRAVE_SLIDE].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRAVE_SLIDE].emplace_back(nextStart(), size);
 }
+
 //------------------------------------------------------------------------
 void HandleResources::updateCookieBraveJumpAnimation()
 {
@@ -333,7 +331,6 @@ void HandleResources::updateCookieBraveJumpAnimation()
 			currentStart.x += size.x;
 			return currentStart;
 		};
-
 
 	m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRAVE_JUMP].emplace_back(nextStart(), size);
@@ -354,7 +351,6 @@ void HandleResources::updateCookieBraveFlyAnimation()
 			currentStart.x += size.x;
 			return currentStart;
 		};
-
 
 	m_animationData[ANI_COOKIEBRAVE_FLY].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRAVE_FLY].emplace_back(nextStart(), size);
@@ -380,7 +376,6 @@ void HandleResources::updateCookieBrightRunAnimation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_COOKIEBRIGHT_RUN].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRIGHT_RUN].emplace_back(nextStart(), size);
 	m_animationData[ANI_COOKIEBRIGHT_RUN].emplace_back(nextStart(), size);
@@ -403,7 +398,6 @@ void HandleResources::updateCookieBrightSlideAnimation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_COOKIEBRIGHT_SLIDE].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRIGHT_SLIDE].emplace_back(nextStart(), size);
 }
@@ -424,10 +418,8 @@ void HandleResources::updateCookieBrightJumpAnimation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_COOKIEBRIGHT_JUMP].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRIGHT_JUMP].emplace_back(nextStart(), size);
-	//m_animationData[ANI_COOKIEBRIGHT_JUMP].emplace_back(nextStart(), size);
 }
 
 //-----------------------------------------------------------------------
@@ -445,7 +437,6 @@ void HandleResources::updateCookieBrightFlyAnimation()
 			currentStart.x += size.x;
 			return currentStart;
 		};
-
 
 	m_animationData[ANI_COOKIEBRIGHT_FLY].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRIGHT_FLY].emplace_back(nextStart(), size);
@@ -471,7 +462,6 @@ void HandleResources::updateDevilCookieAnimation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_DEVIL_COOKIE].emplace_back(currentStart, size);
 	m_animationData[ANI_DEVIL_COOKIE].emplace_back(nextStart(), size);
 	m_animationData[ANI_DEVIL_COOKIE].emplace_back(nextStart(), size);
@@ -493,7 +483,6 @@ void HandleResources::updateCarrotCookieAnimation()
 			currentStart.y += size.y;
 			return currentStart;
 		};
-
 
 	m_animationData[ANI_CARROT_COOKIE].emplace_back(currentStart, size);
 	m_animationData[ANI_CARROT_COOKIE].emplace_back(nextStart(), size);
@@ -517,13 +506,11 @@ void HandleResources::updateZombieCookieAnimation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(currentStart, size);
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(nextStart(), size);
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(nextStart(), size);
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(nextStart(), size);
 }
-
 
 
 //-----------------------gifts and animation objects--------------------------
@@ -542,7 +529,6 @@ void HandleResources::updateCoinsAnimation()
 			currentStart.x += size.x;
 			return currentStart;
 		};
-
 
 	m_animationData[ANI_COIN].emplace_back(currentStart, size);
 	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
@@ -568,7 +554,6 @@ void HandleResources::updateBoomAnimation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_BOOM].emplace_back(currentStart, size);
 	m_animationData[ANI_BOOM].emplace_back(nextStart(), size);
 	m_animationData[ANI_BOOM].emplace_back(nextStart(), size);
@@ -589,7 +574,6 @@ void HandleResources::updateOven1Animation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_OVEN_OBSTCALE1].emplace_back(currentStart, size);
 	m_animationData[ANI_OVEN_OBSTCALE1].emplace_back(nextStart(), size);
 }
@@ -609,7 +593,6 @@ void HandleResources::updateKitchen1Animation()
 			currentStart.x += size.x;
 			return currentStart;
 		};
-
 
 	m_animationData[ANI_KITCH_OBSTCALE1].emplace_back(currentStart, size);
 	m_animationData[ANI_KITCH_OBSTCALE1].emplace_back(nextStart(), size);
@@ -632,7 +615,6 @@ void HandleResources::updateGardenAnimation()
 			return currentStart;
 		};
 
-
 	m_animationData[ANI_GARDEN_OBSTCALE1].emplace_back(currentStart, size);
 	m_animationData[ANI_GARDEN_OBSTCALE1].emplace_back(nextStart(), size);
 	m_animationData[ANI_GARDEN_OBSTCALE1].emplace_back(nextStart(), size);
@@ -653,7 +635,6 @@ void HandleResources::updateFlagAnimation()
 			currentStart.x += size.x;
 			return currentStart;
 		};
-
 
 	m_animationData[ANI_FLAG].emplace_back(currentStart, size);
 	m_animationData[ANI_FLAG].emplace_back(nextStart(), size);

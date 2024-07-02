@@ -7,7 +7,7 @@
 #include "StaticObject/StaticObject.h"
 #include <iostream>
 
-//-------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 Player::Player(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
 	:MovingObject(sprite, speed, position), m_velocity(0, 0), m_gravity(0.35f)
 {
@@ -17,31 +17,37 @@ Player::Player(const sf::Sprite& sprite, float speed, const sf::Vector2f& positi
 	m_currentPlayerState = std::make_unique<RunState>(HandleResources::instance().getAnimationData(ANI_COOKIEBRAVE_RUN), m_object, sf::seconds(0.1f));
 	m_currentPlayerState->restartAnimation();
 }
+
 //-------------------------------------------------------------------------------------------------
 int Player::getCoins()const
 {
 	return m_coins;
 }
+
 //------------------------------------------------------------------------------------------------
 int Player::getWeapons()const
 {
 	return m_weapons;
 }
+
 //-----------------------------------------------------------------------------------------------
 int Player::getjelly()const
 {
 	return m_jelly;
 }
+
 //---------------------------------------------------------------------------------------------
 void Player::setCoins(int numOfCoins)
 {
 	m_coins = numOfCoins;
 }
+
 //---------------------------------------------------------------------------------------
 void Player::setJelly(int numOfJelly)
 {
 	m_jelly = numOfJelly;
 }
+
 //---------------------------------------------------------------------------
 void Player::setWeapon(int numOfWeapon)
 {
@@ -56,6 +62,7 @@ void Player::startBoostTimer(sf::Time duration, float oldSpeed)
 	m_boostDuration = duration;
 	m_oldSpeed = oldSpeed;
 }
+
 //--------------------------------------------------------------------------------------
 void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
 {
@@ -105,7 +112,7 @@ void Player::setPlayer(Players playerType)
 
 //--------------------------------------------------------------------------------------
 // This function is responisble for of updating the players state according to the key
-// that has been pressed
+// that has been pressed in the current state
 
 void Player::movement(sf::Time deltaTime)
 {
@@ -125,26 +132,18 @@ void Player::keyPressed(sf::Event::KeyEvent key)
 {
 	switch (key.code)
 	{
-		case sf::Keyboard::Up:
-		{
-			m_keyPressed = K_UP;
-			break;
-		}
-		case sf::Keyboard::Down:
-		{
-			m_keyPressed = K_DOWN;
-			break;
-		}
-		case sf::Keyboard::Enter:
-		{
-			m_keyPressed = K_ENTER;
-			break;
-		}
-		default:
-		{
-			m_keyPressed = K_NONE;
-			break;
-		}
+	case sf::Keyboard::Up:
+		m_keyPressed = K_UP;
+		break;
+	case sf::Keyboard::Down:
+		m_keyPressed = K_DOWN;
+		break;
+	case sf::Keyboard::Enter:
+		m_keyPressed = K_ENTER;
+		break;
+	default:
+		m_keyPressed = K_NONE;
+		break;
 	}
 }
 
@@ -191,8 +190,8 @@ void Player::setOnGround(bool onGround)
 }
 
 //--------------------------------------------------------------------------------------
-// This function preformes all the cleanup and prepears the player for the next level
-// entery. It resetts all the members, sets the player to run state and the animation
+// This function preformes all the cleanups and prepears the player for the next level
+// entery. It resets all the members, sets the player to run state and the animation
 // to match the player type and state.
 
 void Player::handleExitFromLevel()
@@ -225,7 +224,7 @@ void Player::handleExitFromLevel()
 //--------------------------------------------------------------------------------------
 // This function checks if the player is dead
 
-bool Player::isDead()const
+bool Player::isDead() const
 {
 	if (toBeDeleted || m_energy <= 0)
 	{
@@ -235,7 +234,7 @@ bool Player::isDead()const
 }
 
 //--------------------------------------------------------------------------------------
-// This function is responsible for moving the player according to his status
+// This function is responsible for moving the player according to his current status
 
 void Player::move(float deltaTime)
 {
@@ -258,7 +257,7 @@ void Player::move(float deltaTime)
 }
 
 //--------------------------------------------------------------------------------------
-// This function checks if the player is in the limits of the window
+// This function checks if the player is inside the limits of the window
 
 void Player::checkInsideWindow()
 {
@@ -291,7 +290,7 @@ void Player::checkInsideWindow()
 }
 
 //--------------------------------------------------------------------------------------
-// This function is responsible of checing if the gift durations have expired
+// This function is responsible of checking if the gifts durations have expired
 
 void Player::checkGiftDurations()
 {
@@ -334,7 +333,6 @@ void Player::changeEnhanceBack()
 	m_object.setPosition(currentPosition.x, currentPosition.y + (heightChange / 2)- 30);
 
 	m_isEnhance = false;
-
 }
 
 //--------------------------------------------------------------------------------------

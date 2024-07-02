@@ -7,10 +7,13 @@
 #include <iostream>
 
 SlideState::SlideState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime)
-	: PlayerState(data, sprite, animationTime)
-{
-}
-//--------------------------------------------------------------------------------------
+	: PlayerState(data, sprite, animationTime) {}
+
+
+//-----------------------------------------------------------------------------------------------
+// This function is responsible for handeling the key presses and sending back pointers to the
+// next state the player needs to transfer into according to the pressed variable
+
 std::unique_ptr<PlayerState> SlideState::handleEvent(Player& player, KeyboardInput pressed)
 {
     if (pressed == K_NONE) 
@@ -26,13 +29,13 @@ std::unique_ptr<PlayerState> SlideState::handleEvent(Player& player, KeyboardInp
 
     return nullptr;
 }
-//---------------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------------------------
 void SlideState::update(Player& player, sf::Time deltaTime)
 {
     // Set the origin of the player's sprite to its center
     sf::FloatRect bounds = player.getPlayerSpriteForAnimation().getGlobalBounds();
     player.getPlayerSpriteForAnimation().setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
-
 
     if (player.onGround())
     {
@@ -42,7 +45,7 @@ void SlideState::update(Player& player, sf::Time deltaTime)
     {
         player.updateGravity(deltaTime.asSeconds() * 350);
     }
-    player.move(deltaTime.asSeconds());
 
+    player.move(deltaTime.asSeconds());
     m_animation.update(deltaTime);
 }

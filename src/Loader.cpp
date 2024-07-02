@@ -8,8 +8,8 @@
 
 
 //--------------------------------------------------------------------------------------------------------------
-// This function reads the level image and according to the pixels color it calls on the appropriate factory and
-// creates the object. ObjectFactory is based on pixel colors.
+// This function reads the level section image and according to the pixel's color it calls on the factory of the 
+// appropriate type and creates the object. ObjectFactory is a factory that's based on pixel colors.
 
 void Loader::updateMembers(LevelCommand& currLevel)
 {
@@ -21,7 +21,7 @@ void Loader::updateMembers(LevelCommand& currLevel)
 		addObjectsToVectors(currLevel,levelPart);
 	}
 
-	auto lastLevelPart = LevelPartGenerator::instance().getLastLevelSection(currLevel.getLevelNumber());
+	level& lastLevelPart = LevelPartGenerator::instance().getLastLevelSection(currLevel.getLevelNumber());
 	addObjectsToVectors(currLevel, lastLevelPart);
 	currLevel.setFlagPosition(m_lastObjectPosition);
 	m_lastObjectPosition = { 0,0 };
@@ -29,8 +29,9 @@ void Loader::updateMembers(LevelCommand& currLevel)
 
 
 //---------------------------------------------------------------------------------------
-// This function goes over the level that was generated and adds the objects in the level
-// into the level's vectors
+// This function goes over the level part that was generated and adds the objects into
+// the level's vectors by calling on the appropriate functions from levelCommand.
+// It calls on a function that creates enemies randomly in this section
 
 void Loader::addObjectsToVectors(LevelCommand& currLevel, const level& levelPart)
 {
@@ -69,14 +70,18 @@ void Loader::addObjectsToVectors(LevelCommand& currLevel, const level& levelPart
 
 	createEnemeis(currLevel, startX, endX);
 }
-//------------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// This function randomly creates the enemies in the level section by drawing 
+// the number of enemies in the current section and by sending the enemyFactory
+// a range of positions from which it creates them
+
 void Loader::createEnemeis(LevelCommand& currLevel, float startX, float endX)
 {
 	float randomNumOfEnemies = 0 + std::rand() % (ENEMIES_PER_LEVEL - 0 + 1);
 
 	for (int i = 0; i < randomNumOfEnemies; i++)
 	{
-		// Create an enemy at a random position
 		currLevel.addToEnemiesVector(startX, endX);
 	}
 }

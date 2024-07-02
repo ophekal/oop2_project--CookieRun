@@ -19,7 +19,6 @@ Enemy::Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position
 	m_object.setOrigin(sf::Vector2f(m_object.getTextureRect().getSize() / 2));
 }
 
-
 //-------------------------------------------------------------------------------------------------------------
 void Enemy::moveEnemy(const sf::Vector2f& playerPosition,sf::Time deltaTime)
 {

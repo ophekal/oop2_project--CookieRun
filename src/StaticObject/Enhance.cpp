@@ -7,11 +7,10 @@
 #include "Factories/ObjectFactory.h"
 
 
-// Register the jellybean type with the factory
+// Register the enhance into the factory
 bool Enhance::m_register = ObjectFactory<StaticObject>::registerObject(sf::Color(200, 191, 231), [](const sf::Vector2f& position, int level) -> std::unique_ptr<StaticObject> {
 	sf::Sprite sprite = sf::Sprite(*HandleResources::instance().getGiftTexture(G_ENHANCE));
-	return std::make_unique<Enhance>(sprite, position);
-});
+	return std::make_unique<Enhance>(sprite, position);});
 
 
 //-----------------------------------------------------------------

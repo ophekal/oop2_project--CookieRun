@@ -6,10 +6,12 @@
 #include <iostream>
 
 JumpState::JumpState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime)
-    : PlayerState(data, sprite, animationTime)
-{
-}
-//-------------------------------------------------------------------------------
+    : PlayerState(data, sprite, animationTime) {}
+
+//-------------------------------------------------------------------------------------------------
+// This function is responsible for handeling the key presses and sending back pointers to the
+// next state the player needs to transfer into according to the pressed variable
+
 std::unique_ptr<PlayerState> JumpState::handleEvent(Player& player, KeyboardInput pressed)
 {
 
@@ -22,17 +24,15 @@ std::unique_ptr<PlayerState> JumpState::handleEvent(Player& player, KeyboardInpu
     {
         return nullptr; // Stay in jump state
     }
-
-
     return nullptr;
 }
-//---------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
 void JumpState::update(Player& player, sf::Time deltaTime)
 {
     // Set the origin of the player's sprite to its center
     sf::FloatRect bounds = player.getPlayerSpriteForAnimation().getGlobalBounds();
     player.getPlayerSpriteForAnimation().setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
-
 
     if (player.onGround()) // start the jump
     {
@@ -40,12 +40,8 @@ void JumpState::update(Player& player, sf::Time deltaTime)
         player.setOnGround(false);
     }
 
-    // player.updateGravity(0.2);
     // Apply gravity to the vertical component
     player.updateGravity(deltaTime.asSeconds());
-
-
     player.move(deltaTime.asSeconds());
-
     m_animation.update(deltaTime);
 }

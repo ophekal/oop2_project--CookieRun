@@ -8,7 +8,7 @@
 #include <iostream>
 
 
-// Register the floor type with the factory
+// Register the floor into the factory
 bool Floor::m_register = ObjectFactory<StaticObject>::registerObject(sf::Color(0, 0, 0), [](const sf::Vector2f& position, int level) -> std::unique_ptr<StaticObject> 
 {
 	sf::Sprite sprite;
