@@ -3,13 +3,13 @@
 
 
 //------------LevelGenerator----------------
-
 const int NUM_OF_PARTS_PER_LEVEL = 4;
 const int POSITION_OF_LAST_FLOOR = 50;
 const int ENEMIES_PER_LEVEL = 2;
 const int LAST_PART_LEVEL_1 = 3;
 const int LAST_PART_LEVEL_2 = 7;
 const int LAST_PART_LEVEL_3 = 11;
+
 
 //---------------Buttons--------------------
 enum Buttons
@@ -29,11 +29,10 @@ enum Buttons
 };
 
 //----------------ChoosePlayers-------------
-
 const float BRAVE_X = 380;
 const float BRIGHT_X = 730;
 const float PLAYERS_Y = 300;
-
+const sf::Vector2f PLAYERS_SIZE = { 400,500 };
 
 
 //---------------Players--------------------
@@ -45,7 +44,7 @@ enum Players
 	PLAYER_BRIGHT
 };
 
-const sf::Vector2f PLAYERS_SIZE = { 400,500 };
+const sf::Vector2f PLAYER_INIT_POSITION{ 620,759 };
 
 enum KeyboardInput
 {
@@ -55,25 +54,19 @@ enum KeyboardInput
 	K_NONE
 };
 
-const sf::Vector2f PLAYER_INIT_POSITION{ 620,759 };
-const int JELLY2ENERGY = 3;
-//---------------Player State--------------------------
 
-//----------------Setting-------------------
-
+//----------------Setting--------------------
 const sf::Vector2f MUSIC_SIZE = { 300,100 };
-
 const float SOUND_X = 600;
 const float SOUND_Y = 325;
 const float MUSIC_Y = 525;
 
 
 //-----------------Controller---------------
-
 const int WINDOW_HEIGHT = 950;
 const int WINDOW_WIDTH = 1500;
 
-//----------------GameStart---------------------
+//----------------StartGame------------------
 enum LEVELS
 {
 	LEVEL1,
@@ -128,7 +121,7 @@ enum GIFTTEXTURE
 	G_BOOM
 };
 
-
+const int JELLY2ENERGY = 3;
 const int L1_COIN_MIN = 0;
 const int L2_COIN_MIN = 15;
 const int L3_COIN_MIN = 20;
@@ -140,8 +133,8 @@ enum FEEDBACK
 	F_GOODJOB,
 };
 
-//----------------------Animation-------------------
 
+//--------------Animations-------------------
 enum AnimationType
 {
 	ANI_COIN,
@@ -163,22 +156,13 @@ enum AnimationType
 	ANI_FLAG
 };
 
-enum Movement
-{
-	JUMP,
-	SLIDE,
-	RUN
-
-};
-
-//----------------Direction-----------------------
+//----------------Enemies-------------------------
 const int LEFT = -1;
 const int RIGHT = 1;
 const int START = 0;
 const float ENEMY_MOVE_DISTANCE = 1.0f;
 
-
-//----------------backgrounds---------------------
+//----------------MenuInterface------------------
 enum Background
 {
 	MENU,
@@ -198,8 +182,6 @@ const sf::Vector2f BACK_SIZE = { 65,65 };
 
 const float START_X = 750;
 const float START_Y = 75;
-const float LOAD_X = 550;
-const float LOAD_Y = 450;
 const float INSTRUCTIONS_Y = 1125;
 const float SETTINGS_Y = 775;
 const float EXIT_X = 65;
@@ -209,18 +191,12 @@ const float CHOOSEPLAYER_Y = 425;
 const sf::Vector2f BUTTON_SIZE = { 300,100 };
 const sf::Vector2f EXIT_SIZE = { 65,65 };
 
-//----------------exceptions----------------------
+
+//----------------Exceptions----------------------
 const float EXCEPTIONS_WID = 650;
 const float EXCEPTIONS_HIG = 150;
 
-//-------------------board------------------------
-const float BOARD_HIG = 950;
-const float BOARD_WID = 1050;
-const float BOARD_START_X = 450;
-const float BOARD_START_Y = 0;
-
-
-//-------------------sounds------------------------
+//-------------------Sounds------------------------
 enum GameSound
 {
 	S_COIN,
