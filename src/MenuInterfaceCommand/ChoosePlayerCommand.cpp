@@ -6,7 +6,7 @@
 #include "MovingObject/Player.h"
 
 
-//----------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 ChoosePlayerCommand::ChoosePlayerCommand(sf::RenderWindow& window, Player& player)
 	:m_window(window),
 	 m_backButtonToMenu(*(HandleResources::instance().getButtonTexture(B_BACK)), BACK_X, BACK_Y, BACK_SIZE),
@@ -14,8 +14,6 @@ ChoosePlayerCommand::ChoosePlayerCommand(sf::RenderWindow& window, Player& playe
 {
 
 	m_background.setTexture(*HandleResources::instance().getBackgroundTexture(CHOOSE_PLAYER));
-
-	// Get the texture size
 	sf::Vector2u textureSize = m_background.getTexture()->getSize();
 
 	// Calculate scale factors
@@ -24,18 +22,17 @@ ChoosePlayerCommand::ChoosePlayerCommand(sf::RenderWindow& window, Player& playe
 
 	// Apply the scale to the sprite
 	m_background.setScale(scaleX, scaleY);
-
 	setPlayerSprites();
-	
-
 }
-//------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------
+// This function is responsible of handeling the poll events
+
 void ChoosePlayerCommand::execute()
 {
 	while (m_window.isOpen())
 	{
 		render();
-
 		sf::Event event;
 		while (m_window.pollEvent(event))
 		{
@@ -63,14 +60,15 @@ void ChoosePlayerCommand::execute()
 			}
 		}
 	}
-
 }
-//---------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------
+// This function initilaizes the position, texture and size of the players sprites
+
 void ChoosePlayerCommand::setPlayerSprites()
 {
 	m_players.resize(2);
 
-	// Set properties of existing elements
 	m_players[CHOOSE_PLAYER_BRAVE].setSize(PLAYERS_SIZE);
 	m_players[CHOOSE_PLAYER_BRAVE].setPosition(BRAVE_X, PLAYERS_Y);
 	m_players[CHOOSE_PLAYER_BRAVE].setTexture(HandleResources::instance().getPlayerTexture(CHOOSE_PLAYER_BRAVE));
@@ -79,7 +77,8 @@ void ChoosePlayerCommand::setPlayerSprites()
 	m_players[CHOOSE_PLAYER_BRIGHT].setPosition(BRIGHT_X, PLAYERS_Y);
 	m_players[CHOOSE_PLAYER_BRIGHT].setTexture(HandleResources::instance().getPlayerTexture(CHOOSE_PLAYER_BRIGHT));
 }
-//-----------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------
 void ChoosePlayerCommand::render()
 {
 	m_window.clear();
@@ -92,7 +91,6 @@ void ChoosePlayerCommand::render()
 	for (int i = 0; i < m_players.size(); i++)
 	{
 		sf::FloatRect bounds = m_players[i].getGlobalBounds();
-
 		if (bounds.contains(mousePosF))
 		{
 			m_players[i].setScale(1.05f, 1.05f);
@@ -102,7 +100,8 @@ void ChoosePlayerCommand::render()
 			m_players[i].setScale(1.0f, 1.0f);
 		}
 	}
-	// print the player options
+
+	// print the player characters
 	for (auto i = 0; i < m_players.size(); i++)
 	{
 		m_window.draw(m_players[i]);

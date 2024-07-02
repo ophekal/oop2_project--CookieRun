@@ -13,12 +13,12 @@
 #include "StaticObject/Magnet.h"
 #include "AnimationObject/MovingObstcale.h"
 #include "Collisions/CollisionFunctions.h"
+#include "UnknownCollisionException.h"
 
 
 //------------------------------------------------------------------------
 HandleCollision::HandleCollision()
 {
-    // Inseret all the possible collisions into the HitMap.
     initializeCollisionMap();
 }
 
@@ -30,6 +30,9 @@ HandleCollision& HandleCollision::instance()
 }
 
 //------------------------------------------------------------------------
+// This function is responsible of inserting all the possible collisions
+// into the HitMap.
+
 void HandleCollision::initializeCollisionMap()
 {
     m_collisionMap[Key(typeid(Player), typeid(Coin))] = &playerCoin;
@@ -62,8 +65,7 @@ void HandleCollision::processCollision(GameObject& object1, GameObject& object2)
     auto phf = findCollisionFunction(typeid(object1), typeid(object2));
     if (!phf)
     {
-        return;
-       // throw UnknownCollision(object1, object2);
+        throw UnknownCollisionException(typeid(object1), typeid(object2));
     }
     phf(object1, object2);
 }

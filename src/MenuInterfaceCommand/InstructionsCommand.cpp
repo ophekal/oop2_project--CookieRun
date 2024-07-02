@@ -22,6 +22,7 @@ InstructionsCommand::InstructionsCommand (sf::RenderWindow& window)
 
 
 //--------------------------------------------------------------------------------------------
+// This function is responsible of handeling the poll events
 void InstructionsCommand::execute()
 {
 	while (m_window.isOpen())
@@ -55,7 +56,7 @@ void InstructionsCommand::render()
 	m_window.clear();
 	m_window.draw(m_background);
 
-	// print the button
+	// print the back button
 	m_window.draw(m_backToMenuButton.getRectangleButton());
 
 	m_window.display();
