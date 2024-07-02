@@ -9,12 +9,11 @@
 #include "HandleResources.h"
 
 
-//-----------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 Menu::Menu(sf::RenderWindow& window)
 	: m_window(window)
 {
 	m_background.setTexture(*HandleResources::instance().getBackgroundTexture(MENU));
-	// Get the texture size
 	sf::Vector2u textureSize = m_background.getTexture()->getSize();
 
 	// Calculate scale factors
@@ -24,12 +23,20 @@ Menu::Menu(sf::RenderWindow& window)
 	// Apply the scale to the sprite
 	m_background.setScale(scaleX, scaleY);
 }
-//---------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------------
+// This function adds the button and menuInterface option into the m_options vector that holds the different
+// operations that can be performed from the menu
+
 void Menu::addToOptions(const Button& button, std::unique_ptr<MenuInterfaceCommand> options)
 {
 	m_options.emplace_back(option(button, std::move(options)));
 }
+
 //------------------------------------------------------------------------------------------------------------------
+// This function is responsible of handeling the poll events as long as the window is open. It handles the different
+// clicks and checks if a button has been pressed on
+
 void Menu::activate()
 {
 	while (m_window.isOpen())
@@ -38,31 +45,31 @@ void Menu::activate()
 		sf::Event event;
 		while (m_window.pollEvent(event))
 		{
-			
 			switch (event.type)
 			{
-			case sf::Event::Closed:
-			{
-				m_window.close();
-				return;
-			}
-			case sf::Event::MouseButtonPressed:
-			{
-				auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
-
-				// iterate through the options vector and check if the mouse click was on one of the buttons
-				for (auto& commandOption : m_options)
+				case sf::Event::Closed:
 				{
-					if (commandOption.first.onClick(location))
+					m_window.close();
+					return;
+				}
+				case sf::Event::MouseButtonPressed:
+				{
+					auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
+
+					// iterate through the options vector and check if the mouse click was on one of the buttons
+					for (auto& commandOption : m_options)
 					{
-						commandOption.second->execute();
+						if (commandOption.first.onClick(location))
+						{
+							commandOption.second->execute();
+						}
 					}
 				}
-			}
 			}
 		}
 	}
 }
+
 //------------------------------------------------------------------------------
 void Menu::render()
 {
