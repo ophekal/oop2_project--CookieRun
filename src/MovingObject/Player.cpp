@@ -81,7 +81,7 @@ void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
 	float heightChange = newHeight - originalHeight;
 
 	// Since we are using top-left as the origin, adjust the y position by the total height change
-	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange / 2));
+	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange / 2)+30);
 
 
 }
@@ -326,7 +326,7 @@ void Player::changeEnhanceBack()
 
 	// Adjust the y position back to maintain the top-left corner position
 	// Subtract the heightChange to compensate for scaling down
-	m_object.setPosition(currentPosition.x, currentPosition.y + (heightChange / 2));
+	m_object.setPosition(currentPosition.x, currentPosition.y + (heightChange / 2)-30);
 
 	m_isEnhance = false;
 

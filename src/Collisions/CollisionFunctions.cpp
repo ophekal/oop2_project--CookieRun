@@ -115,7 +115,7 @@ void playerEnhance(GameObject& player, GameObject& enhance)
     HandleResources::instance().playSound(S_GIFT);
 
     // Start the boost timer
-    p.startEnhanceTimer(enhanceDuration, 1.4f);
+    p.startEnhanceTimer(enhanceDuration, 1.5f);
 }
 
 //------------------------------------------------------------
