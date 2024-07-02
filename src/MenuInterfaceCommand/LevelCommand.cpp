@@ -33,7 +33,6 @@ void LevelCommand::execute()
 	//in each execute we load diff level 
 	m_loader.updateMembers(*this);
 
-	//m_loader.updateMembers(m_levelNumber, m_animationObjects, m_staticObjects, m_enemies,m_coins, m_flagPosition);
 	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y);
 
 	handleEvent();
@@ -67,6 +66,7 @@ void LevelCommand::handleEvent()
 		//const auto deltaTime = clock.restart();
 		updateAnimation(deltaTime);
 		movePlayer(deltaTime);
+		cleanVectors();
 		moveEnemies(deltaTime);
 
 		handleExplosion(deltaTime); // Update and render explosion animation
@@ -183,7 +183,28 @@ void LevelCommand::movePlayer(sf::Time deltaTime)
 	checkStaticObjectCollision();
 	checkEnemyCollision();
 }
+//----------------------------------------------------------------------------------
+void LevelCommand::cleanVectors()
+{
+	// Get the bounds of the current view
+	sf::FloatRect viewBounds = getCurrentViewBounds();
 
+	float playerPositionX = m_player.getPosition().x;
+	float objectPostionX = 0;
+
+	// Mark objects for deletion
+	markOutOfViewObjectsForDeletion(m_staticObjects, playerPositionX, viewBounds);
+	markOutOfViewObjectsForDeletion(m_animationObjects, playerPositionX, viewBounds);
+	markOutOfViewObjectsForDeletion(m_enemies, playerPositionX, viewBounds);
+	markOutOfViewObjectsForDeletion(m_coins, playerPositionX, viewBounds);
+
+    // Remove marked objects using the templated method
+	removeMarkedObjects(m_staticObjects);
+	removeMarkedObjects(m_animationObjects);
+	removeMarkedObjects(m_enemies);
+	removeMarkedObjects(m_coins);
+
+}
 //----------------------------------------------------------------------------------------
 void LevelCommand::checkAnimationObjectCollision()
 {
@@ -204,14 +225,9 @@ void LevelCommand::checkAnimationObjectCollision()
 		}
 	}
 
-	std::erase_if(m_animationObjects, [](const auto& animationObject) {
-		return animationObject->isMarkedForDeletion();
-		});
-	std::erase_if(m_coins, [](const auto& coin) {
-		return coin->isMarkedForDeletion();
-		});
+	removeMarkedObjects(m_animationObjects);
+	removeMarkedObjects(m_coins);
 }
-
 //----------------------------------------------------------------------------------------
 void LevelCommand::checkStaticObjectCollision()
 {
@@ -224,11 +240,10 @@ void LevelCommand::checkStaticObjectCollision()
 		}
 	}
 
-	std::erase_if(m_staticObjects, [](const auto& staticObject) {
-		return staticObject->isMarkedForDeletion();
-		});
+	removeMarkedObjects(m_staticObjects);
 
 }
+
 //---------------------------------------------------------------------------------------
 // This function checks 
 void LevelCommand::checkEnemyCollision()
@@ -295,7 +310,7 @@ void LevelCommand::updateAnimation(sf::Time deltaTime)
 				coinObject->getPosition().y - m_player.getPosition().y);
 
 			// Adjust this range as needed for attraction
-			constexpr float attractionRange = 1000.0f;
+		    float attractionRange = 1000.0f;
 
 			// If the coin is within the attraction range and within view bounds, move towards the player
 			if (distance <= attractionRange && viewBounds.contains(coinObject->getPosition()))
@@ -460,15 +475,6 @@ void LevelCommand::drawGameObjects()
 	printInformation();
 	m_player.draw(m_window);
 }
-
-//------------------------------------------------------------------------------
-// Helper function to remove marked enemies from the game
-void LevelCommand::removeMarkedEnemies()
-{
-	std::erase_if(m_enemies, [](const auto& enemy) {
-		return enemy->isMarkedForDeletion();
-		});
-}
 //------------------------------------------------------------------------------
 void LevelCommand::checkIfNeedToExplode()
 {
@@ -490,7 +496,8 @@ void LevelCommand::handleExplosionStart()
 	// Identify and mark enemies within view for deletion
 	m_explosionPositions = markEnemiesForExplosion(viewBounds);
 
-	removeMarkedEnemies();
+	//removeMarkedEnemies();
+	removeMarkedObjects(m_enemies);
 
 	m_isExploding = true; // Set explosion flag
 	m_explosionClock.restart(); // Start explosion timer

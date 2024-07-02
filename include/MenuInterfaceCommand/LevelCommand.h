@@ -79,8 +79,34 @@ private:
 	void checkIfNeedToExplode();
 	sf::FloatRect getCurrentViewBounds();
 	std::vector<sf::Vector2f> markEnemiesForExplosion(const sf::FloatRect& viewBounds);
-	//void handleExpolsion();
-	//void performExplosionAnimation(const std::vector<sf::Vector2f>& explosionPositions);
 	void drawGameObjects();
-	void removeMarkedEnemies();
+	void cleanVectors();
+	template<typename T>
+	void markOutOfViewObjectsForDeletion(std::vector<std::unique_ptr<T>>& objects, float playerPositionX, const sf::FloatRect& viewBounds);
+	template<typename T>
+	void removeMarkedObjects(std::vector<std::unique_ptr<T>>& objects);
 };
+
+//---------------------------------------------------------------------------------------
+// Template function for marking objects for deletion
+template<typename T>
+void LevelCommand::markOutOfViewObjectsForDeletion(std::vector<std::unique_ptr<T>>& objects, float playerPositionX, const sf::FloatRect& viewBounds) 
+{
+	for (auto& object : objects)
+	{
+		float objectPositionX = object->getObject().getPosition().x;
+		if (objectPositionX + WINDOW_WIDTH < playerPositionX && !viewBounds.contains(object->getObject().getPosition()))
+		{
+			object->markForDeletion();
+		}
+	}
+}
+//---------------------------------------------------------------------------------------
+// Template function for remove object for the vector 
+template <typename T>
+void LevelCommand::removeMarkedObjects(std::vector<std::unique_ptr<T>>& objects)
+{
+	std::erase_if(objects, [](const std::unique_ptr<T>& object) {
+		return object->isMarkedForDeletion();
+		});
+}
