@@ -13,12 +13,10 @@ HandleResources::HandleResources()
 	updateBackgroundVector();
 	updateButtonTextureVector();
 	updatePlayerTextureVector();
-
 	updateLevel1TextureVector();
 	updateLevel2TextureVector();
 	updateLevel3TextureVector();
 	updateGiftTextureVector();
-
 	updateAnimationData();
 	updateFeedbackVector();
 	updateBufferSounds();
@@ -76,6 +74,7 @@ void HandleResources::updateButtonTextureVector()
 	m_buttonsTextures[B_LEVEL_ON].loadFromFile("levelOn.png");
 	m_buttonsTextures[B_LEVEL_OFF].loadFromFile("levelOff.png");
 }
+
 //-------------------------------------------------------------------------
 void HandleResources::updateLevel1TextureVector()
 {
@@ -88,6 +87,7 @@ void HandleResources::updateLevel1TextureVector()
 	m_level1Textures[L1_ANI_OBSTACLE1].loadFromFile("oven_obstacleAni.png");
 	m_level1Textures[L1_FLAG].loadFromFile("flag_Animation.png");
 }
+
 //-------------------------------------------------------------------------
 void HandleResources::updateLevel2TextureVector()
 {
@@ -100,6 +100,7 @@ void HandleResources::updateLevel2TextureVector()
 	m_level2Textures[L2_ANI_OBSTACLE1].loadFromFile("kitchen_obstcaleAni.png");
 	
 }
+
 //------------------------------------------------------------------------
 void HandleResources::updateLevel3TextureVector()
 {
@@ -111,6 +112,7 @@ void HandleResources::updateLevel3TextureVector()
 	m_level3Textures[L3_OBSTACLE3].loadFromFile("garden_obstcale3.png");
 	m_level3Textures[L3_ANI_OBSTACLE1].loadFromFile("garden_obstcale_ani.png");
 }
+
 //------------------------------------------------------------------------
 void HandleResources::updateGiftTextureVector()
 {
@@ -236,7 +238,10 @@ void HandleResources::stopMusic()
 {
 	m_gameMusic.pause();
 }
+
 //---------------------------------------------------------------------------
+// This function calls all the functions that are responsible for updating
+// the animations
 
 void HandleResources::updateAnimationData()
 {
@@ -258,35 +263,18 @@ void HandleResources::updateAnimationData()
 	updateGardenAnimation();
 	updateFlagAnimation();
 }
-//--------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// This function sends back the vector that contains the animations for the
+// appropriate AnimationType
+
 std::vector <sf::IntRect>& HandleResources::getAnimationData(AnimationType type)
 {
 	return m_animationData[type];
 }
-//-----------------------------------------------------------------------------
-void HandleResources::updateCoinsAnimation()
-{
-	const auto size = sf::Vector2i(59, 59);
-	const auto initSpace = sf::Vector2i(0, 0);
-	const auto middleSpace = sf::Vector2i(0, 0);
 
-	auto currentStart = initSpace;
 
-	auto nextStart = [&]()
-		{
-			currentStart += middleSpace;
-			currentStart.x += size.x;
-			return currentStart;
-		};
-
-	
-	m_animationData[ANI_COIN].emplace_back(currentStart, size);
-	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
-	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
-	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
-	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
-	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
-}
+//-----------------------------cookie brave-------------------------------
 //------------------------------------------------------------------------
 void HandleResources::updateCookieBraveRunAnimation()
 {
@@ -374,6 +362,7 @@ void HandleResources::updateCookieBraveFlyAnimation()
 	m_animationData[ANI_COOKIEBRAVE_FLY].emplace_back(nextStart(), size);
 }
 
+
 //--------------------------cookie bright---------------------------------
 //------------------------------------------------------------------------
 void HandleResources::updateCookieBrightRunAnimation()
@@ -422,9 +411,9 @@ void HandleResources::updateCookieBrightSlideAnimation()
 //------------------------------------------------------------------------
 void HandleResources::updateCookieBrightJumpAnimation()
 {
-	const auto size = sf::Vector2i(142, 150);
-	const auto initSpace = sf::Vector2i(1825, 139);
-	const auto middleSpace = sf::Vector2i(131, 0);
+	const auto size = sf::Vector2i(124, 177);
+	const auto initSpace = sf::Vector2i(1536, 111);
+	const auto middleSpace = sf::Vector2i(177, 0);
 
 	auto currentStart = initSpace;
 
@@ -438,15 +427,13 @@ void HandleResources::updateCookieBrightJumpAnimation()
 
 	m_animationData[ANI_COOKIEBRIGHT_JUMP].emplace_back(currentStart, size);
 	m_animationData[ANI_COOKIEBRIGHT_JUMP].emplace_back(nextStart(), size);
-	m_animationData[ANI_COOKIEBRIGHT_JUMP].emplace_back(nextStart(), size);
+	//m_animationData[ANI_COOKIEBRIGHT_JUMP].emplace_back(nextStart(), size);
 }
-
-
 
 //-----------------------------------------------------------------------
 void HandleResources::updateCookieBrightFlyAnimation()
 {
-	const auto size = sf::Vector2i(145, 166);
+	const auto size = sf::Vector2i(145, 169);
 	const auto initSpace = sf::Vector2i(78, 978);
 	const auto middleSpace = sf::Vector2i(145, 0);
 
@@ -535,6 +522,34 @@ void HandleResources::updateZombieCookieAnimation()
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(nextStart(), size);
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(nextStart(), size);
 	m_animationData[ANI_ZOMBIE_COOKIE].emplace_back(nextStart(), size);
+}
+
+
+
+//-----------------------gifts and animation objects--------------------------
+//-----------------------------------------------------------------------------
+void HandleResources::updateCoinsAnimation()
+{
+	const auto size = sf::Vector2i(59, 59);
+	const auto initSpace = sf::Vector2i(0, 0);
+	const auto middleSpace = sf::Vector2i(0, 0);
+
+	auto currentStart = initSpace;
+
+	auto nextStart = [&]()
+		{
+			currentStart += middleSpace;
+			currentStart.x += size.x;
+			return currentStart;
+		};
+
+
+	m_animationData[ANI_COIN].emplace_back(currentStart, size);
+	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
+	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
+	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
+	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
+	m_animationData[ANI_COIN].emplace_back(nextStart(), size);
 }
 
 //----------------------------------------------------------------------------
