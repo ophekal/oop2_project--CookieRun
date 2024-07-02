@@ -81,7 +81,7 @@ void Player::startEnhanceTimer(sf::Time duration, float scaleFactor)
 	float heightChange = newHeight - originalHeight;
 
 	// Since we are using top-left as the origin, adjust the y position by the total height change
-	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange / 2)+30);
+	m_object.setPosition(originalPosition.x, originalPosition.y - (heightChange / 2)+ 60);
 
 
 }
@@ -259,11 +259,12 @@ void Player::checkInsideWindow()
 	std::cout << "in check inside window, gravity: " << m_gravity << "\n";
 	std::cout << "in check inside window, velocityY: " << m_velocity.y << "\n";
 
-	if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + 30)
+	if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + 60)
 	{
-		SlideState* currState = dynamic_cast<SlideState*>(m_currentPlayerState.get());
-		if (currState == nullptr)   //if we not in slide state
+		//SlideState* currState = dynamic_cast<SlideState*>(m_currentPlayerState.get());
+		if (/*currState == nullptr*/ m_keyPressed != K_DOWN && !m_isFlyState)   //if we not in slide state
 		{
+			if(!m_isEnhance)
 			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + 20);
 		}
 		else if (m_object.getPosition().y >= PLAYER_INIT_POSITION.y + getSize().height)
@@ -326,7 +327,7 @@ void Player::changeEnhanceBack()
 
 	// Adjust the y position back to maintain the top-left corner position
 	// Subtract the heightChange to compensate for scaling down
-	m_object.setPosition(currentPosition.x, currentPosition.y + (heightChange / 2)-30);
+	m_object.setPosition(currentPosition.x, currentPosition.y + (heightChange / 2)- 30);
 
 	m_isEnhance = false;
 
