@@ -48,9 +48,9 @@ void playerJelly(GameObject& player, GameObject& jelly)
     }
 }
 
-//------------------------------------------------------------
-// Handeling the collision of the player and the floor by setting the
-// player to stand on top of the floor
+//--------------------------------------------------------------------------------------
+// Handeling the collision of the player and the floor by checking collisions from ontop
+// and from the side
 
 void playerFloor(GameObject& player, GameObject& floor)
 {
@@ -63,14 +63,13 @@ void playerFloor(GameObject& player, GameObject& floor)
     // Check if the player is above the floor
     bool playerAboveFloor = (playerBounds.top + (playerBounds.height / 2) - 5 <= floorBounds.top);
     bool playerCollidingFromBottom = (playerBounds.left < floorBounds.left + floorBounds.width &&
-        playerBounds.left + playerBounds.width > floorBounds.left);
+         playerBounds.left + playerBounds.width > floorBounds.left);
 
     // checking if player collides with floor from the top
     if (playerAboveFloor && playerCollidingFromBottom)
     {
         if (!p.isFlyState())
         {
-            std::cout << "collision from above\n";
             // Player is above the floor and colliding from the bottom
             auto newPlayerYPosition = floorBounds.top - (p.getSize().height / 2) + 20;
             p.setPosition(p.getPosition().x, newPlayerYPosition);
@@ -79,17 +78,17 @@ void playerFloor(GameObject& player, GameObject& floor)
         }
 
     }
+
     // if the collision is from the side
     else if (!p.isEnhance())
     {
-        std::cout << "collision from the side\n";
         HandleResources::instance().playSound(S_COOKIEDEAD);
         p.markForDeletion();
         return;
     }
-
 }
-//------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
 void playerObstcale(GameObject& player, GameObject& obstcale)
 {
     Player& p = static_cast<Player&>(player);
@@ -99,10 +98,9 @@ void playerObstcale(GameObject& player, GameObject& obstcale)
         HandleResources::instance().playSound(S_COOKIEDEAD);
         p.markForDeletion();
     }
-
 }
 
-//------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 void playerEnhance(GameObject& player, GameObject& enhance)
 {
     Player& p = static_cast<Player&>(player);
@@ -110,7 +108,7 @@ void playerEnhance(GameObject& player, GameObject& enhance)
     e.markForDeletion();
 
     // Set the boost duration
-    sf::Time enhanceDuration = sf::seconds(5);
+    sf::Time enhanceDuration = sf::seconds(7);
 
     HandleResources::instance().playSound(S_GIFT);
 
@@ -118,7 +116,7 @@ void playerEnhance(GameObject& player, GameObject& enhance)
     p.startEnhanceTimer(enhanceDuration, 1.5f);
 }
 
-//------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 void playerWeapon(GameObject& player, GameObject& weapon)
 {
     Player& p = static_cast<Player&>(player);
@@ -128,7 +126,7 @@ void playerWeapon(GameObject& player, GameObject& weapon)
     p.setWeapon(p.getWeapons() + 1);
 }
 
-//------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 void playerBoost(GameObject& player, GameObject& boost)
 {
     Player& p = static_cast<Player&>(player);
@@ -138,7 +136,7 @@ void playerBoost(GameObject& player, GameObject& boost)
     float oldSpeed = p.getSpeed();
 
     // Increase the player's speed
-    float boostedSpeed = oldSpeed * 2.0f; // Boost speed by 50%
+    float boostedSpeed = oldSpeed * 2.0f;
     p.setObjectSpeed(boostedSpeed);
 
     // Set the boost duration (5 seconds)
@@ -150,7 +148,7 @@ void playerBoost(GameObject& player, GameObject& boost)
     p.startBoostTimer(boostDuration, oldSpeed);
 }
 
-//------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 void playerMagnet(GameObject& player, GameObject& magnet)
 {
     Player& p = static_cast<Player&>(player);
@@ -160,22 +158,21 @@ void playerMagnet(GameObject& player, GameObject& magnet)
 
     HandleResources::instance().playSound(S_GIFT);
 
-    // Start the boost timer
+    // Start the magnet timer
     p.startMagnetTimer(magnetDuration);
 }
 
-//------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 void playerFlyingGift(GameObject& player, GameObject& flyingGift)
 {
     Player& p = static_cast<Player&>(player);
     FlyingGift& f = static_cast<FlyingGift&>(flyingGift);
     f.markForDeletion();
     p.changeToFlyState();
-
     HandleResources::instance().playSound(S_GIFT);
 }
 
-//------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 void playerEnemy(GameObject& player, GameObject& enemy)
 {
     Player& p = static_cast<Player&>(player);
@@ -185,21 +182,20 @@ void playerEnemy(GameObject& player, GameObject& enemy)
     if (!p.isEnhance())
     {
         HandleResources::instance().playSound(S_COOKIEDEAD);
-        std::cout << "enemy kill the player\n";
         p.markForDeletion();
     }
 }
-//--------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
 void playerMovingObstcale(GameObject& player, GameObject& obstcale)
 {
     Player& p = static_cast<Player&>(player);
     MovingObstcale& m = static_cast<MovingObstcale&>(obstcale);
 
-    // checking if player isn't in enhance and if collided with obstcale
+    // checking if player isn't in enhance and if collides with obstcale
     if (!p.isEnhance())
     {
         HandleResources::instance().playSound(S_COOKIEDEAD);
-        std::cout << "obstcale kill the player\n";
         p.markForDeletion();
     }
 }

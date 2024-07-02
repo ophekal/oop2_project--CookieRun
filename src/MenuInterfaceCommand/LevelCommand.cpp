@@ -7,6 +7,7 @@
 #include "MovingObject/Enemy.h"
 #include "Factories/EnemyFactory.h"
 #include "InfoBar.h"
+#include "UnknownCollisionException.h"
 
 //--------------------------------------------------------------------------------------------------------------------------------
 LevelCommand::LevelCommand(sf::RenderWindow& window, Player& player, InfoBar& infoBar, const sf::Texture& background, bool levelOpen, int levelNumber)
@@ -193,7 +194,6 @@ void LevelCommand::cleanVectors()
 	sf::FloatRect viewBounds = getCurrentViewBounds();
 
 	float playerPositionX = m_player.getPosition().x;
-	float objectPostionX = 0;
 
 	// Mark objects for deletion
 	markOutOfViewObjectsForDeletion(m_staticObjects, playerPositionX, viewBounds);
@@ -216,15 +216,32 @@ void LevelCommand::checkAnimationObjectCollision()
 	{
 		if (collide(m_player, *animationObject))
 		{
-			HandleCollision::instance().processCollision(m_player, *animationObject);
+			try
+			{
+				HandleCollision::instance().processCollision(m_player, *animationObject);
+			}
+			catch (const UnknownCollisionException& e)
+			{
+				std::cerr << "Error: " << e.what() << std::endl;
+			}
+			//HandleCollision::instance().processCollision(m_player, *animationObject);
 		}
 	}
+
 	//checking if collided with animation object
 	for (auto& coin : m_coins)
 	{
 		if (collide(m_player, *coin))
 		{
-			HandleCollision::instance().processCollision(m_player, *coin);
+			try
+			{
+				HandleCollision::instance().processCollision(m_player, *coin);
+			}
+			catch (const UnknownCollisionException& e)
+			{
+				std::cerr << "Error: " << e.what() << std::endl;
+			}
+			//HandleCollision::instance().processCollision(m_player, *coin);
 		}
 	}
 
@@ -239,7 +256,15 @@ void LevelCommand::checkStaticObjectCollision()
 	{
 		if (collide(m_player, *staticObject))
 		{
-			HandleCollision::instance().processCollision(m_player, *staticObject);
+			try
+			{
+				HandleCollision::instance().processCollision(m_player, *staticObject);
+			}
+			catch (const UnknownCollisionException& e)
+			{
+				std::cerr << "Error: " << e.what() << std::endl;
+			}
+			//HandleCollision::instance().processCollision(m_player, *staticObject);
 		}
 	}
 
@@ -255,7 +280,15 @@ void LevelCommand::checkEnemyCollision()
 	{
 		if (collide(m_player, *enemy))
 		{
-			HandleCollision::instance().processCollision(m_player, *enemy);
+			try
+			{
+				HandleCollision::instance().processCollision(m_player, *enemy);
+			}
+			catch (const UnknownCollisionException& e)
+			{
+				std::cerr << "Error: " << e.what() << std::endl;
+			}
+			//HandleCollision::instance().processCollision(m_player, *enemy);
 		}
 	}
 }
