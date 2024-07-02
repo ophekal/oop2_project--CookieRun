@@ -176,7 +176,6 @@ void playerFlyingGift(GameObject& player, GameObject& flyingGift)
 void playerEnemy(GameObject& player, GameObject& enemy)
 {
     Player& p = static_cast<Player&>(player);
-    Enemy& e = static_cast<Enemy&>(enemy);
 
     // if player isn't in enhance and collided with enemy
     if (!p.isEnhance())
@@ -190,7 +189,6 @@ void playerEnemy(GameObject& player, GameObject& enemy)
 void playerMovingObstcale(GameObject& player, GameObject& obstcale)
 {
     Player& p = static_cast<Player&>(player);
-    MovingObstcale& m = static_cast<MovingObstcale&>(obstcale);
 
     // checking if player isn't in enhance and if collides with obstcale
     if (!p.isEnhance())

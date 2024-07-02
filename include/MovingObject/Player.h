@@ -64,7 +64,7 @@ public:
 	void startEnhanceTimer(sf::Time duration, float scaleFactor);
 	void startBoostTimer(sf::Time duration, float oldSpeed);
 	void startMagnetTimer(sf::Time duration);
-	void checkGiftDurations(float deltaTime);
+	void checkGiftDurations();
 	void changeToFlyState();
 	void changeEnhanceBack();
 

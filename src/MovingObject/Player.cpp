@@ -9,7 +9,7 @@
 
 //-------------------------------------------------------------------------------------------------------------
 Player::Player(const sf::Sprite& sprite, float speed, const sf::Vector2f& position)
-	:MovingObject(sprite, speed, position), m_velocity(0, 0), m_gravity(0.35)
+	:MovingObject(sprite, speed, position), m_velocity(0, 0), m_gravity(0.35f)
 {
 	// Set the origin to center
 	sf::FloatRect bounds = m_object.getLocalBounds();
@@ -205,8 +205,8 @@ void Player::handleExitFromLevel()
 	m_energy = FULL_ENERGY;
 	m_jelly = 0;
 	m_weapons = 0;
-	m_objectSpeed = 350;
-	m_gravity = 0.35;
+	m_objectSpeed = 350.f;
+	m_gravity = 0.35f;
 	m_velocity = { 0,0 };
 	m_keyPressed = K_NONE;
 
@@ -240,7 +240,7 @@ bool Player::isDead()const
 void Player::move(float deltaTime)
 {
 	//checking if the player has a gift that is about to expire
-	checkGiftDurations(deltaTime);
+	checkGiftDurations();
 	m_velocity.x = m_objectSpeed * deltaTime;
 
 	if (!m_onGround)
@@ -276,8 +276,8 @@ void Player::checkInsideWindow()
 			m_object.setPosition(m_object.getPosition().x, PLAYER_INIT_POSITION.y + getSize().height +20);
 		}
 		setOnGround(true);
-		m_velocity.y = 0;  // Reset vertical velocity when hitting the ground
-		m_gravity = 0.3;
+		m_velocity.y = 0.f;  // Reset vertical velocity when hitting the ground
+		m_gravity = 0.3f;
 	}
 	else
 	{
@@ -293,7 +293,7 @@ void Player::checkInsideWindow()
 //--------------------------------------------------------------------------------------
 // This function is responsible of checing if the gift durations have expired
 
-void Player::checkGiftDurations(float deltaTime)
+void Player::checkGiftDurations()
 {
 	if (m_isBoosted && m_giftClock.getElapsedTime() >= m_boostDuration)
 	{
