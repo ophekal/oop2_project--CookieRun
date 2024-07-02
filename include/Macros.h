@@ -35,7 +35,7 @@ const float PLAYERS_Y = 300;
 const sf::Vector2f PLAYERS_SIZE = { 400,500 };
 
 
-//---------------Players--------------------
+//---------------Player--------------------
 enum Players
 {
 	CHOOSE_PLAYER_BRAVE,
@@ -45,6 +45,7 @@ enum Players
 };
 
 const sf::Vector2f PLAYER_INIT_POSITION{ 620,759 };
+const float UP_BOUND = 100.f;
 
 enum KeyboardInput
 {
@@ -53,6 +54,11 @@ enum KeyboardInput
 	K_ENTER,
 	K_NONE
 };
+
+// Define directional vectors as constants
+const sf::Vector2f DIRECTION_UP(0, -1);
+const sf::Vector2f DIRECTION_DOWN(0, 1);
+const sf::Vector2f DIRECTION_NONE(0, 0);
 
 const int FULL_ENERGY = 100;
 
@@ -124,9 +130,10 @@ enum GIFTTEXTURE
 };
 
 const int JELLY2ENERGY = 3;
+
 const int L1_COIN_MIN = 0;
-const int L2_COIN_MIN = 15;
-const int L3_COIN_MIN = 20;
+const int L2_COIN_MIN = 100;
+const int L3_COIN_MIN = 250;
 
 
 enum FEEDBACK
