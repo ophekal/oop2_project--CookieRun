@@ -31,7 +31,6 @@ bool MovingObstcale::m_register = ObjectFactory<AnimationObject>::registerObject
 	return std::make_unique<MovingObstcale>(sprite, speed, animationTime, type, position);
 })
 &&
-
 ObjectFactory<AnimationObject>::registerObject(sf::Color(181, 230, 29), [](const sf::Vector2f& position, int level) -> std::unique_ptr<AnimationObject>
 {
 	sf::Sprite sprite = sf::Sprite(*HandleResources::instance().getLevel1Texture(L1_FLAG));
@@ -42,7 +41,7 @@ ObjectFactory<AnimationObject>::registerObject(sf::Color(181, 230, 29), [](const
 });
 
 
-//-----------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 MovingObstcale::MovingObstcale(const sf::Sprite& sprite, float speed, const sf::Time& animationTime, AnimationType type, const sf::Vector2f& position)
 :AnimationObject(sprite, speed, animationTime, type, position)
 {

@@ -36,12 +36,12 @@ void playerJelly(GameObject& player, GameObject& jelly)
 
     if (p.getjelly() == JELLY2ENERGY)
     {
-        if (p.getEnergy() < 100)
+        if (p.getEnergy() < FULL_ENERGY)
         {
             p.setEnergy(p.getEnergy() + 1);
             p.setJelly(p.getjelly() - JELLY2ENERGY);
         }
-        else if (p.getEnergy() == 100)
+        else if (p.getEnergy() == FULL_ENERGY)
         {
             p.setJelly(0);
         }

@@ -17,13 +17,17 @@ bool Coin::m_register = ObjectFactory<Coin>::registerObject(sf::Color(255, 242, 
 	});
 
 
-//-----------------------------------------------------------------
+//--------------------------------------------------------------------------------------
 Coin::Coin(const sf::Sprite& sprite, float speed, const sf::Time& animationTime, AnimationType type, const sf::Vector2f& position)
 	:AnimationObject(sprite, speed, animationTime, type, position)
 {
 	m_object.setPosition(position);
 }
-//-----------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
+// This function is used when the player has a magnet gift, and it is responsible of 
+// moving the coins towards the player
+
 void Coin::updatePositionTowardsPlayer(const sf::Vector2f& playerPosition, float deltaTime)
 {
     sf::Vector2f direction = playerPosition - m_object.getPosition();

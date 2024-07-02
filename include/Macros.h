@@ -54,6 +54,8 @@ enum KeyboardInput
 	K_NONE
 };
 
+const int FULL_ENERGY = 100;
+
 
 //----------------Setting--------------------
 const sf::Vector2f MUSIC_SIZE = { 300,100 };

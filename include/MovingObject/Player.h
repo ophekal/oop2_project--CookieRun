@@ -23,14 +23,14 @@ public:
 	int getCoins()const;
 	int getWeapons()const;
 	int getjelly()const;
-	float getGravity()const { return m_gravity; }
-	int getEnergy()const { return m_energy; }
-	KeyboardInput getKeyPressed()const { return m_keyPressed; }
-	sf::Vector2f getVelocity()const { return m_velocity; }
-	const sf::Clock& getGiftClock()const { return m_giftClock; }
-	Players getPlayerType()const { return m_playerType; }
-	sf::Sprite& getPlayerSpriteForAnimation() { return m_object; }
-	bool onGround()const;		// change name to get on ground
+	float getGravity()const;
+	int getEnergy()const;
+	KeyboardInput getKeyPressed()const;
+	sf::Vector2f getVelocity()const;
+	const sf::Clock& getGiftClock()const;
+	Players getPlayerType()const;
+	sf::Sprite& getPlayerSpriteForAnimation();
+	bool onGround()const;
 
 
 	//--------------setters------------------
@@ -38,26 +38,29 @@ public:
 	void setJelly(int numOfJelly);
 	void setWeapon(int numOfWeapon);
 	void setOnGround(bool onGround);
-	void setGravity(float gravity) { m_gravity = gravity; }
-	void setEnergy(int energy) { m_energy = energy; }
-	void setIsFlyState(bool fly) { m_isFlyState = fly; }
+	void setGravity(float gravity);
+	void setEnergy(int energy);
+	void setIsFlyState(bool fly);
+
 
 	//------------movement-------------------
 	void movement(sf::Time deltaTime);
 	void move(float deltaTime);
-	void move(const sf::Vector2f& position) { m_object.move(position); }
+	void move(const sf::Vector2f& position);
+
 
 	//-----------keyboard--------------------
 	void keyPressed(sf::Event::KeyEvent key);
 	void keyReleased(sf::Event::KeyEvent key);
 	void resetKeyPress();
 
+
 	//-------player and gift status-----------
 	bool isDead()const;
-	bool isEnhance()const { return m_isEnhance; }
-	bool isBoost()const { return m_isBoosted; }
-	bool isMagnet()const { return m_isMagnet; }
-	bool isFlyState()const { return m_isFlyState; }
+	bool isEnhance()const;
+	bool isBoost()const;
+	bool isMagnet()const;
+	bool isFlyState()const;
 	void startEnhanceTimer(sf::Time duration, float scaleFactor);
 	void startBoostTimer(sf::Time duration, float oldSpeed);
 	void startMagnetTimer(sf::Time duration);
@@ -65,10 +68,11 @@ public:
 	void changeToFlyState();
 	void changeEnhanceBack();
 
+
 	//--------gravity and velocity------------
-	void resetGravity() { m_gravity = 0; }
+	void resetGravity();
 	void updateGravity(float movement);
-	void setVelocityY(float y) { m_velocity.y = y; };
+	void setVelocityY(float y);
 	
 
 
