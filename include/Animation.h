@@ -1,8 +1,4 @@
 #pragma once
-
-//#include "Direction.h"
-//#include "AnimationData.h"
-
 #include <SFML/Graphics.hpp>
 #include <Vector>
 
@@ -15,11 +11,11 @@ public:
     void setIndex(int index);
 
 private:
-    void update();
-
     std::vector<sf::IntRect> m_frameSheet;
     sf::Time m_elapsed = {};
     const sf::Time m_animationTime;
     int m_frameIndex = 0;
     sf::Sprite& m_sprite;
+
+    void update();
 };

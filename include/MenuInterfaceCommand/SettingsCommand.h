@@ -4,8 +4,7 @@
 #include <memory>
 #include "Button.h"
 
-//typedef std::pair<Button, std::unique_ptr<MenuInterfaceCommand>> option;
-// Define option as a pair of std::unique_ptr to Button and a std::unique_ptr to MenuInterfaceCommand
+
 typedef std::pair<std::unique_ptr<Button>, std::unique_ptr<MenuInterfaceCommand>> optionInSetting;
 
 

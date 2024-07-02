@@ -14,5 +14,4 @@ public:
     JumpState(std::vector<sf::IntRect>& data, sf::Sprite& sprite, const sf::Time& animationTime);
     std::unique_ptr<PlayerState> handleEvent(Player& player, KeyboardInput pressed);
     void update(Player& player, sf::Time deltaTime);
-
 };

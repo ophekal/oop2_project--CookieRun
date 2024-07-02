@@ -24,7 +24,6 @@ private:
 	sf::RenderWindow& m_window;
 	Player& m_player;
 	sf::Sprite m_background;
-
 	std::vector<LevelOption> m_levels;
 	std::vector<int> m_minCoinsForLevel;
 	Button m_backToMenuButton;

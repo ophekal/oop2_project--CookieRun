@@ -4,7 +4,7 @@
 class GameObject
 {
 public:
-	GameObject(const sf::Sprite& sprite, const sf::Vector2f& position); // Texture& picture, const sf::Vector2f& position, const sf::Vector2f& size);
+	GameObject(const sf::Sprite& sprite, const sf::Vector2f& position);
 	virtual ~GameObject() = default;
 	virtual void draw(sf::RenderWindow& window);
 	void markForDeletion() { toBeDeleted = true; }

@@ -13,5 +13,5 @@ private:
 public:
 	MoveRandomStrategy();
 	virtual ~MoveRandomStrategy() {}
-	virtual void move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy);
+	virtual void move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy) override;
 };

@@ -1,6 +1,4 @@
-
 #pragma once
-
 #include "MenuInterfaceCommand/MenuInterfaceCommand.h"
 #include <SFML/Graphics.hpp>
 #include "Button.h"
@@ -20,7 +18,7 @@ private:
 	sf::RenderWindow& m_window;
 	sf::Sprite m_background;
 	Button m_backButtonToMenu;
-	std::vector<sf::RectangleShape> m_players;	//holds the possible players
+	std::vector<sf::RectangleShape> m_players;	//holds the different characters
 	Player& m_player;
 
 };

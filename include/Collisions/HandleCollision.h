@@ -16,11 +16,9 @@ using HitMap = std::map<Key, HitFunctionPtr>;
 class HandleCollision
 {
 public:
-
 	static HandleCollision& instance();
 	HitFunctionPtr findCollisionFunction(const std::type_index& class1, const std::type_index& class2);
 	void processCollision(GameObject& object1, GameObject& object2);
-
 	
 private:
 	HandleCollision();

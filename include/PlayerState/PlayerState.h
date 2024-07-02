@@ -1,6 +1,5 @@
 
 #pragma once
-//#include "MovingObject/Player.h"
 #include <iostream>
 #include <memory>
 #include <SFML/Graphics.hpp>
@@ -8,7 +7,6 @@
 #include "Macros.h"
 
 class Player;
-
 
 
 class PlayerState 

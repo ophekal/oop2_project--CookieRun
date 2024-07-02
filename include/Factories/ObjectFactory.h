@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 
-// Custom comparator for sf::Color
+// Custom comparator for sf::Color since where working with map
 struct ColorCompare
 {
 	bool operator()(const sf::Color& lhs, const sf::Color& rhs) const
@@ -23,7 +23,7 @@ template <typename T>
 class ObjectFactory
 {
 public:
-	using FactoryMap = std::map<sf::Color, std::unique_ptr<T>(*)(const sf::Vector2f&, int), ColorCompare>; 	// POSITION AND LEVEL
+	using FactoryMap = std::map<sf::Color, std::unique_ptr<T>(*)(const sf::Vector2f&, int), ColorCompare>; 	// position and level
 	static std::unique_ptr<T> create(const sf::Color& color, const sf::Vector2f& position, int levelNumber);
 	static bool registerObject(const sf::Color& color, std::unique_ptr<T>(*f)(const sf::Vector2f&, int));
 

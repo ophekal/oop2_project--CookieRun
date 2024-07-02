@@ -15,8 +15,7 @@ public:
 	float getSpeed()const;
 	void setObjectSpeed(float speed);
 
-
 protected:
-	float m_objectSpeed = 80.f;		//each object will update according to the speed we will set it to
+	float m_objectSpeed = 80.f;		//each object will update accordingly
 
 };

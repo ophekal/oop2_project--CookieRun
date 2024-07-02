@@ -40,26 +40,23 @@ private:
 	std::vector<std::unique_ptr<Enemy>> m_enemies;
 	std::vector<std::unique_ptr<StaticObject>> m_staticObjects;
 	std::vector<std::unique_ptr<AnimationObject>> m_animationObjects;
-	std::vector<std::unique_ptr<Coin>> m_coins; //for fast search in the gift magnet
+	std::vector<std::unique_ptr<Coin>> m_coins; //for fast search when player has a magnet gift
 	sf::Vector2f m_flagPosition;
 	int m_levelNumber;
 	bool m_levelOpen;
 	bool m_levelOver = false;
 	Loader m_loader;
-
 	sf::Clock m_clock;
 	sf::Time m_energyReductionElapsedTime = sf::Time::Zero; // Elapsed time for energy reduction
-
 	bool m_isExploding = false;                // Flag to indicate if an explosion is in progress
 	sf::Clock m_explosionClock;                // Clock to track the explosion duration
 	std::vector<sf::Vector2f> m_explosionPositions; // Positions of explosions
-	sf::Sprite m_boomSpriteSheet;              // Sprite sheet for explosion animation
-	Animation m_boomAnimation;                 // Animation for explosion
+	sf::Sprite m_boomSpriteSheet;
+	Animation m_boomAnimation;                 
+
 
 	void handleExplosion(sf::Time deltaTime);  // Method to handle explosion animation
 	void handleExplosionStart();               // Method to start explosion handling
-
-
 	void render();
 	void handleEvent();
 	void levelPollEvent();
@@ -87,8 +84,11 @@ private:
 	void removeMarkedObjects(std::vector<std::unique_ptr<T>>& objects);
 };
 
+
+//-------------------------------template fuctions---------------------------------------
 //---------------------------------------------------------------------------------------
 // Template function for marking objects for deletion
+
 template<typename T>
 void LevelCommand::markOutOfViewObjectsForDeletion(std::vector<std::unique_ptr<T>>& objects, float playerPositionX, const sf::FloatRect& viewBounds) 
 {
@@ -102,7 +102,8 @@ void LevelCommand::markOutOfViewObjectsForDeletion(std::vector<std::unique_ptr<T
 	}
 }
 //---------------------------------------------------------------------------------------
-// Template function for remove object for the vector 
+// Template function for removing objects for the vector
+ 
 template <typename T>
 void LevelCommand::removeMarkedObjects(std::vector<std::unique_ptr<T>>& objects)
 {

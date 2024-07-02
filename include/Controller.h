@@ -6,7 +6,6 @@
 #include "HandleResources.h"
 
 
-
 class Controller
 {
 public:
