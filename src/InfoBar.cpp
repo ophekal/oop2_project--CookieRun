@@ -75,7 +75,8 @@ void InfoBar::updateInfoBar(const Player& player, int levelNumber)
 }
 
 //-----------------------------------------------------------------------------------------
-// This function is responsible for setting the icons for the in the infobar
+// This function is responsible for setting the icons for the energy, coin and weapon 
+// parameters in the infobar
 
  void InfoBar::setInfoBarIcons()
 {
@@ -104,7 +105,8 @@ void InfoBar::updateInfoBar(const Player& player, int levelNumber)
 
 
  //-----------------------------------------------------------------------------------------
- // This function is responsible for creating the gift icons for the power-ups in the infobar
+ // This function is responsible for creating the gift icons that will show up once the 
+ // player collects a power-ups gift in the infobar
 
 void InfoBar::setGiftTexture()
 {
