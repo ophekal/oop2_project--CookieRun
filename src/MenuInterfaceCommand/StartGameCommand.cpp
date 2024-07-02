@@ -10,9 +10,9 @@
 #include <fstream>
 #include <sstream>
 
-//----------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 StartGameCommand::StartGameCommand(sf::RenderWindow& window, Player& player)
-	:m_window(window), m_player(player), m_backToMenuButton(*(HandleResources::instance().getButtonTexture(B_BACK)), BACK_X, BACK_Y, BACK_SIZE)//, m_menu(window, STARTGAME)
+	:m_window(window), m_player(player), m_backToMenuButton(*(HandleResources::instance().getButtonTexture(B_BACK)), BACK_X, BACK_Y, BACK_SIZE)
 {
 	m_background.setTexture(*HandleResources::instance().getBackgroundTexture(STARTGAME));
 
@@ -29,7 +29,11 @@ StartGameCommand::StartGameCommand(sf::RenderWindow& window, Player& player)
 	createLevelOptionsVector();
 	createCoinsForLevelsVector();
 }
-//---------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------
+// This function reads from a playlist file the number of levels and creates buttons per level
+// accordingly
+
 void StartGameCommand::createLevelOptionsVector()
 {
 	std::vector<std::string> levelsNames;
@@ -50,7 +54,11 @@ void StartGameCommand::createLevelOptionsVector()
 
 	createLevelOptions(levelsNames);
 }
-//---------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------
+// This function is responsible of creating the buttons for the different levels and enters
+// them into the vector
+
 void StartGameCommand::createLevelOptions(const std::vector<std::string>& levelsNames)
 {
 	const sf::Font& font = *HandleResources::instance().getFont();
@@ -64,12 +72,14 @@ void StartGameCommand::createLevelOptions(const std::vector<std::string>& levels
 		levelText.setFont(font);
 		levelText.setCharacterSize(60);
 		levelText.setFillColor(sf::Color::Black);
+
 		// Set the position with added spacing
 		levelText.setPosition(LEVEL_X + 50, LEVEL_Y + i * (BUTTON_SIZE.y + verticalSpacing) + 15);
 		levelText.setString(levelsNames[i]);
 
 		// Create the level button
 		Buttons buttonTexture = (i == 0) ? B_LEVEL_ON : B_LEVEL_OFF;
+
 		// Set the position with added spacing
 		Button levelButton(*HandleResources::instance().getButtonTexture(buttonTexture), LEVEL_Y + i * (BUTTON_SIZE.y + verticalSpacing), LEVEL_X, BUTTON_SIZE);
 
@@ -81,14 +91,16 @@ void StartGameCommand::createLevelOptions(const std::vector<std::string>& levels
 	}
 }
 
-//----------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 void StartGameCommand::createCoinsForLevelsVector()
 {
 	m_minCoinsForLevel.emplace_back(L1_COIN_MIN);
 	m_minCoinsForLevel.emplace_back(L2_COIN_MIN);
 	m_minCoinsForLevel.emplace_back(L3_COIN_MIN);
 }
-//-----------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+// This function is responsible of handeling the poll events in the startGameCommand window
+
 void StartGameCommand::execute()
 {
 	while (m_window.isOpen())
@@ -99,37 +111,36 @@ void StartGameCommand::execute()
 		{
 			switch (event.type)
 			{
-			case sf::Event::Closed:
-			{
-				m_window.close();
-				return;
-			}
-			case sf::Event::MouseButtonPressed:
-			{
-				auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
-
-				// iterate through the level vector and check if the mouse click was on one of the buttons
-				for (auto index = 0; index < m_levels.size(); index++)
+				case sf::Event::Closed:
 				{
-					if (m_levels[index].first.second.onClick(location))
-					{
-						m_levels[index].second->execute();
-						updateGameInfo(index);
-					}
-				}
-				if (m_backToMenuButton.onClick(location))
-				{
+					m_window.close();
 					return;
 				}
-			}
+				case sf::Event::MouseButtonPressed:
+				{
+					auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
+
+					// iterate through the level vector and check if the mouse click was on one of the buttons
+					for (auto index = 0; index < m_levels.size(); index++)
+					{
+						if (m_levels[index].first.second.onClick(location))
+						{
+							m_levels[index].second->execute();
+							updateGameInfo(index);
+						}
+					}
+					if (m_backToMenuButton.onClick(location))
+					{
+						return;
+					}
+				}
 			}
 
 		}
 	}
-
-
 }
-//------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------
 void StartGameCommand::render()
 {
 	m_window.clear();
@@ -143,14 +154,15 @@ void StartGameCommand::render()
 	}
 
 	m_backToMenuButton.printButton(m_window);
-
 	m_window.display();
 }
-//-------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------
+// This function checks if the next level can be opened and updates accordingly the buttons
+// texture, and opens the level
 
 void StartGameCommand::updateGameInfo(int levelIndex)
 {
-	//check if the next level need to be open
 	if (levelIndex < m_levels.size() - 1)
 	{
 		int nextLevelIndex = levelIndex + 1;
@@ -165,25 +177,23 @@ void StartGameCommand::updateGameInfo(int levelIndex)
 				nextLevelPtr->openLevel();
 			}
 		}
-
 	}
 }
 
-//------------------------------------------------------------------------------
-
+//--------------------------------------------------------------------------------------------
 int StartGameCommand::getLevelMinCoins(int level)const
 {
 	return m_minCoinsForLevel[level - 1];
 }
-//----------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------
+// This function updates the level button in the vector of the level
+
 void StartGameCommand::updateLevelButton(int levelNumber)
 {
-	// update the level button in the vector of the level
 	m_levels[levelNumber - 1].first.second.setButtonTexture(HandleResources::instance().getButtonTexture(B_LEVEL_ON));
 
 }
-//-----------------------------------------------------------------------------
-
 
 
 

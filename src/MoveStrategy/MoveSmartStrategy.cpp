@@ -9,10 +9,11 @@
 
 bool MoveSmartStrategy::m_register = EnemyFactory::registerMove([]()->std::unique_ptr<MoveStrategy> { return std::make_unique<MoveSmartStrategy>(); });
 
-//----------------------------------------------------------------------------------------------------------------------------------------------------------------
-// this movment not is not effected by obstcales
+//------------------------------------------------------------------------------------------------------
+// This is the movement function for the smart movement, the enemy moves towards the player and moves in
+// x and y axis
 
-void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, Enemy& enemy)
+void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, Enemy& enemy)
 {
     int direction = LEFT;
     sf::Vector2f newPosition = enemy.getPosition();
@@ -36,6 +37,5 @@ void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, const std::vect
     }
    
     newPosition += movement;
-
     enemy.setPosition(newPosition.x, newPosition.y);
 }

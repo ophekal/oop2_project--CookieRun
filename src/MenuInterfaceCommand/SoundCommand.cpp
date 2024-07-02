@@ -9,6 +9,9 @@ SoundCommand::SoundCommand(Button& button)
 	:m_soundButton(button) {}
 
 //-------------------------------------------------------------------------------------
+// This function is responsible for changing the texture according to the boolean and
+// updating the game sound accordingly
+
 void SoundCommand::execute()
 {
 	if (m_soundOn)

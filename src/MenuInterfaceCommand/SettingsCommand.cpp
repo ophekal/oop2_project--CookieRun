@@ -20,22 +20,16 @@ SettingsCommand::SettingsCommand(sf::RenderWindow& window)
 	float scaleX = static_cast<float>(WINDOW_WIDTH) / textureSize.x;
 	float scaleY = static_cast<float>(WINDOW_HEIGHT) / textureSize.y;
 
-	// Apply the scale to the sprite
 	m_background.setScale(scaleX, scaleY);
-
 	updateButtons();
 }
 
 //--------------------------------------------------------------------------------------------
+// This function is responsible of creating the buttons and initializing them accordingly
+
 void SettingsCommand::updateButtons()
 {
-	//Button music(*HandleResources::instance().getButtonTexture(B_MUSIC_ON), MUSIC_Y, SOUND_X, MUSIC_SIZE);
-	//Button sound(*HandleResources::instance().getButtonTexture(B_SOUND_ON), SOUND_Y, SOUND_X, MUSIC_SIZE);
-
-	//m_buttons.emplace_back(option(music, std::make_unique<MusicCommand>(music)));
-	//m_buttons.emplace_back(option(sound, std::make_unique<SoundCommand>(sound)));
-	
-	 // Allocate Button objects dynamically using std::make_unique
+	// Allocate Button objects dynamically using std::make_unique
 	std::unique_ptr<Button> musicButton = std::make_unique<Button>(*HandleResources::instance().getButtonTexture(B_MUSIC_ON), MUSIC_Y, SOUND_X, MUSIC_SIZE);
 	std::unique_ptr<Button> soundButton = std::make_unique<Button>(*HandleResources::instance().getButtonTexture(B_SOUND_ON), SOUND_Y, SOUND_X, MUSIC_SIZE);
 
@@ -46,10 +40,11 @@ void SettingsCommand::updateButtons()
 	// Add these unique_ptrs to Button objects and their associated commands to m_buttons vector
 	m_buttons.emplace_back(std::move(musicButton), std::move(musicCommand));
 	m_buttons.emplace_back(std::move(soundButton), std::move(soundCommand));
-
 }
 
 //--------------------------------------------------------------------------------------------
+// This function is responsible of handeling the poll events and screen presses
+
 void SettingsCommand::execute()
 {
 	while (m_window.isOpen())
@@ -84,7 +79,7 @@ void SettingsCommand::execute()
 	}
 }
 
-//------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 void SettingsCommand::render()
 {
 	m_window.clear();

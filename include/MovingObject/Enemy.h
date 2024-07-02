@@ -9,7 +9,7 @@ class Enemy : public MovingObject
 {
 public:
 	Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position, AnimationType type, std::unique_ptr<MoveStrategy> movement);
-	void moveEnemy(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects, sf::Time deltaTime);
+	void moveEnemy(const sf::Vector2f& playerPosition, sf::Time deltaTime);
 	void setMoveStrategy(std::unique_ptr<MoveStrategy> movement);
 	void updateAnimation(sf::Time deltaTime);
 	void setSpriteFlipped(int direction);

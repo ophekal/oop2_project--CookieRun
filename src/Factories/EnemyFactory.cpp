@@ -61,13 +61,21 @@ std::unique_ptr<Enemy> EnemyFactory::createEnemy(float startX, float endX, int l
 }
 
 //--------------------------------------------------------------------------------------------
-// This function is responsible of drawing a random position for the enemy
+// This function is responsible of generating a random position for the enemy
 
 sf::Vector2f EnemyFactory::getRandomPosition(float startX, float endX)
 {
+	// Define the range for the random y-coordinate
 	int minY = 180;
 	int maxY = PLAYER_INIT_POSITION.y;
-	float randomY = minY + std::rand() % (maxY - minY + 1);
-	float randomX = startX + static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / (endX - startX)));
+
+	// Generate a random y-coordinate within the specified range
+	float rangeY = static_cast<float>(maxY - minY + 1); // Range for random Y
+	float randomY = minY + static_cast<float>(std::rand() % static_cast<int>(rangeY));
+
+	// Generate a random x-coordinate within the specified range
+	float rangeX = endX - startX;
+	float randomX = startX + static_cast<float>(std::rand()) / (RAND_MAX / rangeX);
+
 	return sf::Vector2f(randomX, randomY);
 }

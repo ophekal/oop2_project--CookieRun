@@ -21,10 +21,9 @@ Enemy::Enemy(const sf::Sprite& sprite, float speed, const sf::Vector2f& position
 
 
 //-------------------------------------------------------------------------------------------------------------
-void Enemy::moveEnemy(const sf::Vector2f& playerPosition, const std::vector<std::unique_ptr<StaticObject>>& staticObjects,
-	                  sf::Time deltaTime)
+void Enemy::moveEnemy(const sf::Vector2f& playerPosition,sf::Time deltaTime)
 {
-	m_move->move(playerPosition, staticObjects,*this);
+	m_move->move(playerPosition,*this);
 	m_animation.update(deltaTime);
 
 }
