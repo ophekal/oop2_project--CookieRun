@@ -75,7 +75,7 @@ void InfoBar::updateInfoBar(const Player& player, int levelNumber)
 }
 
 //-----------------------------------------------------------------------------------------
-// This function is responsible for setting the icons for the power-ups in the infobar
+// This function is responsible for setting the icons for the in the infobar
 
  void InfoBar::setInfoBarIcons()
 {
@@ -104,29 +104,22 @@ void InfoBar::updateInfoBar(const Player& player, int levelNumber)
 
 
  //-----------------------------------------------------------------------------------------
- // This function is responsible for creating the icons for the power-ups in the infobar
+ // This function is responsible for creating the gift icons for the power-ups in the infobar
 
 void InfoBar::setGiftTexture()
 {
+    // Initialize the m_gift vector with the appropriate size
     m_gifts.resize(4);
-
-    m_gifts[0].first = false;
     m_gifts[0].second.setTexture(HandleResources::instance().getGiftTexture(G_BOOST));
-    m_gifts[0].second.setSize({40.0f, 40.0f});
-    m_gifts[0].second.setPosition({ 1000,20 });
-
-    m_gifts[1].first = false;
     m_gifts[1].second.setTexture(HandleResources::instance().getGiftTexture(G_ENHANCE));
-    m_gifts[1].second.setSize({ 40.0f, 40.0f });
-    m_gifts[1].second.setPosition({ 1050,20 });
-
-    m_gifts[2].first = false;
     m_gifts[2].second.setTexture(HandleResources::instance().getGiftTexture(G_FLIGHT));
-    m_gifts[2].second.setSize({ 40.0f, 40.0f });
-    m_gifts[2].second.setPosition({ 1100,20 });
-
-    m_gifts[3].first = false;
     m_gifts[3].second.setTexture(HandleResources::instance().getGiftTexture(G_MAGNET));
-    m_gifts[3].second.setSize({ 40.0f, 40.0f });
-    m_gifts[3].second.setPosition({ 1150,20 });
+
+    // Set size and position for each icon
+    for (size_t i = 0; i < m_gifts.size(); ++i)
+    {
+        m_gifts[i].first = false;
+        m_gifts[i].second.setSize(ICON_SIZE);
+        m_gifts[i].second.setPosition({ 1000.0f + (i * 50.0f), 20.0f });
+    }
 }
