@@ -11,9 +11,10 @@ class EnemyFactory
 {
 public:
 	static bool registerMove(moveFunc mf);
-	static std::unique_ptr<Enemy> createEnemy(const sf::Vector2f& position, int levelNumber);
+	static std::unique_ptr<Enemy> createEnemy(float startX,float endX, int levelNumber);
 
 private:
 	static std::vector<moveFunc>& getMoveVec();
+	static sf::Vector2f getRandomPosition(float startX, float endX);
 
 };

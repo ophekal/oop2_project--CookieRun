@@ -28,7 +28,7 @@ public:
 	void addToStaticObjectVector(std::unique_ptr<StaticObject> object);
 	void addToCoinsVector(std::unique_ptr<Coin> object);
 	float getLastFloorXPosition(int cell) const;
-	void addToEnemiesVector(float  randomX, float randomY);
+	void addToEnemiesVector(float  startX, float endX);
 
 
 private:

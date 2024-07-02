@@ -535,9 +535,9 @@ void LevelCommand::addToCoinsVector(std::unique_ptr<Coin> object)
 }
 
 //-------------------------------------------------------------------------------
-void LevelCommand::addToEnemiesVector(float  randomX, float randomY)
+void LevelCommand::addToEnemiesVector(float  startX, float endX)
 {
-	m_enemies.emplace_back(EnemyFactory::createEnemy({ randomX, randomY }, m_levelNumber));
+	m_enemies.emplace_back(EnemyFactory::createEnemy(startX, endX, m_levelNumber));
 }
 
 //-------------------------------------------------------------------------------
