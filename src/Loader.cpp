@@ -78,22 +78,5 @@ void Loader::createEnemeis(LevelCommand& currLevel, float startX, float endX)
 	{
 		// Create an enemy at a random position
 		currLevel.addToEnemiesVector(startX, endX);
-		//createRandomEnemy(currLevel, startX, endX);
 	}
 }
-////-------------------------------------------------------------------------------
-//void Loader::createRandomEnemy(LevelCommand& currLevel, float startX, float endX)
-//{
-//	// Define the range for the random y-coordinate
-//	int minY = 180;
-//	int maxY = PLAYER_INIT_POSITION.y;
-//
-//	// Generate a random y-coordinate within the specified range
-//	float randomY = minY + std::rand() % (maxY - minY + 1);
-//
-//	// Generate a random x-coordinate within the specified range
-//	float randomX = startX + static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / (endX - startX)));
-//
-//	// Create an enemy at a random position
-//	currLevel.addToEnemiesVector(randomX, randomY);
-//}

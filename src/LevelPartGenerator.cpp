@@ -28,7 +28,7 @@ void LevelPartGenerator::readLevelParts()
 	auto file = std::ifstream("levelSectionsPlaylist.txt");
 	if (!file.is_open())
 	{
-		//throw (std::errror)
+		throw std::runtime_error("Failed to open levelSectionsPlaylist.txt");
 	}
 
 	// reading the level parts from the playlist
@@ -107,10 +107,6 @@ level& LevelPartGenerator::getRandomLevel(int levelNumber)//, sf::Vector2f& flag
 	m_lastIndex = randomIndex; // Store the last selected index
 
 	return m_levelPartsVector[randomIndex];
-
-	/*int randomIndex = lowerBound + std::rand() % (upperBound - lowerBound + 1);
-
-	return (m_levelPartsVector[randomIndex]);*/
 }
 
 //-----------------------------------------------------------------------------
