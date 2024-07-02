@@ -31,20 +31,21 @@ void InstructionsCommand::execute()
 		sf::Event event;
 		while (m_window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			switch (event.type)
+			{
+			case sf::Event::Closed:
 			{
 				m_window.close();
 				return;
 			}
-
-			if (event.type == sf::Event::MouseButtonPressed)
+			case sf::Event::MouseButtonPressed:
 			{
 				auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
 				if (m_backToMenuButton.onClick(location))
 				{
 					return;
 				}
-
+			}
 			}
 		}
 	}

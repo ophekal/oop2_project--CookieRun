@@ -22,4 +22,5 @@ private:
 
 	void render();
 	void updateButtons();
+	void handleButtonClick(const sf::Vector2f& location);
 };

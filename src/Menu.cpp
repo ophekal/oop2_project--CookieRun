@@ -39,24 +39,26 @@ void Menu::activate()
 		while (m_window.pollEvent(event))
 		{
 			
-			if (event.type == sf::Event::Closed)
+			switch (event.type)
+			{
+			case sf::Event::Closed:
 			{
 				m_window.close();
 				return;
 			}
-
-			if (event.type == sf::Event::MouseButtonPressed)
+			case sf::Event::MouseButtonPressed:
 			{
 				auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
 
 				// iterate through the options vector and check if the mouse click was on one of the buttons
-				for (auto& commandOption  : m_options)
+				for (auto& commandOption : m_options)
 				{
 					if (commandOption.first.onClick(location))
 					{
 						commandOption.second->execute();
 					}
 				}
+			}
 			}
 		}
 	}

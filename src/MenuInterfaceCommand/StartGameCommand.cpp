@@ -111,29 +111,29 @@ void StartGameCommand::execute()
 		{
 			switch (event.type)
 			{
-				case sf::Event::Closed:
+			case sf::Event::Closed:
+			{
+				m_window.close();
+				return;
+			}
+			case sf::Event::MouseButtonPressed:
+			{
+				auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
+
+				// iterate through the level vector and check if the mouse click was on one of the buttons
+				for (auto index = 0; index < m_levels.size(); index++)
 				{
-					m_window.close();
+					if (m_levels[index].first.second.onClick(location))
+					{
+						m_levels[index].second->execute();
+						updateGameInfo(index);
+					}
+				}
+				if (m_backToMenuButton.onClick(location))
+				{
 					return;
 				}
-				case sf::Event::MouseButtonPressed:
-				{
-					auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
-
-					// iterate through the level vector and check if the mouse click was on one of the buttons
-					for (auto index = 0; index < m_levels.size(); index++)
-					{
-						if (m_levels[index].first.second.onClick(location))
-						{
-							m_levels[index].second->execute();
-							updateGameInfo(index);
-						}
-					}
-					if (m_backToMenuButton.onClick(location))
-					{
-						return;
-					}
-				}
+			}
 			}
 
 		}

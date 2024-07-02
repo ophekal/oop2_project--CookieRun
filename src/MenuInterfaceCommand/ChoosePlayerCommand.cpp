@@ -36,32 +36,41 @@ void ChoosePlayerCommand::execute()
 		sf::Event event;
 		while (m_window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			switch (event.type)
+			{
+			case sf::Event::Closed:
 			{
 				m_window.close();
 				return;
 			}
-
-			if (event.type == sf::Event::MouseButtonPressed)
+			case sf::Event::MouseButtonPressed:
 			{
 				auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
 				if (m_backButtonToMenu.onClick(location))
 				{
 					return;
 				}
-				else if (m_players[CHOOSE_PLAYER_BRAVE].getGlobalBounds().contains(location))
+				else
 				{
-					m_player.setPlayer(PLAYER_BRAVE);
+					handleClickOnPlayer(location);
 				}
-				else if (m_players[CHOOSE_PLAYER_BRIGHT].getGlobalBounds().contains(location))
-				{
-					m_player.setPlayer(PLAYER_BRIGHT);
-				}
+			}	
 			}
 		}
 	}
 }
-
+//-------------------------------------------------------------------------------------------
+void ChoosePlayerCommand::handleClickOnPlayer(sf::Vector2f location)
+{
+	if (m_players[CHOOSE_PLAYER_BRAVE].getGlobalBounds().contains(location))
+	{
+		m_player.setPlayer(PLAYER_BRAVE);
+	}
+	else if (m_players[CHOOSE_PLAYER_BRIGHT].getGlobalBounds().contains(location))
+	{
+		m_player.setPlayer(PLAYER_BRIGHT);
+	}
+}
 //--------------------------------------------------------------------------------------------
 // This function initilaizes the position, texture and size of the players sprites
 

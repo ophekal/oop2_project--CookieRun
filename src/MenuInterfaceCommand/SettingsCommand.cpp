@@ -53,32 +53,43 @@ void SettingsCommand::execute()
 		sf::Event event;
 		while (m_window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			switch (event.type)
+			{
+			case sf::Event::Closed:
 			{
 				m_window.close();
 				return;
 			}
-
-			if (event.type == sf::Event::MouseButtonPressed)
+			case sf::Event::MouseButtonPressed:
 			{
 				auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
 				if (m_backToMenuButton.onClick(location))
 				{
 					return;
 				}
-				else if (m_buttons[0].first->onClick(location))	//music button
+				else
 				{
-					m_buttons[0].second->execute();
+					handleButtonClick(location);  // Call the button handling function
 				}
-				else if (m_buttons[1].first->onClick(location))	//sound button
-				{
-					m_buttons[1].second->execute();
-				}
+			}
 			}
 		}
 	}
 }
+//-------------------------------------------------------------------------------------------
+// Handles button clicks based on the provided location.
 
+void SettingsCommand::handleButtonClick(const sf::Vector2f& location)
+{
+	for (size_t i = 0; i < m_buttons.size(); ++i)
+	{
+		if (m_buttons[i].first->onClick(location))
+		{
+			m_buttons[i].second->execute();
+			return;  // Exit the function once a button is clicked and executed
+		}
+	}
+}
 //--------------------------------------------------------------------------------------------
 void SettingsCommand::render()
 {
