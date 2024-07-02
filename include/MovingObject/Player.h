@@ -63,7 +63,7 @@ private:
 	int m_coins = 0;
 	int m_weapons = 0;
 	int m_jelly = 0;
-	int m_energy = 100;
+	int m_energy = 5;
 	bool m_onGround = true;
 
 	// gift variables

@@ -226,7 +226,7 @@ void Player::handleExitFromLevel()
 //--------------------------------------------------------------------------------
 bool Player::isDead()const
 {
-	if (toBeDeleted || m_energy == 0)
+	if (toBeDeleted || m_energy <= 0)
 	{
 		return true;
 	}

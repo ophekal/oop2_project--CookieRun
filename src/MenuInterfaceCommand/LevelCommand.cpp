@@ -22,7 +22,8 @@ LevelCommand::LevelCommand(sf::RenderWindow& window, Player& player, InfoBar& in
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
-//This function checks if the level is open and if so calls the function thats responsible of the event handeling in the level
+// This function checks if the level is open and if so calls function from loader that is responsible of loading the level objects,
+// sets the players position and calls the event handeling function
 void LevelCommand::execute()
 {
 	if (!m_levelOpen)
@@ -32,14 +33,15 @@ void LevelCommand::execute()
 
 	//in each execute we load diff level 
 	m_loader.updateMembers(*this);
-
 	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y);
 
 	handleEvent();
-
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------
+// This function is responsible of handeling the different events in the level. as long as the window is open it calls all the 
+// functions that are responsible of running the game
+
 void LevelCommand::handleEvent()
 {
 	m_clock = sf::Clock();
@@ -157,6 +159,7 @@ void LevelCommand::updatePlayerEnergy(sf::Time deltaTime)
 	{
 		// Reduce player's energy
 		m_player.setEnergy(m_player.getEnergy() - 3);
+
 		// Reset the elapsed time, accounting for any extra time
 		m_energyReductionElapsedTime -= sf::seconds(2.0f);
 	}

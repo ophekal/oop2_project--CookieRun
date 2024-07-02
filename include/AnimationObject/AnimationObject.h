@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "MovingObject/MovingObject.h"
-//#include "StaticObject/StaticObject.h"
 #include "Animation.h"
 #include "Macros.h"
 
