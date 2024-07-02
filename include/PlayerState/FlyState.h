@@ -19,4 +19,6 @@ private:
     void moveTowardsTarget(Player& player, sf::Time deltaTime, const sf::Vector2f& target);
     void freeMovement(Player& player, sf::Time deltaTime);
     void returnToGround(Player& player, sf::Time deltaTime);
+    void resetPlayerToGround(Player& player);
+    void handleFlightBehavior(Player& player, sf::Time deltaTime);
 };
