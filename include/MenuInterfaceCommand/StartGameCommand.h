@@ -2,6 +2,7 @@
 #pragma once
 
 #include "MenuInterfaceCommand/MenuInterfaceCommand.h"
+#include "MenuInterfaceCommand/LevelCommand.h"
 #include <SFML/Graphics.hpp>
 #include "Macros.h"
 #include "Menu.h"
@@ -10,7 +11,7 @@
 
 
 typedef std::pair<sf::Text, Button> levelbutton;
-typedef std::pair<levelbutton, std::unique_ptr<MenuInterfaceCommand>> LevelOption;
+typedef std::pair<levelbutton, std::unique_ptr<LevelCommand>> LevelOption;
 
 class Player;
 
