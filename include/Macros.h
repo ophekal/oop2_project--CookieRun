@@ -60,7 +60,7 @@ const sf::Vector2f DIRECTION_UP(0, -1);
 const sf::Vector2f DIRECTION_DOWN(0, 1);
 const sf::Vector2f DIRECTION_NONE(0, 0);
 
-const int FULL_ENERGY = 100;
+const int FULL_ENERGY = 250;
 
 
 //----------------Setting--------------------
