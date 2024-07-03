@@ -2,7 +2,6 @@
 #include <string>
 #include <memory>
 #include "StaticObject/StaticObject.h"
-//#include "MovingObject/Enemy.h"
 
 class Enemy;
 

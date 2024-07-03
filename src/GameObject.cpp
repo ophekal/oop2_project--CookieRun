@@ -15,3 +15,28 @@ void GameObject::draw(sf::RenderWindow& window)
 {
 	window.draw(m_object);
 }
+//---------------------------------------------------------------------------------------
+void GameObject::markForDeletion()
+{
+	toBeDeleted = true;
+}
+//---------------------------------------------------------------------------------------
+bool GameObject::isMarkedForDeletion() const
+{
+	return toBeDeleted;
+}
+//---------------------------------------------------------------------------------------
+sf::FloatRect GameObject::getSize()const
+{
+	return m_object.getLocalBounds();
+}
+//---------------------------------------------------------------------------------------
+const sf::Sprite& GameObject::getObject()const
+{
+	return m_object;
+}
+//---------------------------------------------------------------------------------------
+sf::FloatRect GameObject::getGlobalBounds()const
+{
+	return m_object.getGlobalBounds(); 
+}

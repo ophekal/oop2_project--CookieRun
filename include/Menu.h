@@ -15,7 +15,6 @@ class Menu
 public:
 	Menu(sf::RenderWindow& window);
 	~Menu() = default;
-	void render();
 	void addToOptions(const Button & button, std::unique_ptr<MenuInterfaceCommand> option);
 	void activate();
 
@@ -23,4 +22,6 @@ private:
 	sf::Sprite m_background;
 	sf::RenderWindow& m_window;
 	std::vector<option> m_options;
+
+	void render();
 };

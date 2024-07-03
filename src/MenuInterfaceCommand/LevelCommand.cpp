@@ -594,3 +594,13 @@ float LevelCommand::getLastFloorXPosition(int cell) const
 {
 	return (m_staticObjects[cell]->getObject().getPosition().x);
 }
+//------------------------------------------------------------------------------------------------------
+bool LevelCommand::isOpen()const
+{
+	return m_levelOpen;
+}
+//-----------------------------------------------------------------------------------------------------
+void LevelCommand::openLevel()
+{
+	m_levelOpen = true; 
+}

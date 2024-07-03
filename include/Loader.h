@@ -1,9 +1,4 @@
 #pragma once
-#include "AnimationObject/AnimationObject.h"
-#include "StaticObject/StaticObject.h"
-#include "MovingObject/Player.h"
-#include "MovingObject/Enemy.h"
-#include "AnimationObject/Coin.h"
 #include "LevelPartGenerator.h"
 
 class LevelCommand;

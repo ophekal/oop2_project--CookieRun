@@ -16,7 +16,7 @@ public:
     virtual ~PlayerState() = default;
     virtual std::unique_ptr<PlayerState> handleEvent(Player& player, KeyboardInput pressed)=0;
     virtual void update(Player& player, sf::Time deltaTime) = 0;
-    virtual void restartAnimation() { m_animation.setIndex(0); }
+    virtual void restartAnimation(); 
     void updateAnimation(std::vector<sf::IntRect>& frameSheet, sf::Sprite& sprite);
     AnimationType getRunAnimationType(Players player);
     AnimationType getSlideAnimationType(Players player);

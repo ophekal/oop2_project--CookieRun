@@ -1,11 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "InfoItem.h"
 #include <string.h>
 #include "MovingObject/Player.h"
-
-class MovingObjects;
 
 class InfoBar
 {
@@ -13,7 +10,6 @@ public:
 	InfoBar();
 	void draw(sf::RenderWindow& window);
 	void updateInfoBar(const Player& player, int levelNumber);
-
 
 private:
 

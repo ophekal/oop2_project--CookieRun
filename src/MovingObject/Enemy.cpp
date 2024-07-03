@@ -27,19 +27,6 @@ void Enemy::moveEnemy(const sf::Vector2f& playerPosition,sf::Time deltaTime)
 
 }
 
-//-------------------------------------------------------------------------------------------------------------
-void Enemy::setMoveStrategy(std::unique_ptr<MoveStrategy> movement)
-{
-	m_move = std::move(movement);
-}
-
-//-----------------------------------------------------------------------------------------------------------
-void Enemy::updateAnimation(sf::Time deltaTime)
-{
-	m_object.move(sf::Vector2f{ 0,0 }*deltaTime.asSeconds() * m_objectSpeed);
-	m_animation.update(deltaTime);
-}
-
 //----------------------------------------------------------------------------
 void Enemy::setSpriteFlipped(int direction)
 {

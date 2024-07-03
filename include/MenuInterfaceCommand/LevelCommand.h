@@ -20,8 +20,8 @@ class LevelCommand : public MenuInterfaceCommand
 public:
 	LevelCommand(sf::RenderWindow& window, Player& player, InfoBar& infoBar, const sf::Texture& background, bool levelOpen, int levelNumber);
 	void execute()override;
-	bool isOpen()const { return m_levelOpen; }
-	void openLevel() { m_levelOpen = true; }
+	bool isOpen()const;
+	void openLevel(); 
 	int getLevelNumber()const;
 	void setFlagPosition(sf::Vector2f position);
 	void addToAnimationObjectVector(std::unique_ptr<AnimationObject> object);

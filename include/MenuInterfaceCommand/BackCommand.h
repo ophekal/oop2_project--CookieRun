@@ -7,6 +7,6 @@
 class BackCommand : public MenuInterfaceCommand
 {
 public:
-	BackCommand() {};
+	BackCommand() = default;
 	void execute() override { return; };
 };

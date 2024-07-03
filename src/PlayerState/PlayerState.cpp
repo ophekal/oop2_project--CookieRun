@@ -50,3 +50,8 @@ AnimationType PlayerState::getJumpAnimationType(Players player)
     }
     return ANI_COOKIEBRAVE_JUMP; //never gets here
 }
+//-------------------------------------------------------------------------------------------
+void PlayerState::restartAnimation()
+{
+    m_animation.setIndex(0); 
+}
