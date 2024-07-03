@@ -39,7 +39,7 @@ void MoveRandomStrategy::move(const sf::Vector2f& playerPosition, Enemy& enemy)
         enemy.setSpriteFlipped(m_direction);
     }
 
-    sf::Vector2f movement(m_direction * 4, 0.f);
+    sf::Vector2f movement(m_direction * 4.f, 0.f);
     sf::Vector2f newPosition = enemy.getPosition() + movement;
 
     enemy.setPosition(newPosition.x, newPosition.y);

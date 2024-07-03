@@ -17,7 +17,7 @@ void MoveSmartStrategy::move(const sf::Vector2f& playerPosition, Enemy& enemy)
 {
     int direction = LEFT;
     sf::Vector2f newPosition = enemy.getPosition();
-    sf::Vector2f movement(direction * 4, 0.f);
+    sf::Vector2f movement(direction * 4.f, 0.f);
     enemy.setSpriteFlipped(direction);
 
     // Move towards the player in the x direction

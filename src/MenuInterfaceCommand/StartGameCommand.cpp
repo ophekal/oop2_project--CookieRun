@@ -167,14 +167,14 @@ void StartGameCommand::updateGameInfo(int levelIndex)
 	if (levelIndex < m_levels.size() - 1)
 	{
 		int nextLevelIndex = levelIndex + 1;
-		LevelCommand& nextLevelPtr = *m_levels[nextLevelIndex].second.get();
+		LevelCommand& nextLevel = *m_levels[nextLevelIndex].second.get();
 
 		int minCoinsToOpenLevel = getLevelMinCoins(nextLevelIndex + 1);
-		if (!(nextLevelPtr.isOpen()) && m_player.getCoins() >= minCoinsToOpenLevel && passCurrLevel)
+		if (!(nextLevel.isOpen()) && m_player.getCoins() >= minCoinsToOpenLevel && passCurrLevel)
 		{
 			m_player.setCoins(m_player.getCoins() - minCoinsToOpenLevel);
 			updateLevelButton(nextLevelIndex + 1);
-			nextLevelPtr.openLevel();
+			nextLevel.openLevel();
 		}
 		
 	}
@@ -182,9 +182,9 @@ void StartGameCommand::updateGameInfo(int levelIndex)
 //--------------------------------------------------------------------------------------------
 bool StartGameCommand::checkIfPassedLevel(int levelIndex)
 {
-	LevelCommand& currLevelPtr = *(m_levels[levelIndex].second.get());
+	LevelCommand& currLevel = *(m_levels[levelIndex].second.get());
 
-	return(currLevelPtr.getPassedLevel());
+	return(currLevel.getPassedLevel());
 	
 }
 //--------------------------------------------------------------------------------------------
