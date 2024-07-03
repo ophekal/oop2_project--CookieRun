@@ -13,14 +13,13 @@ class LevelPartGenerator
 {
 public:
 	static LevelPartGenerator& instance();
-	level& getRandomLevel(int levelNumber);//, sf::Vector2f& flagPosition);	///function that sends back a level that has been made randomly
+	level& getRandomLevel(int levelNumber);	
 	level& getLastLevelSection(int levelNumber);
 
 private:
 	LevelPartGenerator();
 	void readPart(const sf::Image& levelPartImage);
-	void readLevelParts(); //we will have a vector of vectors, this function reads each png picture into a vector and pushesit into the vectors vector
-	//void setLevelObjectsPosition(sf::Vector2f& lastObject, int index);
+	void readLevelParts();
 	levelPartsVector m_levelPartsVector;
 	int m_lastIndex; //stores the last index that has be drawn
 };
