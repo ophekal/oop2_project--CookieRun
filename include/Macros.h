@@ -132,8 +132,8 @@ enum GIFTTEXTURE
 const int JELLY2ENERGY = 3;
 
 const int L1_COIN_MIN = 0;
-const int L2_COIN_MIN = 100;
-const int L3_COIN_MIN = 250;
+const int L2_COIN_MIN = 150;
+const int L3_COIN_MIN = 300;
 
 enum FEEDBACK
 {
