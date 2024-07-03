@@ -56,7 +56,7 @@ public:
 
 
 	//-------player and gift status-----------
-	bool isDead()const;
+	bool OutOfEnergy()const;
 	bool isEnhance()const;
 	bool isBoost()const;
 	bool isMagnet()const;
@@ -95,7 +95,7 @@ private:
 	bool m_isMagnet = false;
 	sf::Clock m_giftClock;
 	sf::Time m_boostDuration = sf::seconds(5);
-	sf::Time m_enhanceDuration = sf::seconds(5);
+	sf::Time m_enhanceDuration = sf::seconds(7);
 	sf::Time m_magnetDuration = sf::seconds(5);
 	float m_oldSpeed= 350.f;
 	float m_originalScale = 1.0f;

@@ -31,6 +31,7 @@ private:
 
 	void render();
 	void updateGameInfo(int currLevel);
+	bool checkIfPassedLevel(int levelIndex);
 	int getLevelMinCoins(int level)const;
 	void updateLevelButton(int levelIndex);
 	void createLevelOptionsVector();

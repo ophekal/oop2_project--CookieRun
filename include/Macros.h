@@ -129,16 +129,17 @@ enum GIFTTEXTURE
 	G_BOOM
 };
 
-const int JELLY2ENERGY = 3;
+const int JELLY2ENERGY = 1;
 
 const int L1_COIN_MIN = 0;
-const int L2_COIN_MIN = 150;
-const int L3_COIN_MIN = 300;
+const int L2_COIN_MIN = 100;
+const int L3_COIN_MIN = 250;
 
 enum FEEDBACK
 {
 	F_TRYAGAIN,
 	F_GOODJOB,
+	F_OUTOFENERGY
 };
 
 

@@ -29,6 +29,7 @@ public:
 	void addToCoinsVector(std::unique_ptr<Coin> object);
 	float getLastFloorXPosition(int cell) const;
 	void addToEnemiesVector(float  startX, float endX);
+	bool getPassedLevel()const;
 
 
 private:
@@ -45,6 +46,7 @@ private:
 	int m_levelNumber;
 	bool m_levelOpen;
 	bool m_levelOver = false;
+	bool m_passedLevel = false;
 	Loader m_loader;
 	sf::Clock m_clock;
 	sf::Time m_energyReductionElapsedTime = sf::Time::Zero; // Elapsed time for energy reduction

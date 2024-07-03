@@ -224,13 +224,9 @@ void Player::handleExitFromLevel()
 //--------------------------------------------------------------------------------------
 // This function checks if the player is dead
 
-bool Player::isDead() const
+bool Player::OutOfEnergy() const
 {
-	if (toBeDeleted || m_energy <= 0)
-	{
-		return true;
-	}
-	return false;
+	return (m_energy <= 0);
 }
 
 //--------------------------------------------------------------------------------------

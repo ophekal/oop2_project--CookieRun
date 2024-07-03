@@ -166,9 +166,10 @@ const sf::Texture* HandleResources::getGiftTexture(GIFTTEXTURE icon)
 //-------------------------------------------------------------------------
 void HandleResources::updateFeedbackVector()
 {
-	m_feedbackTextures.resize(2);
+	m_feedbackTextures.resize(3);
 	m_feedbackTextures[F_GOODJOB].loadFromFile("goodJob.png");
 	m_feedbackTextures[F_TRYAGAIN].loadFromFile("tryAgain.png");
+	m_feedbackTextures[F_OUTOFENERGY].loadFromFile("outOfEnergy.png");
 }
 
 //-------------------------------------------------------------------------

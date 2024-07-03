@@ -33,7 +33,7 @@ void LevelCommand::execute()
 		return;
 	}
 
-	//in each execute we load diff level 
+	//in each execute we load different level 
 	m_loader.updateMembers(*this);
 	m_player.setPosition(PLAYER_INIT_POSITION.x, PLAYER_INIT_POSITION.y);
 
@@ -378,7 +378,7 @@ void LevelCommand::handleLevelExit()
 	m_coins.clear();
 	m_enemies.clear();
 	m_player.handleExitFromLevel();
-	m_levelOver = false;
+	m_levelOver = false;    //for the next time we enter
 	m_levelOpen = true;
 	m_window.setView(m_window.getDefaultView());
 
@@ -391,20 +391,30 @@ void LevelCommand::handleLevelExit()
 // This function checks if the level is over either because the player is dead or got to the end 
 bool LevelCommand::checkAndUpdateLevelStatus()
 {
-	if (m_player.isDead())
+	if (m_player.OutOfEnergy())
+	{
+		printFeedback(*HandleResources::instance().getFeedbackTexture(F_OUTOFENERGY), S_TRYAGAIN);
+		return true;
+	}
+	else if(m_player.isMarkedForDeletion())
 	{
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_TRYAGAIN), S_TRYAGAIN);
 		return true;
 	}
 	else if (m_player.getPosition().x >= m_flagPosition.x - 200)
 	{
+		m_passedLevel = true;
 		printFeedback(*HandleResources::instance().getFeedbackTexture(F_GOODJOB), S_GOODJOB);
 		return true;
 	}
 	return false;
 
 }
-
+//-----------------------------------------------------------------------------------------------------
+bool LevelCommand::getPassedLevel()const
+{
+	return m_passedLevel;
+}
 //------------------------------------------------------------------------------------------------------
 void LevelCommand::printFeedback(const sf::Texture& feedback, GameSound sound)
 {
