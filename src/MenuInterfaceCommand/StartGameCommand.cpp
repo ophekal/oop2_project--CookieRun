@@ -26,8 +26,8 @@ StartGameCommand::StartGameCommand(sf::RenderWindow& window, Player& player)
 	// Apply the scale to the sprite
 	m_background.setScale(scaleX, scaleY);
 
-	createLevelOptionsVector();
 	createCoinsForLevelsVector();
+	createLevelOptionsVector();
 }
 
 //--------------------------------------------------------------------------------------------
@@ -72,10 +72,18 @@ void StartGameCommand::createLevelOptions(const std::vector<std::string>& levels
 		levelText.setFont(font);
 		levelText.setCharacterSize(60);
 		levelText.setFillColor(sf::Color::Black);
-
-		// Set the position with added spacing
 		levelText.setPosition(LEVEL_X + 50, LEVEL_Y + i * (BUTTON_SIZE.y + verticalSpacing) + 15);
 		levelText.setString(levelsNames[i]);
+
+
+		// Create the coins needed text
+		sf::Text coinsText;
+		coinsText.setFont(font);
+		coinsText.setCharacterSize(30);  // Smaller size for coins needed
+		coinsText.setFillColor(sf::Color::Black);
+		coinsText.setPosition(LEVEL_X + 20, levelText.getPosition().y + 80);  // Adjust the offset as needed
+		coinsText.setString("Coins needed: " + std::to_string(getLevelMinCoins(i+1)));
+
 
 		// Create the level button
 		Buttons buttonTexture = (i == 0) ? B_LEVEL_ON : B_LEVEL_OFF;
@@ -87,7 +95,7 @@ void StartGameCommand::createLevelOptions(const std::vector<std::string>& levels
 		auto levelCommand = std::make_unique<LevelCommand>(m_window, m_player, m_infoBar, *HandleResources::instance().getBackgroundTexture(Background(L1_BACKGROUND + i)), (i == 0), i + 1);
 
 		// Emplace the constructed pair into the vector
-		m_levels.emplace_back(std::make_pair(std::make_pair(levelText, levelButton), std::move(levelCommand)));
+		m_levels.emplace_back(std::make_pair(std::make_pair(std::make_pair(levelText,coinsText), levelButton), std::move(levelCommand)));
 	}
 }
 
@@ -150,7 +158,8 @@ void StartGameCommand::render()
 	for (const auto& button : m_levels)
 	{
 		m_window.draw(button.first.second.getRectangleButton());
-		m_window.draw(button.first.first);
+		m_window.draw(button.first.first.first);	// print the level number
+		m_window.draw(button.first.first.second);	// print the coins needed
 	}
 
 	m_backToMenuButton.printButton(m_window);

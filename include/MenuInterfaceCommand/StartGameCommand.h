@@ -10,7 +10,7 @@
 
 
 
-typedef std::pair<sf::Text, Button> levelbutton;
+typedef std::pair<std::pair<sf::Text, sf::Text>, Button> levelbutton;
 typedef std::pair<levelbutton, std::unique_ptr<LevelCommand>> LevelOption;
 
 class Player;
